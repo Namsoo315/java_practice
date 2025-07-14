@@ -43,8 +43,20 @@ public class LibraryController {
 	}
 
 	public int rentBook(int index) {
-		// 여기 작성하세요.
+		int result = 0;
+		if(bList[index] instanceof AniBook){
+			if(((AniBook)bList[index]).getAccessAge() > member.getAge()){
+				result = 1;
+			}
+		}else{
+			if(((CookBook)bList[index]).isCoupon()){
+				member.setCouponCount(1);
+				result = 2;
+			}
 
+		}
+
+		return result;
 	}
 
 }
