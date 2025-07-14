@@ -24,6 +24,7 @@ public class ArrayPractice {
 		for(int i = 1; i <= array.length; i++){
 			System.out.print(i + " ");
 		}
+		System.out.println();
 	}
 
 	public void practice2() {
@@ -31,6 +32,7 @@ public class ArrayPractice {
 		for(int i = array.length; i >= 1; i--){
 			System.out.print(i + " ");
 		}
+		System.out.println();
 	}
 
 	public void practice3() {
@@ -41,6 +43,7 @@ public class ArrayPractice {
 		for(int i = 1; i <= array.length; i++){
 			System.out.print(i + " ");
 		}
+		System.out.println();
 	}
 
 	public void practice4() {
@@ -63,6 +66,7 @@ public class ArrayPractice {
 				count++;
 			}
 		}
+		System.out.println();
 	}
 
 	public void practice6() {
