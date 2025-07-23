@@ -19,6 +19,12 @@ package com.codeit.ex01.file;
 // - ex) './java.txt', 'java.txt', './../15_IO/java.txt'
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class FileBasic {
 	public static void main(String[] args) {
@@ -54,5 +60,48 @@ public class FileBasic {
 		boolean result2 = file1.setWritable(true);	//읽기 전용
 		System.out.println(result2 + ", " + file1.canWrite());
 
+		//파일 이름 변경 + 경로 변경 가능
+		// File renamed = new File("./java2.txt");
+		// boolean result3 = file1.renameTo(renamed);
+		// System.out.println(result3 + ", " + file2.canWrite());
+
+		// 수정 시간 출력
+		System.out.println(file1.lastModified());
+		Date date = new Date();
+
+		//파일 길이
+		System.out.println(file1.length() + " byte");
+		System.out.println(file1.length() / 1024 + " Kbyte");
+		System.out.println(file1.length() / 1024.0 / 1024.0 + " Mbyte");
+
+		// 파일 삭제
+		// file1.delete();
+
+		//디렉토리 출력하기
+		File directory = new File("./15_IO");
+		if(directory.isDirectory()) {
+			System.out.println("디렉토리 입니다.");
+		}
+
+		//디렉토리 파일들 보기
+		System.out.println(Arrays.toString(directory.listFiles()));
+		try {
+			List<Path> list = Files.list(Path.of("./15_IO")).toList();
+			System.out.println(list);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		//디렉토리 생성 ★
+		//		mkdirs() : 입력된 경로에 폴더가 없으면 모두 생성  ★
+		// 		mkdir() : 입력된 경로에 폴더만 생성
+		File directory1 = new File("./15_IO/test/test2");
+		boolean mkdir = directory1.mkdir();
+		System.out.println(mkdir);
+		boolean mkdirs = directory1.mkdirs();
+		System.out.println(mkdirs);
+
+		Path path = Path.of("./IO_15/test/test2/test3");
+		// Files.createDirectories(path, null);		있다는것만 알고있자.
 	}
 }
