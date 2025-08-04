@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jackson-annotations-2.19.2 (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/20_ParsingCrawlingCsv/jackson-annotations-2.19.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/20_ParsingCrawlingCsv/jackson-core-2.19.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/20_ParsingCrawlingCsv/jackson-databind-2.19.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
