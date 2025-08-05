@@ -16,8 +16,6 @@
       <module fileurl="file://$PROJECT_DIR$/Practice_03_Control_if/Practice_03_Control_if.iml" filepath="$PROJECT_DIR$/Practice_03_Control_if/Practice_03_Control_if.iml" />
       <module fileurl="file://$PROJECT_DIR$/Practice_04_Control_loop/Practice_04_Control_loop.iml" filepath="$PROJECT_DIR$/Practice_04_Control_loop/Practice_04_Control_loop.iml" />
       <module fileurl="file://$PROJECT_DIR$/Practice_05_Array/Practice_05_Array.iml" filepath="$PROJECT_DIR$/Practice_05_Array/Practice_05_Array.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Practice_06_Object.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Practice_06_Object.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Practice_06_Object.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Practice_06_Object.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/Practice_08_Poly/Practice_08_Poly.iml" filepath="$PROJECT_DIR$/Practice_08_Poly/Practice_08_Poly.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java_practice.iml" filepath="$PROJECT_DIR$/.idea/java_practice.iml" />
     </modules>

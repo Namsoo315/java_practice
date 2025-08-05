@@ -1,0 +1,92 @@
+<!doctype html>
+<!-- 네임스페이스 태그 추가 -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Thymeleaf</h2>
+
+    - JSP를 대체하기 위한 Spring Boot의 보편적인 Templates Engine으로 View를 담당한다. <br>
+    - 특징은 html 포맷을 많이 벗어나지 않고, 태그의 옵션처럼 보일수 있게 구성 되어있다.<br>
+    - 기능 적으로는 JSP와 거의 유사하다. (사실상 JSP 3.0이라고 생각한다.)<br>
+    - 참고 : https://catsbi.oopy.io/32a9458e-f452-4733-b87c-caba75f98e2d
+
+    <h3>0. 설정하는 방법</h3>
+    - Spring Boot 프로젝트 셋팅시 thymeleaf 의존성을 추가한다.(수동으로도 가능) <br>
+    - html 태그 옵션에 xmlns 태그(네임스페이스 태그)를 추가한다. <br>
+    ex) &gt; html xmlns:th="http://www.thymeleaf.org/" &lt;
+    <!-- <xmlns:th="http://www.thymeleaf.org"> -->
+    <hr>
+    <br>
+
+    <h3>1. HTML View에 출력하는 방법</h3><b>1) Controller에서 넘겨준 Model의 문자열 출력하기</b>
+    - Thymeleaf는 데이터를 표현식으로 EL(Expression Language)를 사용한다. ex) ${str}, ${user.name} <br>
+    - EL(Expression Language)은 산술, 비교, 논리, 삼항연산 또는 타임리프 전용 내장 함수를 사용할수 있다.<br>
+    - HTML 태그 옵션값이 th:text="${~~}"로 java에서 model로 넘어온 데이터를 출력할수 있다. <br>
+    - text의 경우 text는 escape, utext는 unescape 시 활용된다. (text 권장) <br>
+    <hr>
+    일반 표기법 : <span th:text="${str}">빈 문자열일때 출력되는 문장</span> <br>
+    일반 표기법 : <span th:text="${str2}">빈 문자열일때 출력되는 문장</span> <br>
+    unescape 표기법1 : <span th:utext="${str}">빈 문자열일때 출력되는 문장</span> <br>
+    unescape 표기법2 : <span th:utext="${str2}">빈 문자열일때 출력되는 문장</span> <br>
+    잘못된 표현법 : ${str} ※ 안되는 문법, EL을 바로 출력할 수 없다. JSP는 가능. <br>
+    인라인 표기법 ★ : [[${str}]] <br>
+    인라인 표기법1 : [[${str2}]] - 특수문자가 escape 하게 처리가 됨. <br>
+    인라인 표기법2(unescape) : [(${str2})] - unescape 표현법, tag가 노출된다. <br>
+    인라인 표기법을 통해 JavaScript 변수 값 채워보기 예제 <br>
+    <script type="text/javascript">
+        let value1 = "Hello";
+        let value2 = `[[${str}]]`;  // javascript에 java에서 가져온 model값을 채워줄 때 활용
+        let value3 = `[(${str2})]`; // unescape도 물론 가능
+        document.write(value1 + " " + value2 + " " + value3);
+    </script>
+    <hr><br>
+
+    <b>2) 문자열 결합하기 (Java + Java, HTML + Java)</b> <br>
+    - 출력할 문자열의 결합이 필요한 경우 결합이 가능하다. <br><br>
+
+    결합1 : <span th:text="'안녕하세요? ' + ${name} + '님이 로그인 하셨습니다.'"></span> <br>
+    결합2 : <span th:text="|안녕하세요? ${name} 님이 로그인 하셨습니다.|"></span> <br>
+    결합3 : <span th:with="start =  '안녕하세요.', end = '님이 로그인 하셨습니다.'"
+                    th:text="${start} + ${name} + ${end}"></span> <br>
+    결합4 : 안녕하세요? [[${name}]]님이 로그인 하셨습니다. ★★★ (강사님 추천) <br>
+    <hr><br>
+
+    <b>3) 주소값 처리하기 @{~~}</b> <br>
+    - context path 대신에 처리하는 방법으로 권장됨, context path가 없는 boot는 사실 무관하다. -> 있는걸 권장<br>
+
+    a태그 일반 : <a href="/request">링크 이동</a> <br>
+    a태그 일반 (@) 활용 : <a th:href="@{/request}">링크 이동 (@활용)</a> <br>
+    a태그 + get 파라미터1 : <a th:href="@{/request(value1=${str})}">링크 이동</a> <br>
+    a태그 + get 파라미터2 : <a th:href="@{/request(value1='test')}">링크 이동</a> <br>
+    a태그 + get 파라미터3 : <a th:href="@{/request(value1=${str}, value2=${str2})}">링크 이동</a> <br>
+    a태그 + get 파라미터(list) : <a th:href="@{/request(values=${list})}">링크 이동</a> <br>
+
+    <hr><br>
+
+    <b>리소스, img 가져오는 방법</b>
+    정석 : <img th:src="@{/images/logo-spring.png}" alt="logo" width="100"> <br>
+    비정석 : <img src="/images/logo-spring.png" alt="logo" width="100"> <br>
+    ★ 비정석이 되는 이유는 context path가 없기때문, 만일 있다면 정석적인 것만 보임 <br>
+
+    <!-- javascript -->
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <!-- css -->
+    <!--     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"> -->
+    <hr><br>
+
+    <b>4) 숫자 처리하는 방법</b>
+    <div th:with="x=123456789, y=123456.78901234567890, z=0.05">
+        기본형 : <span th:text="${x}"> </span><br>
+        기본형 : <span th:text="${y}"> </span><br>
+        기본형 : <span th:text="${z}"> </span><br>
+        정수형(자리수 표현) : <span th:text="${#numbers.formatInteger(x, 3, 'COMMA')}"></span> <br>
+        실수형(자리수 표현 + 소수점 자르기) : <span th:text="${#numbers.formatDecimal(y, 3, 'NONE',2,'POINT')}"></span> <br>
+    </div>
+</body>
+</html>
