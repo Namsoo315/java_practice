@@ -39,7 +39,6 @@ public class MainController {
 		map.put("id", "test1234");
 		map.put("name", "홍길동");
 		model.addAttribute("map", map);
-
 		Member member = new Member("test1", "홍길동", 31, "남", "서울시", List.of("Java", "C++"), null);
 		Member member1 = new Member("test2", "최길순", 32, "여", "서울시", List.of("Java", "C++"), null);
 		Member member2 = new Member("test3", "박길동", 33, "남", "서울시", List.of("Java", "C++"), null);
@@ -67,8 +66,8 @@ public class MainController {
 
 	@PostMapping("/join")
 	public String memberJoin(Model model, @ModelAttribute Member member) {
-		//		model.addAttribute("member", member);//@ModelAttribute로 view 바로 넘길수 있다.
-		return "thymeleaf/memberView.html";
+		model.addAttribute("member", member);//@ModelAttribute로 view 바로 넘길수 있다.
+		return "thymeleaf/memberView";
 	}
 
 }

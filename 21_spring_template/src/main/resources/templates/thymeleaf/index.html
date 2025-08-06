@@ -80,7 +80,7 @@
     <!--     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"> -->
     <hr><br>
 
-    <b>4) 숫자 처리하는 방법</b>
+    <b>4) 숫자 처리하는 방법</b> <br>
     <div th:with="x=123456789, y=123456.78901234567890, z=0.05">
         기본형 : <span th:text="${x}"> </span><br>
         기본형 : <span th:text="${y}"> </span><br>
@@ -88,5 +88,233 @@
         정수형(자리수 표현) : <span th:text="${#numbers.formatInteger(x, 3, 'COMMA')}"></span> <br>
         실수형(자리수 표현 + 소수점 자르기) : <span th:text="${#numbers.formatDecimal(y, 3, 'NONE',2,'POINT')}"></span> <br>
     </div>
+
+    <b>5) 날짜 처리하기</b> <br>
+    - 현재 날짜 출력 : <span th:text="${#dates.createNow()}"></span> <br>
+    - model date 출력 : <span th:text="${date}"></span> <br>
+    - 기본 포멧1 : <span th:text="${#dates.format(date)}"></span> <br>
+    - 기본 포멧2 : <span th:text="${#dates.formatISO(date)}"></span> <br>
+    - 기본 포멧3 : <span th:text="${#dates.format(date,'yyyy/MM/dd (E)')}"></span> <br>
+    - 기본 포멧4 : <span th:text="${#dates.format(date,'yyyy/MM/dd (E) hh:mm:ss')}"></span> <br>
+    - 기본 포멧5 : <span th:text="${#dates.format(date,'yyyy/MM/dd (E) a hh:mm:ss')}"></span> <br>
+    - 기본 포멧6 : <span th:text="${#dates.format(date,'yyyy/MM/dd (E) a HH:mm:ss')}"></span> <br>
+    - 년 : <span th:text="${#dates.year(date)}"></span> <br>
+    - 월 : <span th:text="${#dates.month(date)}"></span> <br>
+    - 일 : <span th:text="${#dates.day(date)}"></span> <br>
+
+    <b>6) 문자열 처리하기 </b> <br>
+    - 대문자 변환 : <span th:text="${#strings.toUpperCase(str)}"></span><br>
+    - 비었는지 확인(null + length) : <span th:text="${#strings.isEmpty(str)}"></span><br>
+    - 비었는지 확인 응용 : <span th:text="${#strings.isEmpty(str) ? '비었습니다.' : '안 비었습니다.'}"></span><br>
+    - 길이 : <span th:text="${#strings.length(str)}"></span><br>
+    - 특정 문자열이 있는지 : <span th:text="${#strings.indexOf(str, 'Boot')}"></span><br>
+    - replace : <span th:utext="${#strings.replace(str, 'Boot', '<b>Boot</b>')}"></span><br>
+    <hr><br>
+    <b>7-1) 객체 접근하기 (.으로)</b> <br>
+    - 객체에 접근할때 멤버변수가 없으면 죽는다. null로 된 값은 빈값으로 출력된다. ★ <br>
+    - id : [[${member.id}]] <br>
+    - name : [[${member.name}]] <br>
+    - age : [[${member.age}]] <br>
+    - null : [[${member.nullValue}]] <br>
+    <hr><br>
+
+    <b>7-2) 객체 접근하기 ([] 접근, Map도 같은 방법으로 적용)</b> <br>
+    - 객체에 접근할때 멤버변수가 없을때도 죽진 않는다. <br>
+    - id : [[${member['id']}]] <br>
+    - name : [[${member['name']}]] <br>
+    - age : [[${member['age']}]] <br>
+    - id : [[${map['id']}]] <br>
+    - name : [[${map['name']}]] <br>
+    - age : [[${map['age']}]] - 값이 없으면 공백 <br>
+    <hr><br>
+
+    <b>7-3) 객체 접근하기 (*로 접근하는 방법)</b><br>
+    - th:block : 비어있는 태그로 실제 html문서에 출력되지 않는 빈공간 <br>
+    <th:block th:object="${member}">
+        - id : [[*{id}]]<br>
+        - name : [[*{name}]]<br>
+        - age : [[*{age}]]<br>
+    </th:block>
+    <hr><br>
+
+    <b>8) list 접근하기</b><br>
+    - index를 벗어나면 죽는다. <br>
+    - index0 : [[${list[0]}]] <br>
+    - index1 : [[${list[1]}]] <br>
+    - index2 : [[${list[2]}]] <br>
+    - index3 : [[${list[3]}]] <br>
+    <!--/* - index100 : [[${list[100]}]] <br>*/-->
+    <hr><br>
+
+    <b>9) map 접근하기 </b><br>
+    - id :  [[${map['id']}]]<br>
+    - name :  [[${map['name']}]]<br>
+    - 없는 값 :  [[${map['noValue']}]]<br>
+    - 없는 값은 공백으로 처리된다. <br>
+    <hr><br>
+
+    <h3>2. 조건문</h3>
+    <b>1) 논리 연산자</b> <br>
+    5 > 10 : [[${5 > 10}]] <br>
+    5 < 10 : [[${5 < 10}]] <br>
+    5 >= 10 : [[${5 >= 10}]] <br>
+    5 <= 10 : [[${5 <= 10}]] <br>
+    5 == 10 : [[${5 == 10}]] <br>
+    5 != 10 : [[${5 != 10}]] <br>
+    name == 홍길동 : [[${name == '홍길동'}]]<br>
+    name != 홍길동 : [[${name != '홍길동'}]]<br>
+    name == 홍길순 : [[${name == '홍길순'}]]<br>
+    <hr><br>
+
+    <b>2) 삼항연산자 ★★</b><br>
+    [[${name == '홍길동' ? name + '입니다' : name + '은 홍길동이 아닙니다'}]] <br>
+    <th:block th:text="${name} == '홍길동' ? ${name} + '입니다.' : ${name} +'은 홍길동이 아닙니다.'" /><br>
+    <hr><br>
+
+    <b>3) if문 ★★★</b><br>
+    <th:block th:if="${name == '홍길동'}">
+        [[${name}]]은 홍길동입니다. <br>
+    </th:block>
+    <th:block th:if="${name != '홍길동'}">
+        [[${name}]]은 홍길동 아닙니다. <br>
+    </th:block>
+
+    문자열이 비었는지 확인 + if문  <br>
+    <th:block th:if="${#strings.isEmpty(name)}">
+        로그인 되어 있지 않습니다. <br>
+    </th:block>
+    <br>
+
+    문자열이 비어있지 않은 조건  <br>
+    <th:block th:if="${!#strings.isEmpty(name)}">
+        로그인이 되었습니다. <br>
+        [[${name}]]님 환영합니다! <br>
+    </th:block>
+    <br>
+
+    if + else문 -> if - unless문  <br>
+    <th:block th:if="${#strings.isEmpty(name)}">
+        로그인이 되어있지 않습니다. <br>
+    </th:block>
+    <th:block th:unless="${#strings.isEmpty(name)}">
+        로그인이 되었습니다. <br>
+    </th:block>
+    <hr><br>
+
+    <b>4) switch문</b> <br>
+    <th:block th:switch="${name}">
+        <span th:case="홍길동">홍길동입니다.</span>
+        <span th:case="최길동">최길동입니다.</span>
+    </th:block>
+    <hr><br>
+
+    <b>3. 반복문 ★★★★★</b><br>
+    <b>1) 단순 반복문</b><br>
+    <th:block th:each="item : ${list}">
+        [[${item}]] <br>
+    </th:block>
+    <br>
+
+    <b>2) 객체 list 반복문</b><br>
+    <th:block th:each="item : ${memberList}">
+        id : [[${item.id}]] <br>
+        이름 : [[${item.name}]] <br>
+        나이 : [[${item.age}]] <br>
+        <br>
+    </th:block>
+    <br>
+
+    <!-- table > tr > td로 외원라! -->
+    <table border="1" style="width: 500px">
+        <tr>
+            <th>id</th>
+            <th>이름</th>
+            <th>나이</th>
+            <th>개발언어</th>
+        </tr>
+
+        <tr th:each="item : ${memberList}">
+            <td>[[${item.id}]]</td>
+            <td>[[${item.name}]]</td>
+            <td>[[${item.age}]]</td>
+            <td>
+                <th:block th:each="lang, status : ${item.devLang}">
+                    [[${lang}]]<th:block th:if="!${status.last}">,</th:block>
+                </th:block>
+            </td>
+        </tr>
+    </table>
+    <hr><br>
+
+    <b>3) status 활용하기</b><br>
+    <div th:each="member, status : ${memberList}" th:object="${member}">
+        index :  [[${status.index}]]<br>
+        count :  [[${status.count}]]<br>
+        size :  [[${status.size}]]<br>
+        current :  [[${status.current}]]<br>
+        even :  [[${status.even}]]<br>
+        odd : [[${status.odd}]]<br>
+        first : [[${status.first}]]<br>
+        last : [[${status.last}]]<br>
+        [[*{id}]] : [[*{name}]]<br>
+        <th:block th:if="${status.index} % 2 == 0">
+            짝수입니다.<br>
+        </th:block>
+        <br>
+    </div>
+    <hr><br>
+
+    <h3>3. Layout</h3>
+    - header, footer를 include 할때 활용한다. (페이지 재사용하는 경우 활용!) <br>
+
+    <!--    <div th:fragment="div1">-->
+    <!--        <div id="div2">-->
+    <!--            fragment div1안에 div2 입니다.-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!--    <div id="div3">-->
+    <!--        <div id="div4">-->
+    <!--            div태그의 div3 안에 div4 입니다.-->
+    <!--        </div>-->
+    <!--    </div>-->
+    - th:replace : 구문 자체를 대체하는 방법으로 감싼 태그의 속성이 사라진다. <br>
+    - th:include : 포함으로써 밖에 감싼 태그가 유지가 되는 차이가 있다. <br><br>
+
+    replace<br>
+    <p th:replace="thymeleaf/layout :: div1"></p><br>
+    include<br>
+    <p th:include="thymeleaf/layout :: #div3"></p>
+    <hr><br>
+
+    <h3>4. 입력용 form 설계</h3>
+    <b>1) 일반 form 으로 전송하는 방법</b> <br>
+    <form th:action="@{/join}" method="post">
+        id : <input type="text" name="id" /> <br/>
+        이름 : <input type="text" name="name" /> <br/>
+        나이 : <input type="text" name="age" /> <br/>
+        <input type="submit" value="전송" />
+    </form>
+    <br>
+
+
+    <b>2) update용 form 설계하기</b> <br>
+    - th:value, th:field로 기존 값을 입력 시킬수도 있다.<br>
+    <form th:action="@{/join}" method="post">
+        id : <input type="text" name="id" th:value="${member.id}" /> <br/>
+        이름 : <input type="text" name="name" th:value="${member.name}" /> <br/>
+        나이 : <input type="text" name="age" th:value="${member.age}" /> <br/>
+        <input type="submit" value="전송" />
+    </form>
+    <br>
+
+    <form th:action="@{/join}" method="post">
+        id : <input type="text" name="id" th:field="${member.id}"><br>
+        이름 : <input type="text" name="name" th:field="${member.name}"><br>
+        나이 : <input type="text" name="age" th:field="${member.age}"><br>
+        <input type="submit" value="전송">
+    </form>
+    <br>
+
 </body>
 </html>

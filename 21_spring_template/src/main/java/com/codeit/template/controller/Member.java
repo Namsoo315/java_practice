@@ -1,12 +1,9 @@
 package com.codeit.template.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
 @NoArgsConstructor
 public class Member{
 	private String id;
@@ -26,5 +23,33 @@ public class Member{
 		this.address = address;
 		this.devLang = devLang;
 		this.nullValue = nullValue;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public List<String> getDevLang() {
+		return devLang;
+	}
+
+	public String getNullValue() {
+		return nullValue;
 	}
 }

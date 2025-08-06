@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+
+</head>
+<body>
+
+    <div th:fragment="div1">
+      <div id="div2">
+        fragment div1안에 div2 입니다.
+      </div>
+    </div>
+
+    <div id="div3">
+      <div id="div4">
+        div태그의 div3 안에 div4 입니다.
+      </div>
+    </div>
+
+    th:replace : 구문 자체를 대체하는 방법으로 감싼 태그의 속성이 사라진다. <br>
+    th:include : 포함으로써 밖에 감싼 태그가 유지가 되는 차이가 있다. <br><br>
+    <p th:replace="thymeleaf/layout :: div1"></p> <br>
+    <p th:include="thymeleaf/layout :: div3"></p> <br>
+
+    <h3>4. 입력용 form 설계</h3>
+    <b>1) 일반 form 으로 전송하는 방법</b> <br>
+    <form th:action="@{/join}" method="post">
+        id : <input type="text" name="id" /> <br>
+        이름 : <input type="text" name="name" /> <br>
+        나이 : <input type="text" name="age" /> <br>
+        <input type="submit" value="전송">
+    </form>
+
+</body>
+</html>
