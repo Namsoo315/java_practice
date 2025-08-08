@@ -5,19 +5,20 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="mvc.main" />
+        <module name="exception.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="template" target="17" />
-      <module name="template.main" target="17" />
-      <module name="template.test" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="exception" options="-parameters" />
+      <module name="exception.main" options="-parameters" />
+      <module name="exception.test" options="-parameters" />
+      <module name="file" options="-parameters" />
+      <module name="file.main" options="-parameters" />
+      <module name="file.test" options="-parameters" />
       <module name="mvc" options="-parameters" />
       <module name="mvc.main" options="-parameters" />
       <module name="mvc.test" options="-parameters" />

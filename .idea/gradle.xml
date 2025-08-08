@@ -12,6 +12,22 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/06_spinrg_fileupload" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/06_spinrg_fileupload" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/07_spring_exception" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/07_spring_exception" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/21_spring_template" />
         <option name="modules">
           <set>
