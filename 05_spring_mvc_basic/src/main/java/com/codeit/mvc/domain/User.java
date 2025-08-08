@@ -1,13 +1,9 @@
 package com.codeit.mvc.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-// lombok 사용
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -20,3 +16,4 @@ public class User {
     private String roles;
     private List<String> devLang;
 }
+// lombok 사용

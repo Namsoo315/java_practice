@@ -1,5 +1,6 @@
 package com.codeit.mvc.repository;
 
+
 import com.codeit.mvc.domain.User;
 import org.springframework.stereotype.Repository;
 
