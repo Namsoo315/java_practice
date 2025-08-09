@@ -30,7 +30,6 @@ public class UserFileViewController {
 	@GetMapping("/files")
 	public String listUploadFiles(ModelMap model) {
 		File folder = new File(fileConfig.getUploadDir());
-
 		if (!folder.exists() || !folder.isDirectory()) {
 			model.addAttribute("files", List.of());
 			return "file/file-list";

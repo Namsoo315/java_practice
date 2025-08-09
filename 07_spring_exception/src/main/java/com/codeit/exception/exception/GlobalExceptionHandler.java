@@ -9,7 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.codeit.exception.dto.ErrorResponse;
 
 @ControllerAdvice	// MVC 에러처리 어노테이션
-// @Order(1)
+@Order(2)
 public class GlobalExceptionHandler {
 
 	// 그 외 예외 (Internal Server Error)
