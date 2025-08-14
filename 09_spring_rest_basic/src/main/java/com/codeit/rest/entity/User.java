@@ -13,14 +13,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class User {
+
     private Long id;
     private String username;
-
     private String password;
     private String email;
     private String nickname;
     private LocalDate birthday;
     private Instant createdAt;
-
     private Instant updatedAt;
 }
