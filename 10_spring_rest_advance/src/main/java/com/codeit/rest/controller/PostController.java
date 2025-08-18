@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,15 +41,19 @@ import com.codeit.rest.entity.Category;
 import com.codeit.rest.entity.Post;
 import com.codeit.rest.service.PostService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/posts")
+@Tag(name = "Post", description = "Post API")	// tag 까진 필수
 public class PostController {
 	private final PostService postService;
 	private final FileConfig fileConfig;
 
+	@Operation(summary = "Post 생성", description = "새로운 사용자를 생성합니다.")// 메서드에 대한 설명을 다는 어노테이션
 	// 패턴 1 - 파일 유첨이 있을 때 특수하게 처리해야하는 패턴
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)    // 파일 유첨이 필요할 때
 	public ResponseEntity<ApiResult<Post>> create(
@@ -59,6 +64,7 @@ public class PostController {
 			.body(ApiResult.ok(createdPost));
 	}
 
+	@Operation(summary = "Post 생성", description = "새로운 사용자를 생성합니다. (Json)")// 메서드에 대한 설명을 다는 어노테이션
 	// 패턴1 - 파일 유첨이 없을 때 순수한 REST로 설게할 수 있는 패턴.
 	@PostMapping(path = "/json", consumes = MediaType.APPLICATION_JSON_VALUE)    // 파일 유첨이 필요할 때
 	public ResponseEntity<ApiResult<Post>> createForJson(

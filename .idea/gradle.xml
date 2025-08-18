@@ -44,6 +44,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/10_spring_rest_advance" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/10_spring_rest_advance" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/21_spring_template" />
         <option name="modules">
           <set>

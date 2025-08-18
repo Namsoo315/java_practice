@@ -8,10 +8,13 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     private Long id;

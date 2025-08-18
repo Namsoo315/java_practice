@@ -3,6 +3,11 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/05_spring_mvc_basic" />
+    <file type="web" url="file://$PROJECT_DIR$/06_spinrg_fileupload" />
+    <file type="web" url="file://$PROJECT_DIR$/07_spring_exception" />
+    <file type="web" url="file://$PROJECT_DIR$/08_spring_cookie_session" />
+    <file type="web" url="file://$PROJECT_DIR$/09_spring_rest_basic" />
+    <file type="web" url="file://$PROJECT_DIR$/10_spring_rest_advance" />
     <file type="web" url="file://$PROJECT_DIR$/21_spring_template" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">

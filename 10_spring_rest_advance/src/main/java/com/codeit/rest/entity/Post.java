@@ -8,10 +8,13 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Post {
     private Long id;
     private String title;
@@ -19,6 +22,7 @@ public class Post {
     private List<String> tags;
     private Category category;
     private Long authorId;
+    private User author;
     private Instant createdAt;
     private Instant updatedAt;
 
