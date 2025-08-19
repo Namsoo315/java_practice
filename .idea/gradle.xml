@@ -52,6 +52,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/11_spring_aop_interceptor_filter" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/11_spring_aop_interceptor_filter" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/21_spring_template" />
         <option name="modules">
           <set>
