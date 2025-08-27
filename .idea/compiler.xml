@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="aop.main" />
+        <module name="data.main" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +19,9 @@
       <module name="com.codeit.rest" options="-parameters" />
       <module name="com.codeit.rest.main" options="-parameters" />
       <module name="com.codeit.rest.test" options="-parameters" />
+      <module name="data" options="-parameters" />
+      <module name="data.main" options="-parameters" />
+      <module name="data.test" options="-parameters" />
       <module name="exception" options="-parameters" />
       <module name="exception.main" options="-parameters" />
       <module name="exception.test" options="-parameters" />
