@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <annotationProcessing>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
-        </processorPath>
-        <module name="com.codeit.data.main" />
-      </profile>
-    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.codeit.data.main~1" target="17" />
+      <module name="com.codeit.data.main~2" target="17" />
+      <module name="com.codeit.data.test~1" target="17" />
+      <module name="com.codeit.data.test~2" target="17" />
+      <module name="Practice_06_Object.main" target="17" />
+      <module name="Practice_06_Object.test" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -18,7 +17,11 @@
       <module name="aop.test" options="-parameters" />
       <module name="com.codeit.data" options="-parameters" />
       <module name="com.codeit.data.main" options="-parameters" />
+      <module name="com.codeit.data.main~1" options="-parameters" />
+      <module name="com.codeit.data.main~2" options="-parameters" />
       <module name="com.codeit.data.test" options="-parameters" />
+      <module name="com.codeit.data.test~1" options="-parameters" />
+      <module name="com.codeit.data.test~2" options="-parameters" />
       <module name="com.codeit.rest" options="-parameters" />
       <module name="com.codeit.rest.main" options="-parameters" />
       <module name="com.codeit.rest.test" options="-parameters" />
