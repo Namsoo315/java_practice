@@ -8,6 +8,7 @@
     <file type="web" url="file://$PROJECT_DIR$/08_spring_cookie_session" />
     <file type="web" url="file://$PROJECT_DIR$/09_spring_rest_basic" />
     <file type="web" url="file://$PROJECT_DIR$/10_spring_rest_advance" />
+    <file type="web" url="file://$PROJECT_DIR$/12_spring_data_basic" />
     <file type="web" url="file://$PROJECT_DIR$/21_spring_template" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
