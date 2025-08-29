@@ -1,9 +1,12 @@
 package com.codeit.data.repository;
 
 
+import com.codeit.data.dto.comment.CommentSimpleResponse;
 import com.codeit.data.entity.Category;
 import com.codeit.data.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -20,4 +23,16 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     // 특정 작성자(ID)가 단 댓글 조회
     List<Comment> findByAuthorId(Long authorId);
 
+
+    @Query("""
+    select new com.codeit.data.dto.comment.CommentSimpleResponse(
+        c.id, c.content, u.nickname, c.createdAt
+)
+    from Comment c
+    join c.post p
+    join c.author u
+    where p.id = :postId
+    order by c.id desc
+    """)
+    List<CommentSimpleResponse> findCommentsByPostIdV2(@Param("postId") Long postId);
 }

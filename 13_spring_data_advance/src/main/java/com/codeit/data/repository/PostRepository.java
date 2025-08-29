@@ -1,15 +1,20 @@
 package com.codeit.data.repository;
 
+import com.codeit.data.dto.post.PostDetailResponse;
+import com.codeit.data.dto.post.PostSimpleResponse;
 import com.codeit.data.entity.Category;
 import com.codeit.data.entity.Post;
+import jakarta.annotation.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
@@ -26,6 +31,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // 작성자 ID로 블로그 찾기
     List<Post> findByAuthorId(Long id);
     List<Post> findByAuthor_Id(Long id);
+
+    @EntityGraph(attributePaths = {"author"})
     List<Post> findByAuthor_IdOrderByIdDesc(Long id); // 정렬
     List<Post> findByAuthor_NicknameContaining(String nickname);
 
@@ -87,6 +94,63 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             """, nativeQuery = true)
     List<Post> findPostsByUsernameNative(@Param("username") String username);
 
+    // N+1 문제 해결하기1
+    // 1. EntityGraph에 통해 Post에 적힌 JOIN 할 엔티티 "변수명" 명시
+    //    private List<Comment> "comments";
+    //    private User "author";
+    @Override
+    @EntityGraph(attributePaths = {"author", "comments"})
+    List<Post> findAll(@Nullable Sort sort);
+
+    // N+1 문제 해결방법2
+    // 2. Fetch Join 활용하기
+    @Query("""
+            select p
+            from Post p
+            join fetch p.author u
+            left join fetch p.comments c
+            order by p.id desc
+            """)
+    List<Post> findAllV2();
+
+    // N+1 문제 해결방법2
+    // 3. DTO 프로젝션 적용하기
+    // -> 반환될 Entity를 DTO로 변경하여 반환하는 방법
+    // -> Front 화면에서 필요한 값만 필터링 할때도 사용하는 기법으로 매우중요! ★★★★★
+    @Query("""
+    select new com.codeit.data.dto.post.PostSimpleResponse(
+        p.id,
+        p.title,
+        p.tags,
+        p.category,
+        p.createdAt,
+        u.nickname
+    )
+    from Post p
+    join p.author u
+    order by p.id desc
+    """)
+    List<PostSimpleResponse> findAllV3();
+
+
+    // detail 개선 버전
+    @Query("""
+    select new com.codeit.data.dto.post.PostDetailResponse(
+        p.id,
+        p.title,
+        p.content,
+        p.tags,
+        p.category,
+        p.createdAt,
+        u.nickname,
+        null
+    )
+    from Post p
+    join p.author u
+    where p.id = :id
+    order by p.id desc
+    """)
+    Optional<PostDetailResponse> findById2(@Param("id") Long id);
 }
 
 

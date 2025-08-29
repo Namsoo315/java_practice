@@ -1,6 +1,7 @@
 package com.codeit.data.service;
 
 import com.codeit.data.dto.comment.CommentCreateRequest;
+import com.codeit.data.dto.comment.CommentSimpleResponse;
 import com.codeit.data.entity.Comment;
 import com.codeit.data.entity.Post;
 import com.codeit.data.entity.User;
@@ -63,5 +64,12 @@ public class CommentService {
     @Transactional
     public void deleteById(Long id) {
         commentRepository.deleteById(id);
+    }
+
+
+    // 특정
+    @Transactional(readOnly = true)
+    public List<CommentSimpleResponse> findByPostIdV2(Long postId) {
+        return commentRepository.findCommentsByPostIdV2(postId);
     }
 }

@@ -1,10 +1,8 @@
 package com.codeit.data.service;
 
 import com.codeit.data.dto.base.SimplePageResponse;
-import com.codeit.data.dto.post.PostCreateRequest;
-import com.codeit.data.dto.post.PostPageRequest;
-import com.codeit.data.dto.post.PostSearchRequest;
-import com.codeit.data.dto.post.PostUpdateRequest;
+import com.codeit.data.dto.comment.CommentSimpleResponse;
+import com.codeit.data.dto.post.*;
 import com.codeit.data.entity.Category;
 import com.codeit.data.entity.Post;
 import com.codeit.data.entity.User;
@@ -27,6 +25,8 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CommentService commentService;
+
 
     @Transactional
     public Post create(PostCreateRequest req) {
@@ -115,4 +115,31 @@ public class PostService {
       return postRepository.findByCategoryIn(categories);
     }
 
+    // N+1 문제 해결 findAllV2
+    public List<Post> findAllV2(){
+        return postRepository.findAllV2();
+    }
+
+    // N+1 문제 해결 findAllV3
+    public List<PostSimpleResponse> findAllV3(){
+        return postRepository.findAllV3();
+    }
+
+    // DTO detail
+    public PostDetailResponse findById2(Long id) {
+        PostDetailResponse result = postRepository.findById2(id)
+                .orElseThrow(() -> new NoSuchElementException("post not found: " + id));
+        List<CommentSimpleResponse> list = commentService.findByPostIdV2(id);
+
+        return new PostDetailResponse(
+                result.id(),
+                result.title(),
+                result.content(),
+                result.tags(),
+                result.category(),
+                result.createdAt(),
+                result.authorName(),
+                list
+        );
+    }
 }
