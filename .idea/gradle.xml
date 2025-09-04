@@ -19,6 +19,14 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/16_spring_transaction" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/16_spring_transaction" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

@@ -11,6 +11,7 @@
     <file type="web" url="file://$PROJECT_DIR$/11_spring_aop_interceptor_filter" />
     <file type="web" url="file://$PROJECT_DIR$/12_spring_data_basic" />
     <file type="web" url="file://$PROJECT_DIR$/13_spring_data_advance" />
+    <file type="web" url="file://$PROJECT_DIR$/14_spring_blog_backend" />
     <file type="web" url="file://$PROJECT_DIR$/21_spring_template" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
