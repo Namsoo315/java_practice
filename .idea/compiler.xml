@@ -6,8 +6,9 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.6.3/52e345c907fbf173b376586c7f8b131d53fa5867/mapstruct-processor-1.6.3.jar" />
         </processorPath>
-        <module name="transaction.main" />
+        <module name="com.codeit.blog.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,6 +28,9 @@
       <module name="blog" options="-parameters" />
       <module name="blog.main" options="-parameters" />
       <module name="blog.test" options="-parameters" />
+      <module name="com.codeit.blog" options="-parameters" />
+      <module name="com.codeit.blog.main" options="-parameters" />
+      <module name="com.codeit.blog.test" options="-parameters" />
       <module name="com.codeit.data" options="-parameters" />
       <module name="com.codeit.data.main" options="-parameters" />
       <module name="com.codeit.data.main~1" options="-parameters" />

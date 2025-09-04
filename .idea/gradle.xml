@@ -27,6 +27,14 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/17_spring_blog_backend_querydsl" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/17_spring_blog_backend_querydsl" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
