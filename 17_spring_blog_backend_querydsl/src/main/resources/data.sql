@@ -10,7 +10,6 @@ VALUES
 
 -- Blog 더미 데이터
 INSERT INTO posts ( title, content, tags, category, author_id) VALUES
- ('스프링 부트 REST API 설계', 'Spring Boot와 RESTful API 설계 방법을 다룹니다.', 'spring,rest,api', 'TECHNOLOGY', 1),
  ('오늘의 커피 일기', '아침에 마신 라떼가 너무 맛있어서 기록합니다.', 'daily,coffee', 'LIFESTYLE', 2),
  ('JPA 연관관계 매핑 가이드', 'JPA에서 연관관계를 매핑하는 다양한 방법과 주의사항.', 'jpa,hibernate,mapping', 'TECHNOLOGY', 3),
  ('주말 등산 후기', '북한산에 다녀온 주말 이야기.', 'daily,hiking', 'LIFESTYLE', 4),

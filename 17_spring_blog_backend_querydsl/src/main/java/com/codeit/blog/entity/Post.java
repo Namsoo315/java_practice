@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @SuperBuilder
+@ToString(callSuper = true, exclude = "post")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA 기본 생성자 보호 수준

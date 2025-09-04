@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter @SuperBuilder
+@Getter @Setter @SuperBuilder @ToString(callSuper = true)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // JPA를 위한 기본 생성자

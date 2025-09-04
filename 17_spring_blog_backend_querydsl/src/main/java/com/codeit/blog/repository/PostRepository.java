@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long> , PostQueryRepository{
     // 제목/내용/태그 부분검색
     List<Post> findByTitleContaining(String keyword);
     List<Post> findByContentContaining(String keyword);
