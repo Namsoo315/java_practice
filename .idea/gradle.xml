@@ -44,10 +44,18 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/19_spring_exception_logback" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/19_spring_log" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/19_spring_exception_logback" />
+            <option value="$PROJECT_DIR$/19_spring_log" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/20_spring_validation" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/20_spring_validation" />
           </set>
         </option>
       </GradleProjectSettings>
