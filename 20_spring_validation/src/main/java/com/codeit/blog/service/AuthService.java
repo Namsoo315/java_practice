@@ -13,15 +13,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    // login : 비지니스 로직에서 가장 핵심적인 로직 ★★★★★
     @Transactional(readOnly = true)
     public UserResponse login(UserLoginRequest loginRequest){
+        log.debug("로그인 시도 : username={}", loginRequest.username());
         User user = userRepository.findByUsername(loginRequest.username())
                 .orElseThrow(() -> UserNotFoundException.withUsername(loginRequest.username()));
 
@@ -29,6 +32,7 @@ public class AuthService {
             throw InvalidCredentialsException.wrongPassword();
         }
 
+        log.info("로그인 성공 : username={}", loginRequest.username());
         return userMapper.toUserDetailResponse(user);
     }
 }

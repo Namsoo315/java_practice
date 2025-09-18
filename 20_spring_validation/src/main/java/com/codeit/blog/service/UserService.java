@@ -11,6 +11,7 @@ import com.codeit.blog.exception.user.UserNotFoundException;
 import com.codeit.blog.mapper.UserMapper;
 import com.codeit.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,85 +21,85 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+@Slf4j
+public class UserService{
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-  private final UserRepository userRepository;
-  private final UserMapper userMapper;
+    @Transactional
+    public UserResponse create(UserCreateRequest newUser) {
+        log.debug("사용자 생성 시작 : request={}", newUser);
 
-  @Transactional
-  public UserResponse create(UserCreateRequest newUser) {
-    User user = userMapper.toUser(newUser);
-    if (user.getId() != null) {
-      throw new UserException(ErrorCode.INVALID_USER_PARAMETER);
+        User user = userMapper.toUser(newUser);
+        if (user.getId() != null) {
+            throw new UserException(ErrorCode.INVALID_USER_PARAMETER);
+        }
+        if(userRepository.existsByUsername(user.getUsername()) ){
+            throw UserAlreadyExistsException.withUsername(user.getUsername());
+        }
+        try {
+            user = userRepository.save(user);
+        } catch (Exception e) {
+            throw new UserException(ErrorCode.DUPLICATE_USER);
+        }
+        log.debug("사용자 생성 완료 : request={}", newUser);
+        return userMapper.toUserDetailResponse(user);
     }
 
-    if (userRepository.existsByUsername(user.getUsername())) {
-      throw UserAlreadyExistsException.withUsername(user.getUsername());  //강사님이 추천안함.
+    @Transactional(readOnly = true)
+    public UserResponse findById(Long id) {
+        log.debug("사용자 조회 시작 : id={}", id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> UserNotFoundException.withId(id.toString()));
+        log.info("사용자 조회 완료 : id={}, username={}", id, user.getUsername());
+        return userMapper.toUserDetailResponse(user);
     }
 
-    try {
-      user = userRepository.save(user);
-    } catch (Exception e) {
-      throw new UserException(ErrorCode.DUPLICATE_USER);
+
+    @Transactional(readOnly = true)
+    public Optional<UserResponse> findByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                    .orElseThrow(()->UserNotFoundException.withUsername(username));
+
+        return Optional.ofNullable(userMapper.toUserDetailResponse(user));
     }
 
-    return userMapper.toUserDetailResponse(userRepository.save(user));
-  }
-
-  @Transactional(readOnly = true)
-  public UserResponse findById(Long id) {
-    User user = userRepository.findById(id)
-        .orElseThrow(() -> UserNotFoundException.withId(id.toString()));
-    return userMapper.toUserDetailResponse(user);
-  }
+    @Transactional(readOnly = true)
+    public List<UserResponse> findAll() {
+        return userMapper.toUserResponseList(userRepository.findAll());
+    }
 
 
-  @Transactional(readOnly = true)
-  public Optional<UserResponse> findByUsername(String username) {
-    UserResponse userResponse = userRepository.findByUsername(username)
-        .map(userMapper::toUserDetailResponse)
-        .orElseThrow(() -> UserNotFoundException.withUsername(username));
+    @Transactional
+    public UserResponse update(Long id, UserUpdateRequest patch) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> UserNotFoundException.withId(id.toString()));
+        // 기본 정보 갱신
+        user.setPassword(patch.password());
+        user.setEmail(patch.email());
+        user.setNickname(patch.nickname());
+        user.setBirthday(patch.birthday());
 
-    return Optional.ofNullable(userResponse);
-  }
+        return userMapper.toUserDetailResponse(userRepository.save(user));
+    }
 
-  @Transactional(readOnly = true)
-  public List<UserResponse> findAll() {
-    return userMapper.toUserResponseList(userRepository.findAll());
-  }
+    @Transactional
+    public void delete(Long id) {
+        log.debug("사용자 삭제 시작 : id={}", id);
+        User user = userRepository.findById(id).orElseThrow(()-> UserNotFoundException.withId(id.toString()));
+        userRepository.deleteById(id);
+        log.debug("사용자 삭제 완료 : id={}", id);
+    }
 
+    @Transactional(readOnly = true)
+    public boolean exists(Long id) {
+        return userRepository.existsById(id);
+    }
 
-  @Transactional
-  public UserResponse update(Long id, UserUpdateRequest patch) {
-    User user = userRepository.findById(id)
-        .orElseThrow(() -> UserNotFoundException.withId(id.toString()));
-    // 기본 정보 갱신
-
-    System.out.println("+++@@@@" + patch);
-    user.setPassword(patch.password());
-    user.setEmail(patch.email());
-    user.setNickname(patch.nickname());
-    user.setBirthday(patch.birthday());
-
-    return userMapper.toUserDetailResponse(userRepository.save(user));
-  }
-
-  @Transactional
-  public void delete(Long id) {
-    User user = userRepository.findById(id)
-        .orElseThrow(() -> UserNotFoundException.withId(id.toString()));
-    userRepository.deleteById(id);
-  }
-
-  @Transactional(readOnly = true)
-  public boolean exists(Long id) {
-    return userRepository.existsById(id);
-  }
-
-  @Transactional(readOnly = true)
-  public long count() {
-    return userRepository.count();
-  }
+    @Transactional(readOnly = true)
+    public long count() {
+        return userRepository.count();
+    }
 
 
 }

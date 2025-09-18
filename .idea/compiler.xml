@@ -12,13 +12,60 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="18_spring_exception.blog" target="17" />
+      <module name="18_spring_exception.blog.main" target="17" />
+      <module name="18_spring_exception.blog.test" target="17" />
       <module name="19_spring_exception_logback.blog" target="17" />
+      <module name="19_spring_exception_logback.blog.main" target="17" />
+      <module name="19_spring_exception_logback.blog.test" target="17" />
+      <module name="19_spring_log.blog" target="17" />
+      <module name="19_spring_log.blog.main" target="17" />
+      <module name="19_spring_log.blog.test" target="17" />
+      <module name="20_spring_validation.blog" target="17" />
+      <module name="20_spring_validation.blog.main" target="17" />
+      <module name="20_spring_validation.blog.test" target="17" />
+      <module name="21_spring_actuator.blog" target="17" />
+      <module name="21_spring_actuator.blog.main" target="17" />
+      <module name="21_spring_actuator.blog.test" target="17" />
+      <module name="aop" target="17" />
+      <module name="aop.main" target="17" />
+      <module name="aop.test" target="17" />
+      <module name="com.codeit.blog" target="17" />
+      <module name="com.codeit.blog.main" target="17" />
+      <module name="com.codeit.blog.test" target="17" />
+      <module name="com.codeit.data" target="17" />
+      <module name="com.codeit.data.main" target="17" />
       <module name="com.codeit.data.main~1" target="17" />
       <module name="com.codeit.data.main~2" target="17" />
+      <module name="com.codeit.data.test" target="17" />
       <module name="com.codeit.data.test~1" target="17" />
       <module name="com.codeit.data.test~2" target="17" />
+      <module name="com.codeit.rest" target="17" />
+      <module name="com.codeit.rest.main" target="17" />
+      <module name="com.codeit.rest.test" target="17" />
+      <module name="data" target="17" />
+      <module name="data.main" target="17" />
+      <module name="data.test" target="17" />
+      <module name="exception" target="17" />
+      <module name="exception.main" target="17" />
+      <module name="exception.test" target="17" />
+      <module name="file" target="17" />
+      <module name="file.main" target="17" />
+      <module name="file.test" target="17" />
+      <module name="mvc" target="17" />
+      <module name="mvc.main" target="17" />
+      <module name="mvc.test" target="17" />
       <module name="Practice_06_Object.main" target="17" />
       <module name="Practice_06_Object.test" target="17" />
+      <module name="rest" target="17" />
+      <module name="rest.main" target="17" />
+      <module name="rest.test" target="17" />
+      <module name="template" target="17" />
+      <module name="template.main" target="17" />
+      <module name="template.test" target="17" />
+      <module name="transaction" target="17" />
+      <module name="transaction.main" target="17" />
+      <module name="transaction.test" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

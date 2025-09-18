@@ -36,3 +36,5 @@ logging:
     org.springframework.web: trace
     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 
+    # 사용자 package
+    com.codeit.blog: trace

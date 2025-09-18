@@ -3,6 +3,7 @@ package com.codeit.blog.exception.user;
 
 import com.codeit.blog.exception.ErrorCode;
 
+// 도메인 에러
 public class UserAlreadyExistsException extends UserException {
     public UserAlreadyExistsException() {
         super(ErrorCode.DUPLICATE_USER);

@@ -4,62 +4,6 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/13_spring_data_advance" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/13_spring_data_advance" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/14_spring_blog_backend" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/14_spring_blog_backend" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/16_spring_transaction" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/16_spring_transaction" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/17_spring_blog_backend_querydsl" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/17_spring_blog_backend_querydsl" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/18_spring_exception" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/18_spring_exception" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/19_spring_log" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/19_spring_log" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/20_spring_validation" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/20_spring_validation" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/21_spring_actuator" />
         <option name="modules">
           <set>

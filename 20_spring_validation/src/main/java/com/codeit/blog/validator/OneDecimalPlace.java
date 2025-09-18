@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OneDecimalPlace {
-    String message() default "소수점은 첫째 자리까지만 입력 가능합니다";
+    String message() default "정수를 허용하지 않고, 소수점은 첫째 자리까지만 입력 가능합니다";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
