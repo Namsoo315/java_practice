@@ -13,6 +13,7 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         System.out.println("home : http://localhost:8080/");
+        System.out.println("actuator : http://localhost:8080/actuator");
     }
 
 }
