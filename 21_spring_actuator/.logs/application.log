@@ -13859,3 +13859,94 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 25-09-17 16:46:13.737 [SpringApplicationShutdownHook] [33mWARN [0;39m o.s.b.f.s.DisposableBeanAdapter      [ |  | ] - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
 25-09-17 16:46:13.737 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-18 - Shutdown initiated...
 25-09-17 16:46:13.738 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-18 - Shutdown completed.
+25-09-18 15:34:30.791 [background-preinit] INFO  o.h.validator.internal.util.Version  [ |  | ] - HV000001: Hibernate Validator 8.0.3.Final
+25-09-18 15:34:30.808 [Test worker] INFO  com.codeit.blog.ApplicationTests     [ |  | ] - Starting ApplicationTests v1.0.0 using Java 17.0.15 with PID 29623 (started by namsoo in /Users/namsoo/work_dir_codeit/java_practice/21_spring_actuator)
+25-09-18 15:34:30.808 [Test worker] DEBUG com.codeit.blog.ApplicationTests     [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-09-18 15:34:30.809 [Test worker] INFO  com.codeit.blog.ApplicationTests     [ |  | ] - The following 1 profile is active: "dev"
+25-09-18 15:34:30.830 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4d1f1ff5, started on Thu Sep 18 15:34:30 KST 2025
+25-09-18 15:34:31.392 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+25-09-18 15:34:31.460 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Finished Spring Data repository scanning in 62 ms. Found 1 JPA repository interface.
+25-09-18 15:34:31.685 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'messageSource' bean, using [Empty MessageSource]
+25-09-18 15:34:31.686 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'applicationEventMulticaster' bean, using [SimpleApplicationEventMulticaster]
+25-09-18 15:34:31.748 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Starting...
+25-09-18 15:34:31.831 [Test worker] INFO  com.zaxxer.hikari.pool.HikariPool    [ |  | ] - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:blogdb user=SA
+25-09-18 15:34:31.832 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Start completed.
+25-09-18 15:34:31.906 [Test worker] INFO  o.h.jpa.internal.util.LogHelper      [ |  | ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+25-09-18 15:34:31.935 [Test worker] INFO  org.hibernate.Version                [ |  | ] - HHH000412: Hibernate ORM core version 6.6.26.Final
+25-09-18 15:34:31.951 [Test worker] INFO  o.h.c.i.RegionFactoryInitiator       [ |  | ] - HHH000026: Second-level cache disabled
+25-09-18 15:34:32.072 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo  [ |  | ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+25-09-18 15:34:32.093 [Test worker] WARN  org.hibernate.dialect.Dialect        [ |  | ] - HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+25-09-18 15:34:32.096 [Test worker] WARN  org.hibernate.orm.deprecation        [ |  | ] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+25-09-18 15:34:32.104 [Test worker] INFO  o.hibernate.orm.connections.pooling  [ |  | ] - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+25-09-18 15:34:32.107 [Test worker] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(2003, org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@1ee52741) replaced previous registration(org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@2f5a092e)
+25-09-18 15:34:32.108 [Test worker] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@1640a6b5) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@70940cb8)
+25-09-18 15:34:32.517 [Test worker] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator   [ |  | ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+25-09-18 15:34:32.540 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 15:34:33.067 [Test worker] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping [ |  | ] - Adding welcome page template: index
+25-09-18 15:34:33.103 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.AuthController:
+	{POST [/api/v1/auth/login]}: login(UserLoginRequest)
+	{POST [/api/v1/auth/login2]}: login2(String,String)
+25-09-18 15:34:33.107 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserController:
+	{DELETE [/api/v1/users/{id}]}: delete(Long)
+	{POST [/api/v1/users]}: create(UserCreateRequest)
+	{GET [/api/v1/users]}: findAll(String)
+	{POST [/api/v1/users/post2]}: post2(String,String,String,String,LocalDate)
+	{PUT [/api/v1/users/{id}]}: updatePut(Long,UserUpdateRequest)
+	{GET [/api/v1/users/{id}]}: findById(Long)
+	{PATCH [/api/v1/users/{id}]}: updatePatch(Long,UserUpdateRequest)
+25-09-18 15:34:33.110 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserPageController:
+	{GET [/user/signup]}: signupPage()
+	{GET [/user/update]}: updatePage()
+	{GET [/user/delete]}: deletePage()
+	{GET [/user/login]}: loginPage()
+	{GET [/user/login2]}: loginPage2()
+	{GET [/user/find]}: findPage()
+	{GET [/user/signup2]}: signupPage2()
+25-09-18 15:34:33.111 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.ValidationController:
+	{GET [/valid/valid-custom]}: customForm()
+	{GET [/valid/valid-basic]}: basicForm()
+	{POST [/api/valid/basic]}: validateBasic(TestValidRequest)
+	{POST [/api/valid/custom]}: validateCustom(TestCustomValidRequest)
+25-09-18 15:34:33.113 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+25-09-18 15:34:33.117 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.a.OpenApiWebMvcResource:
+	{GET [/api-docs], produces [application/json]}: openapiJson(HttpServletRequest,String,Locale)
+	{GET [/api-docs.yaml], produces [application/vnd.oai.openapi]}: openapiYaml(HttpServletRequest,String,Locale)
+25-09-18 15:34:33.119 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerWelcomeWebMvc:
+	{GET [/swagger-ui.html]}: redirectToUi(HttpServletRequest)
+25-09-18 15:34:33.119 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerConfigResource:
+	{GET [/api-docs/swagger-config], produces [application/json]}: openapiJson(HttpServletRequest)
+25-09-18 15:34:33.121 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 26 mappings in 'requestMappingHandlerMapping'
+25-09-18 15:34:33.133 [Test worker] DEBUG o.s.w.s.h.BeanNameUrlHandlerMapping  [ |  | ] - Detected 0 mappings in 'beanNameHandlerMapping'
+25-09-18 15:34:33.164 [Test worker] TRACE o.s.w.s.f.s.RouterFunctionMapping    [ |  | ] - 0 RouterFunction(s) in 'routerFunctionMapping'
+25-09-18 15:34:33.175 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/webjars/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 15:34:33.175 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+25-09-18 15:34:33.176 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/*swagger-initializer.js] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 15:34:33.176 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 15:34:33.176 [Test worker] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+25-09-18 15:34:33.207 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter [ |  | ] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+25-09-18 15:34:33.261 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [ |  | ] - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+25-09-18 15:34:33.543 [Test worker] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration [ |  | ] - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:blogdb'
+25-09-18 15:34:33.582 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver  [ |  | ] - Exposing 7 endpoints beneath base path '/actuator'
+25-09-18 15:34:33.617 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Using LifecycleProcessor [org.springframework.context.support.DefaultLifecycleProcessor@1c1bb1e7]
+25-09-18 15:34:33.650 [Test worker] INFO  com.codeit.blog.ApplicationTests     [ |  | ] - Started ApplicationTests in 3.019 seconds (process running for 3.526)
+25-09-18 15:34:33.919 [SpringApplicationShutdownHook] DEBUG o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Closing org.springframework.web.context.support.GenericWebApplicationContext@4d1f1ff5, started on Thu Sep 18 15:34:30 KST 2025
+25-09-18 15:34:33.933 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 15:34:33.934 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown initiated...
+25-09-18 15:34:33.941 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown completed.
