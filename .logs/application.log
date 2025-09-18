@@ -2082,3 +2082,340 @@ Unconditional classes:
 25-09-18 10:34:45.199 [SpringApplicationShutdownHook] [33mWARN [0;39m o.s.b.f.s.DisposableBeanAdapter      [ |  | ] - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
 25-09-18 10:34:45.199 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-4 - Shutdown initiated...
 25-09-18 10:34:45.199 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-4 - Shutdown completed.
+25-09-18 13:33:45.364 [background-preinit] [32mINFO [0;39m o.h.validator.internal.util.Version  [ |  | ] - HV000001: Hibernate Validator 8.0.3.Final
+25-09-18 13:33:45.416 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - Starting Application v1.0.0 using Java 17.0.15 with PID 3280 (C:\Users\hyuns\java_practice\22_spring_tdd\build\classes\java\main started by hyuns in C:\Users\hyuns\java_practice)
+25-09-18 13:33:45.416 [restartedMain] [32mDEBUG[0;39m com.codeit.blog.Application          [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-09-18 13:33:45.416 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - The following 1 profile is active: "dev"
+25-09-18 13:33:45.459 [restartedMain] [32mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [ |  | ] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+25-09-18 13:33:45.459 [restartedMain] [32mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [ |  | ] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+25-09-18 13:33:46.537 [restartedMain] [32mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+25-09-18 13:33:46.596 [restartedMain] [32mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Finished Spring Data repository scanning in 51 ms. Found 1 JPA repository interface.
+25-09-18 13:33:47.327 [restartedMain] [32mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer     [ |  | ] - Tomcat initialized with port 8080 (http)
+25-09-18 13:33:47.344 [restartedMain] [32mINFO [0;39m o.a.coyote.http11.Http11NioProtocol  [ |  | ] - Initializing ProtocolHandler ["http-nio-8080"]
+25-09-18 13:33:47.346 [restartedMain] [32mINFO [0;39m o.a.catalina.core.StandardService    [ |  | ] - Starting service [Tomcat]
+25-09-18 13:33:47.346 [restartedMain] [32mINFO [0;39m o.a.catalina.core.StandardEngine     [ |  | ] - Starting Servlet engine: [Apache Tomcat/10.1.44]
+25-09-18 13:33:47.399 [restartedMain] [32mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/]   [ |  | ] - Initializing Spring embedded WebApplicationContext
+25-09-18 13:33:47.399 [restartedMain] [32mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext [ |  | ] - Root WebApplicationContext: initialization completed in 1940 ms
+25-09-18 13:33:47.574 [restartedMain] [32mDEBUG[0;39m o.s.w.f.ServerHttpObservationFilter  [ |  | ] - Filter 'webMvcObservationFilter' configured for use
+25-09-18 13:33:47.574 [restartedMain] [32mDEBUG[0;39m o.s.w.s.r.ResourceUrlEncodingFilter  [ |  | ] - Filter 'resourceUrlEncodingFilter' configured for use
+25-09-18 13:33:47.639 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Starting...
+25-09-18 13:33:47.834 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.pool.HikariPool    [ |  | ] - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:blogdb user=SA
+25-09-18 13:33:47.836 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Start completed.
+25-09-18 13:33:47.954 [restartedMain] [32mINFO [0;39m o.h.jpa.internal.util.LogHelper      [ |  | ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+25-09-18 13:33:48.020 [restartedMain] [32mINFO [0;39m org.hibernate.Version                [ |  | ] - HHH000412: Hibernate ORM core version 6.6.26.Final
+25-09-18 13:33:48.057 [restartedMain] [32mINFO [0;39m o.h.c.i.RegionFactoryInitiator       [ |  | ] - HHH000026: Second-level cache disabled
+25-09-18 13:33:48.365 [restartedMain] [32mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo  [ |  | ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+25-09-18 13:33:48.416 [restartedMain] [33mWARN [0;39m org.hibernate.dialect.Dialect        [ |  | ] - HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+25-09-18 13:33:48.421 [restartedMain] [33mWARN [0;39m org.hibernate.orm.deprecation        [ |  | ] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+25-09-18 13:33:48.436 [restartedMain] [32mINFO [0;39m o.hibernate.orm.connections.pooling  [ |  | ] - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+25-09-18 13:33:48.442 [restartedMain] [32mDEBUG[0;39m o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(2003, org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@34881fa) replaced previous registration(org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@7d679b44)
+25-09-18 13:33:48.442 [restartedMain] [32mDEBUG[0;39m o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@1dc04c75) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@19327057)
+25-09-18 13:33:49.288 [restartedMain] [32mINFO [0;39m o.h.e.t.j.p.i.JtaPlatformInitiator   [ |  | ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+25-09-18 13:33:49.336 [restartedMain] [32mINFO [0;39m o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 13:33:49.979 [restartedMain] [32mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping [ |  | ] - Adding welcome page template: index
+25-09-18 13:33:50.037 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.AuthController:
+	{POST [/api/v1/auth/login]}: login(UserLoginRequest)
+25-09-18 13:33:50.043 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserController:
+	{DELETE [/api/v1/users/{id}]}: delete(Long)
+	{POST [/api/v1/users]}: create(UserCreateRequest,MultipartFile)
+	{GET [/api/v1/users]}: findAll(String)
+	{GET [/api/v1/users/{id}]}: findById(Long)
+	{PATCH [/api/v1/users/{id}]}: updatePatch(Long,UserUpdateRequest,MultipartFile)
+	{PUT [/api/v1/users/{id}]}: updatePut(Long,UserUpdateRequest,MultipartFile)
+	{POST [/api/v1/users/post2]}: post2(String,String,String,String,LocalDate)
+25-09-18 13:33:50.049 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserPageController:
+	{GET [/user/update]}: updatePage()
+	{GET [/user/login2]}: loginPage2()
+	{GET [/user/signup2]}: signupPage2()
+	{GET [/user/signup]}: signupPage()
+	{GET [/user/find]}: findPage()
+	{GET [/user/login]}: loginPage()
+	{GET [/user/delete]}: deletePage()
+25-09-18 13:33:50.051 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.ValidationController:
+	{GET [/valid/valid-custom]}: customForm()
+	{POST [/api/valid/basic]}: validateBasic(TestValidRequest)
+	{GET [/valid/valid-basic]}: basicForm()
+	{POST [/api/valid/custom]}: validateCustom(TestCustomValidRequest)
+25-09-18 13:33:50.053 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+25-09-18 13:33:50.061 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.a.OpenApiWebMvcResource:
+	{GET [/api-docs], produces [application/json]}: openapiJson(HttpServletRequest,String,Locale)
+	{GET [/api-docs.yaml], produces [application/vnd.oai.openapi]}: openapiYaml(HttpServletRequest,String,Locale)
+25-09-18 13:33:50.062 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerWelcomeWebMvc:
+	{GET [/swagger-ui.html]}: redirectToUi(HttpServletRequest)
+25-09-18 13:33:50.062 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerConfigResource:
+	{GET [/api-docs/swagger-config], produces [application/json]}: openapiJson(HttpServletRequest)
+25-09-18 13:33:50.064 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 25 mappings in 'requestMappingHandlerMapping'
+25-09-18 13:33:50.081 [restartedMain] [32mDEBUG[0;39m o.s.w.s.h.BeanNameUrlHandlerMapping  [ |  | ] - Detected 0 mappings in 'beanNameHandlerMapping'
+25-09-18 13:33:50.193 [restartedMain] [32mTRACE[0;39m o.s.w.s.f.s.RouterFunctionMapping    [ |  | ] - 0 RouterFunction(s) in 'routerFunctionMapping'
+25-09-18 13:33:50.211 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/webjars/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:33:50.211 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+25-09-18 13:33:50.212 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/*swagger-initializer.js] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:33:50.212 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:33:50.212 [restartedMain] [32mDEBUG[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+25-09-18 13:33:50.255 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.RequestMappingHandlerAdapter [ |  | ] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+25-09-18 13:33:50.358 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [ |  | ] - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+25-09-18 13:33:50.825 [restartedMain] [32mINFO [0;39m o.s.b.a.h.H2ConsoleAutoConfiguration [ |  | ] - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:blogdb'
+25-09-18 13:33:50.901 [restartedMain] [32mINFO [0;39m o.s.b.d.a.OptionalLiveReloadServer   [ |  | ] - LiveReload server is running on port 35729
+25-09-18 13:33:50.910 [restartedMain] [32mINFO [0;39m o.s.b.a.e.web.EndpointLinksResolver  [ |  | ] - Exposing 7 endpoints beneath base path '/actuator'
+25-09-18 13:33:50.981 [restartedMain] [32mINFO [0;39m o.a.coyote.http11.Http11NioProtocol  [ |  | ] - Starting ProtocolHandler ["http-nio-8080"]
+25-09-18 13:33:51.008 [restartedMain] [32mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer     [ |  | ] - Tomcat started on port 8080 (http) with context path '/'
+25-09-18 13:33:51.024 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - Started Application in 6.248 seconds (process running for 7.289)
+25-09-18 13:33:51.188 [RMI TCP Connection(2)-192.168.219.102] [32mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/]   [ |  | ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+25-09-18 13:33:51.188 [RMI TCP Connection(2)-192.168.219.102] [32mINFO [0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Initializing Servlet 'dispatcherServlet'
+25-09-18 13:33:51.188 [RMI TCP Connection(2)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.multipart.support.StandardServletMultipartResolver@28d79781
+25-09-18 13:33:51.188 [RMI TCP Connection(2)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@7fdc2f8d
+25-09-18 13:33:51.188 [RMI TCP Connection(2)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.servlet.theme.FixedThemeResolver@5d02710c
+25-09-18 13:33:51.190 [RMI TCP Connection(2)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected DefaultRequestToViewNameTranslator
+25-09-18 13:33:51.191 [RMI TCP Connection(2)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected SessionFlashMapManager
+25-09-18 13:33:51.191 [RMI TCP Connection(2)-192.168.219.102] [32mDEBUG[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+25-09-18 13:33:51.192 [RMI TCP Connection(2)-192.168.219.102] [32mINFO [0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Completed initialization in 3 ms
+25-09-18 13:33:53.040 [http-nio-8080-exec-1] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - GET "/", parameters={}, headers={masked} in DispatcherServlet 'dispatcherServlet'
+25-09-18 13:33:53.051 [http-nio-8080-exec-1] [32mDEBUG[0;39m c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-05a94782 | GET | /] - Request started
+25-09-18 13:33:53.053 [http-nio-8080-exec-1] [32mTRACE[0;39m o.s.w.s.m.ParameterizableViewController [127.0.0.1-05a94782 | GET | /] - Applying default cacheSeconds=-1
+25-09-18 13:33:53.064 [http-nio-8080-exec-1] [32mDEBUG[0;39m o.s.w.s.v.ContentNegotiatingViewResolver [127.0.0.1-05a94782 | GET | /] - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+25-09-18 13:33:53.064 [http-nio-8080-exec-1] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [127.0.0.1-05a94782 | GET | /] - Rendering view [org.thymeleaf.spring6.view.ThymeleafView@10363402] 
+25-09-18 13:33:53.277 [http-nio-8080-exec-1] [32mDEBUG[0;39m c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-05a94782 | GET | /] - Request finished
+25-09-18 13:33:53.279 [http-nio-8080-exec-1] [32mDEBUG[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Completed 200 OK, headers={masked}
+25-09-18 13:34:00.127 [SpringApplicationShutdownHook] [32mINFO [0;39m o.s.b.w.e.tomcat.GracefulShutdown    [ |  | ] - Commencing graceful shutdown. Waiting for active requests to complete
+25-09-18 13:34:00.169 [tomcat-shutdown] [32mINFO [0;39m o.s.b.w.e.tomcat.GracefulShutdown    [ |  | ] - Graceful shutdown complete
+25-09-18 13:34:00.174 [SpringApplicationShutdownHook] [32mINFO [0;39m o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 13:34:00.178 [SpringApplicationShutdownHook] [33mWARN [0;39m o.s.b.f.s.DisposableBeanAdapter      [ |  | ] - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+25-09-18 13:34:00.178 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown initiated...
+25-09-18 13:34:00.179 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown completed.
+25-09-18 13:34:02.350 [background-preinit] [32mINFO [0;39m o.h.validator.internal.util.Version  [ |  | ] - HV000001: Hibernate Validator 8.0.3.Final
+25-09-18 13:34:02.398 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - Starting Application v1.0.0 using Java 17.0.15 with PID 13508 (C:\Users\hyuns\java_practice\22_spring_tdd\build\classes\java\main started by hyuns in C:\Users\hyuns\java_practice)
+25-09-18 13:34:02.399 [restartedMain] [32mDEBUG[0;39m com.codeit.blog.Application          [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-09-18 13:34:02.399 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - The following 1 profile is active: "dev"
+25-09-18 13:34:02.445 [restartedMain] [32mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [ |  | ] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+25-09-18 13:34:02.446 [restartedMain] [32mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [ |  | ] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+25-09-18 13:34:03.402 [restartedMain] [32mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+25-09-18 13:34:03.451 [restartedMain] [32mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Finished Spring Data repository scanning in 43 ms. Found 1 JPA repository interface.
+25-09-18 13:34:04.041 [restartedMain] [32mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer     [ |  | ] - Tomcat initialized with port 8080 (http)
+25-09-18 13:34:04.054 [restartedMain] [32mINFO [0;39m o.a.coyote.http11.Http11NioProtocol  [ |  | ] - Initializing ProtocolHandler ["http-nio-8080"]
+25-09-18 13:34:04.055 [restartedMain] [32mINFO [0;39m o.a.catalina.core.StandardService    [ |  | ] - Starting service [Tomcat]
+25-09-18 13:34:04.055 [restartedMain] [32mINFO [0;39m o.a.catalina.core.StandardEngine     [ |  | ] - Starting Servlet engine: [Apache Tomcat/10.1.44]
+25-09-18 13:34:04.108 [restartedMain] [32mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/]   [ |  | ] - Initializing Spring embedded WebApplicationContext
+25-09-18 13:34:04.109 [restartedMain] [32mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext [ |  | ] - Root WebApplicationContext: initialization completed in 1663 ms
+25-09-18 13:34:04.266 [restartedMain] [32mDEBUG[0;39m o.s.w.f.ServerHttpObservationFilter  [ |  | ] - Filter 'webMvcObservationFilter' configured for use
+25-09-18 13:34:04.266 [restartedMain] [32mDEBUG[0;39m o.s.w.s.r.ResourceUrlEncodingFilter  [ |  | ] - Filter 'resourceUrlEncodingFilter' configured for use
+25-09-18 13:34:04.322 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Starting...
+25-09-18 13:34:04.485 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.pool.HikariPool    [ |  | ] - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:blogdb user=SA
+25-09-18 13:34:04.486 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Start completed.
+25-09-18 13:34:04.587 [restartedMain] [32mINFO [0;39m o.h.jpa.internal.util.LogHelper      [ |  | ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+25-09-18 13:34:04.634 [restartedMain] [32mINFO [0;39m org.hibernate.Version                [ |  | ] - HHH000412: Hibernate ORM core version 6.6.26.Final
+25-09-18 13:34:04.665 [restartedMain] [32mINFO [0;39m o.h.c.i.RegionFactoryInitiator       [ |  | ] - HHH000026: Second-level cache disabled
+25-09-18 13:34:04.931 [restartedMain] [32mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo  [ |  | ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+25-09-18 13:34:04.975 [restartedMain] [33mWARN [0;39m org.hibernate.dialect.Dialect        [ |  | ] - HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+25-09-18 13:34:04.980 [restartedMain] [33mWARN [0;39m org.hibernate.orm.deprecation        [ |  | ] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+25-09-18 13:34:04.991 [restartedMain] [32mINFO [0;39m o.hibernate.orm.connections.pooling  [ |  | ] - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+25-09-18 13:34:04.998 [restartedMain] [32mDEBUG[0;39m o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(2003, org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@7700f5eb) replaced previous registration(org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@3ddd18d2)
+25-09-18 13:34:04.998 [restartedMain] [32mDEBUG[0;39m o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@1f390d2b) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@75a3de7c)
+25-09-18 13:34:05.821 [restartedMain] [32mINFO [0;39m o.h.e.t.j.p.i.JtaPlatformInitiator   [ |  | ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+25-09-18 13:34:05.864 [restartedMain] [32mINFO [0;39m o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 13:34:06.409 [restartedMain] [32mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping [ |  | ] - Adding welcome page template: index
+25-09-18 13:34:06.465 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.AuthController:
+	{POST [/api/v1/auth/login]}: login(UserLoginRequest)
+25-09-18 13:34:06.471 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserController:
+	{DELETE [/api/v1/users/{id}]}: delete(Long)
+	{POST [/api/v1/users]}: create(UserCreateRequest,MultipartFile)
+	{GET [/api/v1/users]}: findAll(String)
+	{GET [/api/v1/users/{id}]}: findById(Long)
+	{PATCH [/api/v1/users/{id}]}: updatePatch(Long,UserUpdateRequest,MultipartFile)
+	{POST [/api/v1/users/post2]}: post2(String,String,String,String,LocalDate)
+	{PUT [/api/v1/users/{id}]}: updatePut(Long,UserUpdateRequest,MultipartFile)
+25-09-18 13:34:06.477 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserPageController:
+	{GET [/user/signup]}: signupPage()
+	{GET [/user/signup2]}: signupPage2()
+	{GET [/user/update]}: updatePage()
+	{GET [/user/delete]}: deletePage()
+	{GET [/user/find]}: findPage()
+	{GET [/user/login2]}: loginPage2()
+	{GET [/user/login]}: loginPage()
+25-09-18 13:34:06.478 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.ValidationController:
+	{GET [/valid/valid-custom]}: customForm()
+	{POST [/api/valid/custom]}: validateCustom(TestCustomValidRequest)
+	{GET [/valid/valid-basic]}: basicForm()
+	{POST [/api/valid/basic]}: validateBasic(TestValidRequest)
+25-09-18 13:34:06.481 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+25-09-18 13:34:06.487 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.a.OpenApiWebMvcResource:
+	{GET [/api-docs], produces [application/json]}: openapiJson(HttpServletRequest,String,Locale)
+	{GET [/api-docs.yaml], produces [application/vnd.oai.openapi]}: openapiYaml(HttpServletRequest,String,Locale)
+25-09-18 13:34:06.488 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerWelcomeWebMvc:
+	{GET [/swagger-ui.html]}: redirectToUi(HttpServletRequest)
+25-09-18 13:34:06.488 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerConfigResource:
+	{GET [/api-docs/swagger-config], produces [application/json]}: openapiJson(HttpServletRequest)
+25-09-18 13:34:06.491 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 25 mappings in 'requestMappingHandlerMapping'
+25-09-18 13:34:06.507 [restartedMain] [32mDEBUG[0;39m o.s.w.s.h.BeanNameUrlHandlerMapping  [ |  | ] - Detected 0 mappings in 'beanNameHandlerMapping'
+25-09-18 13:34:06.613 [restartedMain] [32mTRACE[0;39m o.s.w.s.f.s.RouterFunctionMapping    [ |  | ] - 0 RouterFunction(s) in 'routerFunctionMapping'
+25-09-18 13:34:06.633 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/webjars/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:34:06.633 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+25-09-18 13:34:06.633 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/*swagger-initializer.js] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:34:06.634 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:34:06.634 [restartedMain] [32mDEBUG[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+25-09-18 13:34:06.669 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.RequestMappingHandlerAdapter [ |  | ] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+25-09-18 13:34:06.762 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [ |  | ] - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+25-09-18 13:34:07.199 [restartedMain] [32mINFO [0;39m o.s.b.a.h.H2ConsoleAutoConfiguration [ |  | ] - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:blogdb'
+25-09-18 13:34:07.267 [restartedMain] [32mINFO [0;39m o.s.b.d.a.OptionalLiveReloadServer   [ |  | ] - LiveReload server is running on port 35729
+25-09-18 13:34:07.275 [restartedMain] [32mINFO [0;39m o.s.b.a.e.web.EndpointLinksResolver  [ |  | ] - Exposing 7 endpoints beneath base path '/actuator'
+25-09-18 13:34:07.335 [restartedMain] [32mINFO [0;39m o.a.coyote.http11.Http11NioProtocol  [ |  | ] - Starting ProtocolHandler ["http-nio-8080"]
+25-09-18 13:34:07.351 [restartedMain] [32mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer     [ |  | ] - Tomcat started on port 8080 (http) with context path '/'
+25-09-18 13:34:07.366 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - Started Application in 5.546 seconds (process running for 6.224)
+25-09-18 13:34:07.681 [RMI TCP Connection(4)-192.168.219.102] [32mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/]   [ |  | ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+25-09-18 13:34:07.681 [RMI TCP Connection(4)-192.168.219.102] [32mINFO [0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Initializing Servlet 'dispatcherServlet'
+25-09-18 13:34:07.682 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.multipart.support.StandardServletMultipartResolver@7fc6e724
+25-09-18 13:34:07.682 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@181bfc01
+25-09-18 13:34:07.682 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.servlet.theme.FixedThemeResolver@87a8ef0
+25-09-18 13:34:07.685 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected DefaultRequestToViewNameTranslator
+25-09-18 13:34:07.685 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected SessionFlashMapManager
+25-09-18 13:34:07.685 [RMI TCP Connection(4)-192.168.219.102] [32mDEBUG[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+25-09-18 13:34:07.685 [RMI TCP Connection(4)-192.168.219.102] [32mINFO [0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Completed initialization in 4 ms
+25-09-18 13:34:13.354 [SpringApplicationShutdownHook] [32mINFO [0;39m o.s.b.w.e.tomcat.GracefulShutdown    [ |  | ] - Commencing graceful shutdown. Waiting for active requests to complete
+25-09-18 13:34:13.394 [tomcat-shutdown] [32mINFO [0;39m o.s.b.w.e.tomcat.GracefulShutdown    [ |  | ] - Graceful shutdown complete
+25-09-18 13:34:13.398 [SpringApplicationShutdownHook] [32mINFO [0;39m o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 13:34:13.403 [SpringApplicationShutdownHook] [33mWARN [0;39m o.s.b.f.s.DisposableBeanAdapter      [ |  | ] - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+25-09-18 13:34:13.403 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown initiated...
+25-09-18 13:34:13.404 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown completed.
+25-09-18 13:34:15.433 [background-preinit] [32mINFO [0;39m o.h.validator.internal.util.Version  [ |  | ] - HV000001: Hibernate Validator 8.0.3.Final
+25-09-18 13:34:15.472 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - Starting Application v1.0.0 using Java 17.0.15 with PID 9948 (C:\Users\hyuns\java_practice\22_spring_tdd\build\classes\java\main started by hyuns in C:\Users\hyuns\java_practice)
+25-09-18 13:34:15.473 [restartedMain] [32mDEBUG[0;39m com.codeit.blog.Application          [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-09-18 13:34:15.473 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - The following 1 profile is active: "dev"
+25-09-18 13:34:15.508 [restartedMain] [32mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [ |  | ] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+25-09-18 13:34:15.509 [restartedMain] [32mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [ |  | ] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+25-09-18 13:34:16.468 [restartedMain] [32mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+25-09-18 13:34:16.523 [restartedMain] [32mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Finished Spring Data repository scanning in 48 ms. Found 1 JPA repository interface.
+25-09-18 13:34:17.427 [restartedMain] [32mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer     [ |  | ] - Tomcat initialized with port 8080 (http)
+25-09-18 13:34:17.441 [restartedMain] [32mINFO [0;39m o.a.coyote.http11.Http11NioProtocol  [ |  | ] - Initializing ProtocolHandler ["http-nio-8080"]
+25-09-18 13:34:17.445 [restartedMain] [32mINFO [0;39m o.a.catalina.core.StandardService    [ |  | ] - Starting service [Tomcat]
+25-09-18 13:34:17.446 [restartedMain] [32mINFO [0;39m o.a.catalina.core.StandardEngine     [ |  | ] - Starting Servlet engine: [Apache Tomcat/10.1.44]
+25-09-18 13:34:17.524 [restartedMain] [32mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/]   [ |  | ] - Initializing Spring embedded WebApplicationContext
+25-09-18 13:34:17.524 [restartedMain] [32mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext [ |  | ] - Root WebApplicationContext: initialization completed in 2015 ms
+25-09-18 13:34:17.728 [restartedMain] [32mDEBUG[0;39m o.s.w.f.ServerHttpObservationFilter  [ |  | ] - Filter 'webMvcObservationFilter' configured for use
+25-09-18 13:34:17.728 [restartedMain] [32mDEBUG[0;39m o.s.w.s.r.ResourceUrlEncodingFilter  [ |  | ] - Filter 'resourceUrlEncodingFilter' configured for use
+25-09-18 13:34:17.812 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Starting...
+25-09-18 13:34:18.011 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.pool.HikariPool    [ |  | ] - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:blogdb user=SA
+25-09-18 13:34:18.012 [restartedMain] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Start completed.
+25-09-18 13:34:18.123 [restartedMain] [32mINFO [0;39m o.h.jpa.internal.util.LogHelper      [ |  | ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+25-09-18 13:34:18.174 [restartedMain] [32mINFO [0;39m org.hibernate.Version                [ |  | ] - HHH000412: Hibernate ORM core version 6.6.26.Final
+25-09-18 13:34:18.206 [restartedMain] [32mINFO [0;39m o.h.c.i.RegionFactoryInitiator       [ |  | ] - HHH000026: Second-level cache disabled
+25-09-18 13:34:18.439 [restartedMain] [32mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo  [ |  | ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+25-09-18 13:34:18.480 [restartedMain] [33mWARN [0;39m org.hibernate.dialect.Dialect        [ |  | ] - HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+25-09-18 13:34:18.484 [restartedMain] [33mWARN [0;39m org.hibernate.orm.deprecation        [ |  | ] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+25-09-18 13:34:18.496 [restartedMain] [32mINFO [0;39m o.hibernate.orm.connections.pooling  [ |  | ] - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+25-09-18 13:34:18.500 [restartedMain] [32mDEBUG[0;39m o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(2003, org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@34881fa) replaced previous registration(org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@7d679b44)
+25-09-18 13:34:18.500 [restartedMain] [32mDEBUG[0;39m o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@1dc04c75) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@19327057)
+25-09-18 13:34:19.263 [restartedMain] [32mINFO [0;39m o.h.e.t.j.p.i.JtaPlatformInitiator   [ |  | ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+25-09-18 13:34:19.307 [restartedMain] [32mINFO [0;39m o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 13:34:19.824 [restartedMain] [32mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping [ |  | ] - Adding welcome page template: index
+25-09-18 13:34:19.884 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.AuthController:
+	{POST [/api/v1/auth/login]}: login(UserLoginRequest)
+25-09-18 13:34:19.890 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserController:
+	{DELETE [/api/v1/users/{id}]}: delete(Long)
+	{POST [/api/v1/users]}: create(UserCreateRequest,MultipartFile)
+	{GET [/api/v1/users]}: findAll(String)
+	{GET [/api/v1/users/{id}]}: findById(Long)
+	{POST [/api/v1/users/post2]}: post2(String,String,String,String,LocalDate)
+	{PATCH [/api/v1/users/{id}]}: updatePatch(Long,UserUpdateRequest,MultipartFile)
+	{PUT [/api/v1/users/{id}]}: updatePut(Long,UserUpdateRequest,MultipartFile)
+25-09-18 13:34:19.898 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserPageController:
+	{GET [/user/delete]}: deletePage()
+	{GET [/user/login2]}: loginPage2()
+	{GET [/user/update]}: updatePage()
+	{GET [/user/signup]}: signupPage()
+	{GET [/user/signup2]}: signupPage2()
+	{GET [/user/login]}: loginPage()
+	{GET [/user/find]}: findPage()
+25-09-18 13:34:19.900 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.ValidationController:
+	{GET [/valid/valid-custom]}: customForm()
+	{POST [/api/valid/custom]}: validateCustom(TestCustomValidRequest)
+	{GET [/valid/valid-basic]}: basicForm()
+	{POST [/api/valid/basic]}: validateBasic(TestValidRequest)
+25-09-18 13:34:19.902 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+25-09-18 13:34:19.909 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.a.OpenApiWebMvcResource:
+	{GET [/api-docs], produces [application/json]}: openapiJson(HttpServletRequest,String,Locale)
+	{GET [/api-docs.yaml], produces [application/vnd.oai.openapi]}: openapiYaml(HttpServletRequest,String,Locale)
+25-09-18 13:34:19.911 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerWelcomeWebMvc:
+	{GET [/swagger-ui.html]}: redirectToUi(HttpServletRequest)
+25-09-18 13:34:19.911 [restartedMain] [32mTRACE[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerConfigResource:
+	{GET [/api-docs/swagger-config], produces [application/json]}: openapiJson(HttpServletRequest)
+25-09-18 13:34:19.913 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 25 mappings in 'requestMappingHandlerMapping'
+25-09-18 13:34:19.932 [restartedMain] [32mDEBUG[0;39m o.s.w.s.h.BeanNameUrlHandlerMapping  [ |  | ] - Detected 0 mappings in 'beanNameHandlerMapping'
+25-09-18 13:34:20.052 [restartedMain] [32mTRACE[0;39m o.s.w.s.f.s.RouterFunctionMapping    [ |  | ] - 0 RouterFunction(s) in 'routerFunctionMapping'
+25-09-18 13:34:20.069 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/webjars/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:34:20.069 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+25-09-18 13:34:20.070 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/*swagger-initializer.js] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:34:20.070 [restartedMain] [32mTRACE[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-09-18 13:34:20.070 [restartedMain] [32mDEBUG[0;39m o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+25-09-18 13:34:20.112 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.RequestMappingHandlerAdapter [ |  | ] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+25-09-18 13:34:20.212 [restartedMain] [32mDEBUG[0;39m o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [ |  | ] - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+25-09-18 13:34:20.691 [restartedMain] [32mINFO [0;39m o.s.b.a.h.H2ConsoleAutoConfiguration [ |  | ] - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:blogdb'
+25-09-18 13:34:20.776 [restartedMain] [32mINFO [0;39m o.s.b.d.a.OptionalLiveReloadServer   [ |  | ] - LiveReload server is running on port 35729
+25-09-18 13:34:20.788 [restartedMain] [32mINFO [0;39m o.s.b.a.e.web.EndpointLinksResolver  [ |  | ] - Exposing 7 endpoints beneath base path '/actuator'
+25-09-18 13:34:20.898 [restartedMain] [32mINFO [0;39m o.a.coyote.http11.Http11NioProtocol  [ |  | ] - Starting ProtocolHandler ["http-nio-8080"]
+25-09-18 13:34:20.914 [restartedMain] [32mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer     [ |  | ] - Tomcat started on port 8080 (http) with context path '/'
+25-09-18 13:34:20.933 [restartedMain] [32mINFO [0;39m com.codeit.blog.Application          [ |  | ] - Started Application in 6.022 seconds (process running for 6.616)
+25-09-18 13:34:21.362 [RMI TCP Connection(4)-192.168.219.102] [32mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/]   [ |  | ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+25-09-18 13:34:21.363 [RMI TCP Connection(4)-192.168.219.102] [32mINFO [0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Initializing Servlet 'dispatcherServlet'
+25-09-18 13:34:21.363 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.multipart.support.StandardServletMultipartResolver@8a6c874
+25-09-18 13:34:21.363 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@3a1d5558
+25-09-18 13:34:21.363 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected org.springframework.web.servlet.theme.FixedThemeResolver@6873cffb
+25-09-18 13:34:21.365 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected DefaultRequestToViewNameTranslator
+25-09-18 13:34:21.365 [RMI TCP Connection(4)-192.168.219.102] [32mTRACE[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Detected SessionFlashMapManager
+25-09-18 13:34:21.365 [RMI TCP Connection(4)-192.168.219.102] [32mDEBUG[0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+25-09-18 13:34:21.365 [RMI TCP Connection(4)-192.168.219.102] [32mINFO [0;39m o.s.web.servlet.DispatcherServlet    [ |  | ] - Completed initialization in 2 ms
+25-09-18 13:49:32.223 [SpringApplicationShutdownHook] [32mINFO [0;39m o.s.b.w.e.tomcat.GracefulShutdown    [ |  | ] - Commencing graceful shutdown. Waiting for active requests to complete
+25-09-18 13:49:32.263 [tomcat-shutdown] [32mINFO [0;39m o.s.b.w.e.tomcat.GracefulShutdown    [ |  | ] - Graceful shutdown complete
+25-09-18 13:49:32.267 [SpringApplicationShutdownHook] [32mINFO [0;39m o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+25-09-18 13:49:32.273 [SpringApplicationShutdownHook] [33mWARN [0;39m o.s.b.f.s.DisposableBeanAdapter      [ |  | ] - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+25-09-18 13:49:32.273 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown initiated...
+25-09-18 13:49:32.275 [SpringApplicationShutdownHook] [32mINFO [0;39m com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown completed.

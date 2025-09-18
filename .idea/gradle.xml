@@ -11,6 +11,22 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/22_spring_tdd" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/22_spring_tdd" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/22_spring_tdd/admin" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/22_spring_tdd/admin" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
