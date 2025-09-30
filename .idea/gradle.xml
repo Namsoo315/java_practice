@@ -4,6 +4,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/13_spring_aws_basic" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/13_spring_aws_basic" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/21_spring_actuator" />
         <option name="modules">
           <set>
