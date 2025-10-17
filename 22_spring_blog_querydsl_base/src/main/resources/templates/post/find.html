@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>게시글 조회</title>
+</head>
+<body>
+<h1>게시글 조회</h1>
+<a href="/">돌아가기</a><br><br>
+
+<h2>전체 조회</h2>
+<a href="/api/posts" target="_blank">모든 글 조회</a>
+<hr>
+
+<h2>전체 조회(페이지 + JPQL)</h2>
+<a href="/api/posts/search1" target="_blank">모든 글 조회</a>
+<hr>
+
+<h2>전체 조회(페이지 + QueryDSL)</h2>
+<a href="/api/posts/search2" target="_blank">모든 글 조회</a>
+<hr>
+
+<h2>단건 조회</h2>
+<form method="get" action="/api/posts" target="_blank">
+    <label>id <input name="id" type="number" required></label>
+    <button type="submit">조회</button>
+</form>
+
+<hr>
+
+<h2>제목으로 조회</h2>
+<form method="get" action="/api/posts/title" target="_blank"
+      onsubmit="this.action='/api/posts/title/' + encodeURIComponent(this.querySelector('[name=title]').value)">
+    <label>title <input name="title" required></label>
+    <button type="submit">조회</button>
+</form>
+</body>
+</html>

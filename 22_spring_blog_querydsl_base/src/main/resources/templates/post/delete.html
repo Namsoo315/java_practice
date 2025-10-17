@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>글 삭제</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>글 삭제</h1>
+<a href="/">돌아가기</a><br><br>
+
+<form id="deleteForm">
+    <label>id <input id="id" name="id" type="number" required placeholder="삭제할 게시글 ID"></label><br>
+    <button type="submit">삭제</button>
+</form>
+
+<div id="msg"></div>
+<pre id="result"></pre>
+
+<script>
+    document.getElementById('deleteForm').addEventListener('submit', async function (e) {
+        e.preventDefault()
+
+        const id = document.getElementById('id').value
+        if (!id) {
+            document.getElementById('msg').textContent = 'id는 필수이다'
+            return
+        }
+
+        try {
+            const res = await axios.delete(`/api/posts/${id}`)
+            document.getElementById('msg').textContent = '삭제 성공'
+            document.getElementById('result').textContent = ''
+        } catch (err) {
+            let msg = '삭제 실패'
+            if (err.response && err.response.data) {
+                const error = err.response.data
+                if (error.message) msg = error.message
+                if (error.details && Object.keys(error.details).length > 0) {
+                    msg += ' → ' + JSON.stringify(error.details)
+                }
+            }
+            document.getElementById('msg').textContent = msg
+            document.getElementById('result').textContent = ''
+            console.log(err)
+        }
+    });
+</script>
+</body>
+</html>

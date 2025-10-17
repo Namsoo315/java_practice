@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>회원가입</h1>
+<a href="/">돌아가기</a><br><br>
+
+<form id="signupForm" enctype="multipart/form-data">
+    <label>username <input id="username" name="username"></label><br>
+    <label>password <input id="password" name="password" type="password"></label><br>
+    <label>email <input id="email" name="email"></label><br>
+    <label>nickname <input id="nickname" name="nickname"></label><br>
+    <label>birthday <input id="birthday" name="birthday" type="date"></label><br>
+    <label>avatar <input id="avatar" name="avatar" type="file" accept="image/*"></label><br>
+    <button type="submit">가입</button>
+</form>
+
+<div id="msg"></div>
+<pre id="result"></pre>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // user JSON 객체 생성
+        const user = {
+            username: document.getElementById('username').value.trim(),
+            password: document.getElementById('password').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            nickname: document.getElementById('nickname').value.trim(),
+            birthday: document.getElementById('birthday').value
+        };
+
+        const formData = new FormData();
+        formData.append("user", new Blob([JSON.stringify(user)], { type: "application/json" }));
+
+        const avatarFile = document.getElementById('avatar').files[0];
+        if (avatarFile) {
+            formData.append("avatar", avatarFile);
+        }
+
+        try {
+            const res = await axios.post('/api/users', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            const body = res.data;
+            document.getElementById('msg').textContent = body.message || '회원가입 성공';
+            document.getElementById('result').textContent = JSON.stringify(body.data, null, 2);
+        } catch (err) {
+            document.getElementById('msg').textContent = '회원가입 실패';
+            document.getElementById('result').textContent = '';
+        }
+    });
+</script>
+</body>
+</html>

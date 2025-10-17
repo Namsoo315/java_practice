@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>회원수정</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>회원수정</h1>
+<a href="/">돌아가기</a><br><br>
+
+<form id="updateForm" enctype="multipart/form-data">
+    <label>id <input id="id" name="id" type="number" value="1"></label><br>
+    <label>password <input id="password" name="password" type="password"></label><br>
+    <label>email <input id="email" name="email" ></label><br>
+    <label>nickname <input id="nickname" name="nickname" ></label><br>
+    <label>birthday <input id="birthday" name="birthday" type="date"></label><br>
+    <label>avatar <input id="avatar" name="avatar" type="file" accept="image/*"></label><br>
+    <button type="submit">수정</button>
+</form>
+
+<div id="msg"></div>
+<pre id="result"></pre>
+
+<script>
+    document.getElementById('updateForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const id = document.getElementById('id').value;
+
+        const val = (elId) => {
+            const v = document.getElementById(elId).value;
+            return v && v.trim().length > 0 ? v.trim() : null;
+        };
+
+        const user = {
+            password: val('password'),
+            email: val('email'),
+            nickname: val('nickname'),
+            birthday: document.getElementById('birthday').value || null
+        };
+
+        const formData = new FormData();
+        formData.append("user", new Blob([JSON.stringify(user)], { type: "application/json" }));
+
+        const avatarFile = document.getElementById('avatar').files[0];
+        if (avatarFile) formData.append("avatar", avatarFile);
+
+        try {
+            const res = await axios.patch(`/api/users/${id}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            const body = res.data;
+            document.getElementById('msg').textContent = body.message || '회원수정 성공';
+            document.getElementById('result').textContent = JSON.stringify(body.data, null, 2);
+        } catch (err) {
+            document.getElementById('msg').textContent = '회원수정 실패';
+            document.getElementById('result').textContent = '';
+        }
+    });
+</script>
+</body>
+</html>

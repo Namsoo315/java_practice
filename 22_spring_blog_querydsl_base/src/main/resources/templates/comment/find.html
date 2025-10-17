@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>댓글 조회</title>
+</head>
+<body>
+<h1>댓글 조회</h1>
+<a href="/">돌아가기</a><br><br>
+
+<h3>단건 조회</h3>
+<form method="get" action="/api/comments" target="_blank"
+      onsubmit="this.action='/api/comments/' + encodeURIComponent(this.querySelector('[name=id]').value)">
+    <label>id <input name="id" type="number" required></label>
+    <button type="submit">조회</button>
+</form>
+
+<hr>
+
+<h3>모든 댓글 조회</h3>
+<a href="/api/comments" target="_blank">모든 댓글 조회</a>
+<hr>
+
+<h3>특정 게시글 댓글 조회</h3>
+<form method="get" action="/api/posts" target="_blank"
+      onsubmit="this.action='/api/posts/' + encodeURIComponent(this.querySelector('[name=postId]').value) + '/comments'">
+    <label>postId <input name="postId" type="number" required></label>
+    <button type="submit">조회</button>
+</form>
+<hr>
+
+<h3>Flat 댓글 조회</h3>
+<form method="get" action="/api/comments/flat" target="_blank"
+      onsubmit="
+        this.action='/api/comments/flat?'
+          + (this.userId.value ? 'userId=' + this.userId.value + '&' : '')
+          + (this.postId.value ? 'postId=' + this.postId.value + '&' : '')
+          + 'cursor=' + this.cursor.value + '&limit=' + this.limit.value;
+      ">
+    <label>userId <input name="userId" type="number"></label><br>
+    <label>postId <input name="postId" type="number"></label><br>
+    <label>page(cursor) <input name="cursor" type="number" value="0"></label><br>
+    <label>limit <input name="limit" type="number" value="10"></label><br>
+    <button type="submit">조회</button>
+</form>
+<hr>
+
+</body>
+</html>

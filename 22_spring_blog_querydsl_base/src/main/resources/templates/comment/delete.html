@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>댓글 삭제</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>댓글 삭제</h1>
+<a href="/">돌아가기</a><br><br>
+
+<form id="deleteForm">
+    <label>id <input id="deleteId" type="number" required></label>
+    <button type="submit">삭제</button>
+</form>
+<div id="msg"></div>
+
+<script>
+    document.getElementById('deleteForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const id = document.getElementById('deleteId').value;
+
+        try {
+            const res = await axios.delete('/api/comments/' + id);
+            const body = res.data || {};
+            document.getElementById('msg').textContent = body.message || '댓글 삭제 성공';
+        } catch (err) {
+            document.getElementById('msg').textContent = '댓글 삭제 실패';
+        }
+    });
+</script>
+</body>
+</html>

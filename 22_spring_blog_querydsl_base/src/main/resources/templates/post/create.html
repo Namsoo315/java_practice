@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>글쓰기</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>글쓰기</h1>
+<a href="/">돌아가기</a><br><br>
+
+<form id="postForm" enctype="multipart/form-data">
+    <label>title <input id="title" name="title" required></label><br>
+    <label>content <br>
+        <textarea id="content" name="content" rows="8" cols="80" required></textarea>
+    </label><br>
+
+    <label>category
+        <select id="category" name="category" required>
+            <option value="">-- 선택하세요 --</option>
+            <option value="TECHNOLOGY">기술</option>
+            <option value="LIFESTYLE">라이프스타일</option>
+            <option value="BUSINESS">비즈니스</option>
+            <option value="EDUCATION">교육</option>
+            <option value="ENTERTAINMENT">엔터테인먼트</option>
+        </select>
+    </label><br>
+
+    <label>tags <input id="tags" name="tags" placeholder="예: java,spring,db"></label><br>
+
+    <label>authorId <input id="authorId" name="authorId" type="number" value="1" required></label><br>
+
+    <label>files <input id="files" name="files" type="file" multiple></label><br>
+    <button type="submit">등록</button>
+</form>
+
+<div id="msg"></div>
+<pre id="result"></pre>
+
+<script>
+    document.getElementById('postForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const title = document.getElementById('title').value.trim();
+        const content = document.getElementById('content').value.trim();
+        const category = document.getElementById('category').value;
+        const tags = document.getElementById('tags').value;
+        const authorIdRaw = document.getElementById('authorId').value;
+
+        if (!title || !content || !category || !authorIdRaw) {
+            document.getElementById('msg').textContent = 'title, content, category, authorId는 필수';
+            return;
+        }
+
+        const post = {
+            title,
+            content,
+            category,
+            tags: tags,
+            authorId: Number(authorIdRaw)
+        };
+
+        const formData = new FormData();
+        formData.append('post', new Blob([JSON.stringify(post)], { type: 'application/json' }));
+
+        const filesInput = document.getElementById('files');
+        if (filesInput.files && filesInput.files.length > 0) {
+            Array.from(filesInput.files).forEach(f => formData.append('files', f));
+        }
+
+        try {
+            const res = await axios.post('/api/posts', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            const body = res.data || {};
+            document.getElementById('msg').textContent = body.message || '등록 성공';
+            document.getElementById('result').textContent = JSON.stringify(body.data, null, 2);
+        } catch (err) {
+            let msg = '등록 실패';
+            if (err.response && err.response.data) {
+                const error = err.response.data;
+                if (error.message) msg = error.message;
+                if (error.details && Object.keys(error.details).length > 0) {
+                    msg += ' → ' + JSON.stringify(error.details);
+                }
+            }
+            document.getElementById('msg').textContent = msg;
+            document.getElementById('result').textContent = '';
+            console.log(err);
+        }
+    });
+</script>
+</body>
+</html>
