@@ -35,6 +35,22 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/23_spring_mongodb" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/23_spring_mongodb" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/25_spring_batch" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/25_spring_batch" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

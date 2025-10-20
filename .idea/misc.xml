@@ -19,6 +19,7 @@
     <file type="web" url="file://$PROJECT_DIR$/20_spring_validation" />
     <file type="web" url="file://$PROJECT_DIR$/21_spring_actuator" />
     <file type="web" url="file://$PROJECT_DIR$/21_spring_template" />
+    <file type="web" url="file://$PROJECT_DIR$/23_spring_mongodb" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

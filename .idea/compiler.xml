@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
         </processorPath>
-        <module name="aws.main" />
+        <module name="batch.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -90,6 +90,9 @@
       <module name="aws" options="-parameters" />
       <module name="aws.main" options="-parameters" />
       <module name="aws.test" options="-parameters" />
+      <module name="batch" options="-parameters" />
+      <module name="batch.main" options="-parameters" />
+      <module name="batch.test" options="-parameters" />
       <module name="blog" options="-parameters" />
       <module name="blog.main" options="-parameters" />
       <module name="blog.test" options="-parameters" />
@@ -106,6 +109,8 @@
       <module name="com.codeit.rest" options="-parameters" />
       <module name="com.codeit.rest.main" options="-parameters" />
       <module name="com.codeit.rest.test" options="-parameters" />
+      <module name="com.data.mongo.mongo.main" options="-parameters" />
+      <module name="com.data.mongo.mongo.test" options="-parameters" />
       <module name="data" options="-parameters" />
       <module name="data.main" options="-parameters" />
       <module name="data.test" options="-parameters" />
@@ -115,6 +120,9 @@
       <module name="file" options="-parameters" />
       <module name="file.main" options="-parameters" />
       <module name="file.test" options="-parameters" />
+      <module name="mongo" options="-parameters" />
+      <module name="mongo.main" options="-parameters" />
+      <module name="mongo.test" options="-parameters" />
       <module name="mvc" options="-parameters" />
       <module name="mvc.main" options="-parameters" />
       <module name="mvc.test" options="-parameters" />

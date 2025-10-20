@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: blog-mongo
+  #  data:
+  #    mongodb:
+  #      uri: mongodb://localhost:27017/blogdb
+  #      port: 27017  # ?? ??
+  #      database: testdb
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 8080
