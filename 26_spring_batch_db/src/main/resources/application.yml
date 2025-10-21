@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info,metrics,env,beans,threaddump,batch,jobs
+    endpoint:
+      health:
+        show-details: always
+    info:
+      env:
+        enabled: true
