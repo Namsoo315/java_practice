@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: spring-security-blog
+
+  datasource:
+    url: jdbc:h2:file:~/session-practice;AUTO_SERVER=TRUE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # H2 웹 콘솔 사용 시
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+
+blog:
+  admin:
+    username: admin
+    email: admin@blog.com
+    password: admin
+  user:
+    username: user
+    email: user@blog.com
+    password: 1234
+
+security:
+  jwt:
+    issuer: codeit-blog
+    secret: your-jwt-secret-key-here-12345628219012345  # 32char 이상 길게 써줘야함!!
+#    access-token-validity-seconds: 3600 # 1시간
+    access-token-validity-seconds: 10 # 10초
+    refresh-token-validity-seconds: 86400 # 14일
+
+
+logging:
+  level:
+    com.codeit.jwt: DEBUG
+    org.springframework.security: TRACE
+    org.springframework.security.web.csrf: DEBUG

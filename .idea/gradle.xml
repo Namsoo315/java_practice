@@ -12,6 +12,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/10_spring_jwt_advanced" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/10_spring_jwt_advanced" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/13_spring_aws_basic" />
         <option name="modules">
           <set>

@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.codeit.blog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.codeit.blog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.codeit.blog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.codeit.blog.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java_practice.iml" filepath="$PROJECT_DIR$/.idea/java_practice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jwt_advanced.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jwt_advanced.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jwt_basic.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jwt_basic.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/web.main.iml" />
     </modules>
