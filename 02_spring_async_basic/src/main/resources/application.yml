@@ -1,0 +1,71 @@
+server:
+  port: 8080
+
+  tomcat:
+    # 1) Thread 설정
+    threads:
+      max: 200          # 최대 워커 스레드
+      min-spare: 20     # 최소 대기 스레드
+
+    # 2) Connection 설정
+    max-connections: 10000         # 동시에 허용 가능한 최대 연결 수
+    connection-timeout: 20000      # 연결 타임아웃(ms)
+    keep-alive-timeout: 20000      # Keep-Alive 유지 시간(ms)
+    max-keep-alive-requests: 100   # 하나의 Keep-Alive 연결에서 처리할 최대 요청 수
+
+    # 3) 요청 대기 큐
+    accept-count: 100              # 워커 스레드 부족 시 대기 큐 길이
+
+spring:
+  application:
+    name: async-basic
+
+  datasource:
+    url: jdbc:h2:mem:asyncdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: none          # schema.sql 사용
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # 파일 업로드 설정 (상품 등록용)
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.web.reactive.function.client: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"          # 모든 actuator 엔드포인트 노출 (/actuator/**)
+  endpoint:
+    health:
+      show-details: always    # /actuator/health 에 상세 정보 표시
+    prometheus:
+      enabled: true           # /actuator/prometheus 활성화
+  metrics:
+    enable:
+      jvm: true               # JVM 메트릭
+      executor: true          # ThreadPool(Executor) 메트릭 활성화
+  prometheus:
+    metrics:
+      export:
+        enabled: true         # Prometheus export 활성화

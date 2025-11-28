@@ -57,3 +57,378 @@
         u1_0.username=?
 25-09-23 14:32:25.950 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit]
 25-09-23 14:32:26.039 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+25-11-27 09:44:08.082 [background-preinit] INFO  o.h.validator.internal.util.Version  [ |  | ] - HV000001: Hibernate Validator 8.0.3.Final
+25-11-27 09:44:08.148 [Test worker] INFO  com.codeit.blog.ApplicationTests     [ |  | ] - Starting ApplicationTests v1.0.0 using Java 17.0.15 with PID 76056 (started by namsoo in /Users/namsoo/work_dir_codeit/java_practice/22_spring_tdd)
+25-11-27 09:44:08.150 [Test worker] DEBUG com.codeit.blog.ApplicationTests     [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-11-27 09:44:08.152 [Test worker] INFO  com.codeit.blog.ApplicationTests     [ |  | ] - The following 1 profile is active: "dev"
+25-11-27 09:44:08.202 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@3727f0ee, started on Thu Nov 27 09:44:08 KST 2025
+25-11-27 09:44:09.884 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+25-11-27 09:44:10.044 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Finished Spring Data repository scanning in 141 ms. Found 1 JPA repository interface.
+25-11-27 09:44:12.818 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'messageSource' bean, using [Empty MessageSource]
+25-11-27 09:44:12.819 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'applicationEventMulticaster' bean, using [SimpleApplicationEventMulticaster]
+25-11-27 09:44:14.080 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Starting...
+25-11-27 09:44:14.991 [Test worker] INFO  com.zaxxer.hikari.pool.HikariPool    [ |  | ] - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:blogdb user=SA
+25-11-27 09:44:14.994 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Start completed.
+25-11-27 09:44:15.712 [Test worker] INFO  o.h.jpa.internal.util.LogHelper      [ |  | ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+25-11-27 09:44:15.960 [Test worker] INFO  org.hibernate.Version                [ |  | ] - HHH000412: Hibernate ORM core version 6.6.26.Final
+25-11-27 09:44:16.042 [Test worker] INFO  o.h.c.i.RegionFactoryInitiator       [ |  | ] - HHH000026: Second-level cache disabled
+25-11-27 09:44:17.603 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo  [ |  | ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+25-11-27 09:44:17.989 [Test worker] WARN  org.hibernate.dialect.Dialect        [ |  | ] - HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+25-11-27 09:44:18.001 [Test worker] WARN  org.hibernate.orm.deprecation        [ |  | ] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+25-11-27 09:44:18.247 [Test worker] INFO  o.hibernate.orm.connections.pooling  [ |  | ] - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+25-11-27 09:44:18.288 [Test worker] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(2003, org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@c31419f) replaced previous registration(org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@43dddfdd)
+25-11-27 09:44:18.289 [Test worker] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@22c0344e) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@7267006e)
+25-11-27 09:44:24.234 [Test worker] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator   [ |  | ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+25-11-27 09:44:24.406 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+25-11-27 09:44:27.743 [Test worker] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping [ |  | ] - Adding welcome page template: index
+25-11-27 09:44:27.921 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.AuthController:
+	{POST [/api/v1/auth/login]}: login(UserLoginRequest)
+25-11-27 09:44:27.943 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserController:
+	{DELETE [/api/v1/users/{id}]}: delete(Long)
+	{POST [/api/v1/users]}: create(UserCreateRequest,MultipartFile)
+	{GET [/api/v1/users]}: findAll(String)
+	{PATCH [/api/v1/users/{id}]}: updatePatch(Long,UserUpdateRequest,MultipartFile)
+	{GET [/api/v1/users/{id}]}: findById(Long)
+	{POST [/api/v1/users/post2]}: post2(String,String,String,String,LocalDate)
+	{PUT [/api/v1/users/{id}]}: updatePut(Long,UserUpdateRequest,MultipartFile)
+25-11-27 09:44:27.962 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.UserPageController:
+	{GET [/user/signup2]}: signupPage2()
+	{GET [/user/signup]}: signupPage()
+	{GET [/user/update]}: updatePage()
+	{GET [/user/delete]}: deletePage()
+	{GET [/user/login]}: loginPage()
+	{GET [/user/login2]}: loginPage2()
+	{GET [/user/find]}: findPage()
+25-11-27 09:44:27.968 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.ValidationController:
+	{GET [/valid/valid-custom]}: customForm()
+	{POST [/api/valid/basic]}: validateBasic(TestValidRequest)
+	{POST [/api/valid/custom]}: validateCustom(TestCustomValidRequest)
+	{GET [/valid/valid-basic]}: basicForm()
+25-11-27 09:44:27.976 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+25-11-27 09:44:27.997 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.a.OpenApiWebMvcResource:
+	{GET [/api-docs], produces [application/json]}: openapiJson(HttpServletRequest,String,Locale)
+	{GET [/api-docs.yaml], produces [application/vnd.oai.openapi]}: openapiYaml(HttpServletRequest,String,Locale)
+25-11-27 09:44:28.001 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerWelcomeWebMvc:
+	{GET [/swagger-ui.html]}: redirectToUi(HttpServletRequest)
+25-11-27 09:44:28.003 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.w.u.SwaggerConfigResource:
+	{GET [/api-docs/swagger-config], produces [application/json]}: openapiJson(HttpServletRequest)
+25-11-27 09:44:28.011 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 25 mappings in 'requestMappingHandlerMapping'
+25-11-27 09:44:28.097 [Test worker] DEBUG o.s.w.s.h.BeanNameUrlHandlerMapping  [ |  | ] - Detected 0 mappings in 'beanNameHandlerMapping'
+25-11-27 09:44:28.414 [Test worker] TRACE o.s.w.s.f.s.RouterFunctionMapping    [ |  | ] - 0 RouterFunction(s) in 'routerFunctionMapping'
+25-11-27 09:44:28.447 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/webjars/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-11-27 09:44:28.448 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+25-11-27 09:44:28.449 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/*swagger-initializer.js] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-11-27 09:44:28.450 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/swagger-ui*/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-11-27 09:44:28.451 [Test worker] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+25-11-27 09:44:28.521 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter [ |  | ] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+25-11-27 09:44:28.742 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [ |  | ] - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+25-11-27 09:44:29.812 [Test worker] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration [ |  | ] - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:blogdb'
+25-11-27 09:44:29.941 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver  [ |  | ] - Exposing 7 endpoints beneath base path '/actuator'
+25-11-27 09:44:30.071 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Using LifecycleProcessor [org.springframework.context.support.DefaultLifecycleProcessor@5b6b5888]
+25-11-27 09:44:30.107 [Test worker] INFO  com.codeit.blog.ApplicationTests     [ |  | ] - Started ApplicationTests in 22.576 seconds (process running for 24.462)
+25-11-27 09:44:31.873 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils [ |  | ] - Could not detect default configuration classes for test class [com.codeit.blog.controller.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+25-11-27 09:44:31.942 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper [ |  | ] - Found @SpringBootConfiguration com.codeit.blog.Application for test class com.codeit.blog.controller.AuthControllerTest
+25-11-27 09:44:32.008 [Test worker] INFO  c.c.b.controller.AuthControllerTest  [ |  | ] - Starting AuthControllerTest v1.0.0 using Java 17.0.15 with PID 76056 (started by namsoo in /Users/namsoo/work_dir_codeit/java_practice/22_spring_tdd)
+25-11-27 09:44:32.009 [Test worker] DEBUG c.c.b.controller.AuthControllerTest  [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-11-27 09:44:32.010 [Test worker] INFO  c.c.b.controller.AuthControllerTest  [ |  | ] - The following 1 profile is active: "dev"
+25-11-27 09:44:32.013 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@13b6f82d, started on Thu Nov 27 09:44:32 KST 2025
+25-11-27 09:44:32.804 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'messageSource' bean, using [Empty MessageSource]
+25-11-27 09:44:32.805 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'applicationEventMulticaster' bean, using [SimpleApplicationEventMulticaster]
+25-11-27 09:44:32.993 [Test worker] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping [ |  | ] - Adding welcome page template: index
+25-11-27 09:44:33.025 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	c.c.b.c.AuthController:
+	{POST [/api/v1/auth/login]}: login(UserLoginRequest)
+25-11-27 09:44:33.036 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+25-11-27 09:44:33.041 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - 3 mappings in 'requestMappingHandlerMapping'
+25-11-27 09:44:33.051 [Test worker] DEBUG o.s.w.s.h.BeanNameUrlHandlerMapping  [ |  | ] - Detected 0 mappings in 'beanNameHandlerMapping'
+25-11-27 09:44:33.141 [Test worker] TRACE o.s.w.s.f.s.RouterFunctionMapping    [ |  | ] - 0 RouterFunction(s) in 'routerFunctionMapping'
+25-11-27 09:44:33.146 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/webjars/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+25-11-27 09:44:33.146 [Test worker] TRACE o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Mapped [/**] onto ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+25-11-27 09:44:33.147 [Test worker] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping    [ |  | ] - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+25-11-27 09:44:33.163 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter [ |  | ] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+25-11-27 09:44:33.196 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [ |  | ] - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+25-11-27 09:44:33.229 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext [ |  | ] - Initializing Spring TestDispatcherServlet ''
+25-11-27 09:44:33.230 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet      [ |  | ] - Initializing Servlet ''
+25-11-27 09:44:33.240 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet      [ |  | ] - Completed initialization in 3 ms
+25-11-27 09:44:33.270 [Test worker] TRACE o.s.w.c.s.GenericWebApplicationContext [ |  | ] - No 'lifecycleProcessor' bean, using [DefaultLifecycleProcessor]
+25-11-27 09:44:33.278 [Test worker] INFO  c.c.b.controller.AuthControllerTest  [ |  | ] - Started AuthControllerTest in 1.329 seconds (process running for 27.633)
+25-11-27 09:44:33.459 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - Mapped to com.codeit.blog.controller.AuthController#login(UserLoginRequest)
+25-11-27 09:44:33.462 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Request started
+25-11-27 09:44:33.551 [Test worker] TRACE o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Read "application/json" to [UserLoginRequest[username=test01, password=wrong]]
+25-11-27 09:44:33.654 [Test worker] TRACE o.s.web.method.HandlerMethod         [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Arguments: [UserLoginRequest[username=test01, password=wrong]]
+25-11-27 09:44:33.655 [Test worker] TRACE c.c.blog.controller.AuthController   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - @@ trace - loginRequest : UserLoginRequest[username=test01, password=wrong]
+25-11-27 09:44:33.656 [Test worker] DEBUG c.c.blog.controller.AuthController   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - @@ debug - loginRequest : UserLoginRequest[username=test01, password=wrong]
+25-11-27 09:44:33.658 [Test worker] INFO  c.c.blog.controller.AuthController   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - @@ info - loginRequest : UserLoginRequest[username=test01, password=wrong]
+25-11-27 09:44:33.658 [Test worker] WARN  c.c.blog.controller.AuthController   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - @@ warn - loginRequest : UserLoginRequest[username=test01, password=wrong]
+25-11-27 09:44:33.659 [Test worker] ERROR c.c.blog.controller.AuthController   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - @@ error - username : test01, pw : wrong
+25-11-27 09:44:33.673 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Using @ExceptionHandler com.codeit.blog.exception.GlobalExceptionHandler#handleCustomException(BaseException)
+25-11-27 09:44:33.673 [Test worker] TRACE o.s.web.method.HandlerMethod         [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Arguments: [com.codeit.blog.exception.user.InvalidCredentialsException: 잘못된 사용자 인증 정보입니다.]
+25-11-27 09:44:33.674 [Test worker] ERROR c.c.b.e.GlobalExceptionHandler       [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - 커스텀 예외 발생 : code=INVALID_USER_CREDENTIALS, message=잘못된 사용자 인증 정보입니다.
+25-11-27 09:44:33.699 [Test worker] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+25-11-27 09:44:33.702 [Test worker] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Writing [com.codeit.blog.exception.ErrorResponse@11734d3d]
+25-11-27 09:44:33.722 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Resolved [com.codeit.blog.exception.user.InvalidCredentialsException: 잘못된 사용자 인증 정보입니다.]
+25-11-27 09:44:33.723 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-ce7442ca | POST | /api/v1/auth/login] - Request finished
+25-11-27 09:44:33.817 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - Mapped to com.codeit.blog.controller.AuthController#login(UserLoginRequest)
+25-11-27 09:44:33.818 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Request started
+25-11-27 09:44:33.821 [Test worker] TRACE o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Read "application/json" to [UserLoginRequest[username=no_such, password=password123]]
+25-11-27 09:44:33.823 [Test worker] TRACE o.s.web.method.HandlerMethod         [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Arguments: [UserLoginRequest[username=no_such, password=password123]]
+25-11-27 09:44:33.824 [Test worker] TRACE c.c.blog.controller.AuthController   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - @@ trace - loginRequest : UserLoginRequest[username=no_such, password=password123]
+25-11-27 09:44:33.824 [Test worker] DEBUG c.c.blog.controller.AuthController   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - @@ debug - loginRequest : UserLoginRequest[username=no_such, password=password123]
+25-11-27 09:44:33.825 [Test worker] INFO  c.c.blog.controller.AuthController   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - @@ info - loginRequest : UserLoginRequest[username=no_such, password=password123]
+25-11-27 09:44:33.825 [Test worker] WARN  c.c.blog.controller.AuthController   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - @@ warn - loginRequest : UserLoginRequest[username=no_such, password=password123]
+25-11-27 09:44:33.825 [Test worker] ERROR c.c.blog.controller.AuthController   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - @@ error - username : no_such, pw : password123
+25-11-27 09:44:33.827 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Using @ExceptionHandler com.codeit.blog.exception.GlobalExceptionHandler#handleCustomException(BaseException)
+25-11-27 09:44:33.828 [Test worker] TRACE o.s.web.method.HandlerMethod         [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Arguments: [com.codeit.blog.exception.user.UserNotFoundException: 사용자를 찾을 수 없습니다.]
+25-11-27 09:44:33.829 [Test worker] ERROR c.c.b.e.GlobalExceptionHandler       [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - 커스텀 예외 발생 : code=USER_NOT_FOUND, message=사용자를 찾을 수 없습니다.
+25-11-27 09:44:33.830 [Test worker] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+25-11-27 09:44:33.831 [Test worker] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Writing [com.codeit.blog.exception.ErrorResponse@27585962]
+25-11-27 09:44:33.835 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Resolved [com.codeit.blog.exception.user.UserNotFoundException: 사용자를 찾을 수 없습니다.]
+25-11-27 09:44:33.836 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-86f6db5e | POST | /api/v1/auth/login] - Request finished
+25-11-27 09:44:33.864 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - Mapped to com.codeit.blog.controller.AuthController#login(UserLoginRequest)
+25-11-27 09:44:33.865 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Request started
+25-11-27 09:44:33.870 [Test worker] TRACE o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Read "application/json" to [UserLoginRequest[username=test01, password=password123]]
+25-11-27 09:44:33.871 [Test worker] TRACE o.s.web.method.HandlerMethod         [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Arguments: [UserLoginRequest[username=test01, password=password123]]
+25-11-27 09:44:33.871 [Test worker] TRACE c.c.blog.controller.AuthController   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - @@ trace - loginRequest : UserLoginRequest[username=test01, password=password123]
+25-11-27 09:44:33.871 [Test worker] DEBUG c.c.blog.controller.AuthController   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - @@ debug - loginRequest : UserLoginRequest[username=test01, password=password123]
+25-11-27 09:44:33.872 [Test worker] INFO  c.c.blog.controller.AuthController   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - @@ info - loginRequest : UserLoginRequest[username=test01, password=password123]
+25-11-27 09:44:33.872 [Test worker] WARN  c.c.blog.controller.AuthController   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - @@ warn - loginRequest : UserLoginRequest[username=test01, password=password123]
+25-11-27 09:44:33.872 [Test worker] ERROR c.c.blog.controller.AuthController   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - @@ error - username : test01, pw : password123
+25-11-27 09:44:33.893 [Test worker] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+25-11-27 09:44:33.894 [Test worker] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Writing [com.codeit.blog.dto.base.ApiResult@650fb50f]
+25-11-27 09:44:33.903 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerAdapter [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Applying default cacheSeconds=-1
+25-11-27 09:44:33.903 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-de599f84 | POST | /api/v1/auth/login] - Request finished
+25-11-27 09:44:33.937 [Test worker] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping [ |  | ] - Mapped to com.codeit.blog.controller.AuthController#login(UserLoginRequest)
+25-11-27 09:44:33.939 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Request started
+25-11-27 09:44:33.940 [Test worker] TRACE o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Read "application/json" to [UserLoginRequest[username=, password=]]
+25-11-27 09:44:33.965 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Using @ExceptionHandler com.codeit.blog.exception.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException)
+25-11-27 09:44:33.967 [Test worker] TRACE o.s.web.method.HandlerMethod         [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Arguments: [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.codeit.blog.dto.base.ApiResult<com.codeit.blog.dto.user.UserResponse>> com.codeit.blog.controller.AuthController.login(com.codeit.blog.dto.user.UserLoginRequest) with 2 errors: [Field error in object 'userLoginRequest' on field 'password': rejected value []; codes [NotBlank.userLoginRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userLoginRequest.password,password]; arguments []; default message [password]]; default message [비밀번호는 필수입니다]] [Field error in object 'userLoginRequest' on field 'username': rejected value []; codes [NotBlank.userLoginRequest.username,NotBlank.username,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userLoginRequest.username,username]; arguments []; default message [username]]; default message [사용자 이름은 필수입니다]] ]
+25-11-27 09:44:33.971 [Test worker] ERROR c.c.b.e.GlobalExceptionHandler       [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - 요청 유효성 검사 실패: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.codeit.blog.dto.base.ApiResult<com.codeit.blog.dto.user.UserResponse>> com.codeit.blog.controller.AuthController.login(com.codeit.blog.dto.user.UserLoginRequest) with 2 errors: [Field error in object 'userLoginRequest' on field 'password': rejected value []; codes [NotBlank.userLoginRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userLoginRequest.password,password]; arguments []; default message [password]]; default message [비밀번호는 필수입니다]] [Field error in object 'userLoginRequest' on field 'username': rejected value []; codes [NotBlank.userLoginRequest.username,NotBlank.username,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userLoginRequest.username,username]; arguments []; default message [username]]; default message [사용자 이름은 필수입니다]] 
+25-11-27 09:44:33.974 [Test worker] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+25-11-27 09:44:33.975 [Test worker] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Writing [com.codeit.blog.exception.ErrorResponse@79360eff]
+25-11-27 09:44:33.980 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.codeit.blog.dto.base.ApiResult<com.codeit.blog.dto.user.UserResponse>> com.codeit.blog.controller.AuthController.login(com.codeit.blog.dto.user.UserLoginRequest) with 2 errors: [Field error in object 'userLoginRequest' on field 'password': rejected value []; codes [NotBlank.userLoginRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userLoginRequest.password,password]; arguments []; default message [password]]; default message [비밀번호는 필수입니다]] [Field error in object 'userLoginRequest' on field 'username': rejected value []; codes [NotBlank.userLoginRequest.username,NotBlank.username,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userLoginRequest.username,username]; arguments []; default message [username]]; default message [사용자 이름은 필수입니다]] ]
+25-11-27 09:44:33.981 [Test worker] DEBUG c.c.b.config.MDCLoggingInterceptor   [127.0.0.1-e9c6f0b6 | POST | /api/v1/auth/login] - Request finished
+25-11-27 09:44:34.037 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils [ |  | ] - Could not detect default configuration classes for test class [com.codeit.blog.repository.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+25-11-27 09:44:34.111 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper [ |  | ] - Found @SpringBootConfiguration com.codeit.blog.Application for test class com.codeit.blog.repository.UserRepositoryTest
+25-11-27 09:44:34.245 [Test worker] INFO  c.c.b.repository.UserRepositoryTest  [ |  | ] - Starting UserRepositoryTest v1.0.0 using Java 17.0.15 with PID 76056 (started by namsoo in /Users/namsoo/work_dir_codeit/java_practice/22_spring_tdd)
+25-11-27 09:44:34.246 [Test worker] DEBUG c.c.b.repository.UserRepositoryTest  [ |  | ] - Running with Spring Boot v3.5.5, Spring v6.2.10
+25-11-27 09:44:34.247 [Test worker] INFO  c.c.b.repository.UserRepositoryTest  [ |  | ] - The following 1 profile is active: "test"
+25-11-27 09:44:34.621 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+25-11-27 09:44:34.667 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [ |  | ] - Finished Spring Data repository scanning in 40 ms. Found 1 JPA repository interface.
+25-11-27 09:44:34.720 [Test worker] INFO  o.s.b.t.a.j.TestDatabaseAutoConfiguration$EmbeddedDataSourceBeanFactoryPostProcessor [ |  | ] - Replacing 'dataSource' DataSource bean with embedded version
+25-11-27 09:44:34.780 [Test worker] INFO  o.s.j.d.e.EmbeddedDatabaseFactory    [ |  | ] - Starting embedded database: url='jdbc:h2:mem:10f647e6-a6a4-4523-ba86-35bf6e9e39b7;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+25-11-27 09:44:34.870 [Test worker] INFO  o.h.jpa.internal.util.LogHelper      [ |  | ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+25-11-27 09:44:34.882 [Test worker] INFO  o.h.c.i.RegionFactoryInitiator       [ |  | ] - HHH000026: Second-level cache disabled
+25-11-27 09:44:34.915 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo  [ |  | ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+25-11-27 09:44:34.919 [Test worker] WARN  org.hibernate.dialect.Dialect        [ |  | ] - HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+25-11-27 09:44:34.920 [Test worker] WARN  org.hibernate.orm.deprecation        [ |  | ] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+25-11-27 09:44:34.923 [Test worker] INFO  o.hibernate.orm.connections.pooling  [ |  | ] - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory$EmbeddedDataSourceProxy@5ce76938']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+25-11-27 09:44:34.926 [Test worker] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(2003, org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@56653a4d) replaced previous registration(org.hibernate.type.descriptor.sql.internal.ArrayDdlTypeImpl@72c743f4)
+25-11-27 09:44:34.927 [Test worker] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry      [ |  | ] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@53b52f30) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@1b250e51)
+25-11-27 09:44:35.041 [Test worker] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator   [ |  | ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+25-11-27 09:44:35.045 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+25-11-27 09:44:35.178 [Test worker] INFO  c.c.b.repository.UserRepositoryTest  [ |  | ] - Started UserRepositoryTest in 1.06 seconds (process running for 29.534)
+25-11-27 09:44:35.328 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* [34minsert[0m [34mfor[0m
+        com.codeit.blog.entity.[34mUser[0m */[34minsert[0m 
+    [34minto[0m
+        users (birthday, created_at, email, has_avatar, nickname, password, updated_at, username) 
+    [34mvalues[0m
+        (?, ?, ?, ?, ?, ?, ?, ?)
+25-11-27 09:44:35.334 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:DATE) <- [1990-01-01]
+25-11-27 09:44:35.337 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.272442Z]
+25-11-27 09:44:35.338 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (3:VARCHAR) <- [codeit@gmail.com]
+25-11-27 09:44:35.339 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (4:BOOLEAN) <- [false]
+25-11-27 09:44:35.339 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (5:VARCHAR) <- [스프링 마스터]
+25-11-27 09:44:35.339 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (6:VARCHAR) <- [password123]
+25-11-27 09:44:35.340 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (7:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.272442Z]
+25-11-27 09:44:35.340 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (8:VARCHAR) <- [codeit]
+25-11-27 09:44:35.566 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id,
+        u1_0.birthday,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.has_avatar,
+        u1_0.nickname,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.username=?
+25-11-27 09:44:35.569 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit]
+25-11-27 09:44:35.704 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id,
+        u1_0.birthday,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.has_avatar,
+        u1_0.nickname,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.username=?
+25-11-27 09:44:35.705 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [no_user]
+25-11-27 09:44:35.727 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* [34minsert[0m [34mfor[0m
+        com.codeit.blog.entity.[34mUser[0m */[34minsert[0m 
+    [34minto[0m
+        users (birthday, created_at, email, has_avatar, nickname, password, updated_at, username) 
+    [34mvalues[0m
+        (?, ?, ?, ?, ?, ?, ?, ?)
+25-11-27 09:44:35.729 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:DATE) <- [1990-01-01]
+25-11-27 09:44:35.730 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.726336Z]
+25-11-27 09:44:35.730 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (3:VARCHAR) <- [codeit3@gmail.com]
+25-11-27 09:44:35.731 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (4:BOOLEAN) <- [false]
+25-11-27 09:44:35.731 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (5:VARCHAR) <- [스프링 마스터]
+25-11-27 09:44:35.731 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (6:VARCHAR) <- [password123]
+25-11-27 09:44:35.731 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (7:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.726336Z]
+25-11-27 09:44:35.732 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (8:VARCHAR) <- [codeit3]
+25-11-27 09:44:35.740 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id,
+        u1_0.birthday,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.has_avatar,
+        u1_0.nickname,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.username=?
+25-11-27 09:44:35.742 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit3]
+25-11-27 09:44:35.749 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.username=? 
+    [34mfetch[0m
+        first ? [34mrows[0m [34monly[0m
+25-11-27 09:44:35.751 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit3]
+25-11-27 09:44:35.751 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:INTEGER) <- [1]
+25-11-27 09:44:35.761 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.email=? 
+    [34mfetch[0m
+        first ? [34mrows[0m [34monly[0m
+25-11-27 09:44:35.763 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit3@gmail.com]
+25-11-27 09:44:35.763 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:INTEGER) <- [1]
+25-11-27 09:44:35.781 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* [34minsert[0m [34mfor[0m
+        com.codeit.blog.entity.[34mUser[0m */[34minsert[0m 
+    [34minto[0m
+        users (birthday, created_at, email, has_avatar, nickname, password, updated_at, username) 
+    [34mvalues[0m
+        (?, ?, ?, ?, ?, ?, ?, ?)
+25-11-27 09:44:35.782 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:DATE) <- [1990-01-01]
+25-11-27 09:44:35.783 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.780718Z]
+25-11-27 09:44:35.783 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (3:VARCHAR) <- [codeit2@gmail.com]
+25-11-27 09:44:35.783 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (4:BOOLEAN) <- [false]
+25-11-27 09:44:35.784 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (5:VARCHAR) <- [스프링 마스터]
+25-11-27 09:44:35.784 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (6:VARCHAR) <- [password123]
+25-11-27 09:44:35.784 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (7:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.780718Z]
+25-11-27 09:44:35.785 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (8:VARCHAR) <- [codeit2]
+25-11-27 09:44:35.795 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id,
+        u1_0.birthday,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.has_avatar,
+        u1_0.nickname,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.email=?
+25-11-27 09:44:35.796 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit2@gmail.com]
+25-11-27 09:44:35.815 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* [34minsert[0m [34mfor[0m
+        com.codeit.blog.entity.[34mUser[0m */[34minsert[0m 
+    [34minto[0m
+        users (birthday, created_at, email, has_avatar, nickname, password, updated_at, username) 
+    [34mvalues[0m
+        (?, ?, ?, ?, ?, ?, ?, ?)
+25-11-27 09:44:35.816 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:DATE) <- [1990-01-01]
+25-11-27 09:44:35.817 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.813849Z]
+25-11-27 09:44:35.818 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (3:VARCHAR) <- [codeit4@example.com]
+25-11-27 09:44:35.819 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (4:BOOLEAN) <- [false]
+25-11-27 09:44:35.820 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (5:VARCHAR) <- [스프링 마스터]
+25-11-27 09:44:35.821 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (6:VARCHAR) <- [password123]
+25-11-27 09:44:35.823 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (7:TIMESTAMP_UTC) <- [2025-11-27T00:44:35.813849Z]
+25-11-27 09:44:35.823 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (8:VARCHAR) <- [codeit4]
+25-11-27 09:44:35.829 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.email=? 
+    [34mfetch[0m
+        first ? [34mrows[0m [34monly[0m
+25-11-27 09:44:35.830 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [codeit4@example.com]
+25-11-27 09:44:35.831 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:INTEGER) <- [1]
+25-11-27 09:44:35.834 [Test worker] DEBUG org.hibernate.SQL                    [ |  | ] - 
+    /* <criteria> */ [34mselect[0m
+        u1_0.id 
+    [34mfrom[0m
+        users u1_0 
+    [34mwhere[0m
+        u1_0.email=? 
+    [34mfetch[0m
+        first ? [34mrows[0m [34monly[0m
+25-11-27 09:44:35.835 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (1:VARCHAR) <- [none@example.com]
+25-11-27 09:44:35.838 [Test worker] TRACE org.hibernate.orm.jdbc.bind          [ |  | ] - binding parameter (2:INTEGER) <- [1]
+25-11-27 09:44:36.198 [Test worker] DEBUG com.codeit.blog.service.UserService  [ |  | ] - 사용자 생성 시작 : request=UserCreateRequest[username=test01, password=1234, email=test01@gmail.com, nickname=스프링마스터, birthday=1990-01-01]
+25-11-27 09:44:36.206 [Test worker] DEBUG com.codeit.blog.service.UserService  [ |  | ] - 사용자 생성 완료 : request=UserCreateRequest[username=test01, password=1234, email=test01@gmail.com, nickname=스프링마스터, birthday=1990-01-01]
+25-11-27 09:44:36.240 [Test worker] DEBUG com.codeit.blog.service.UserService  [ |  | ] - 사용자 생성 시작 : request=UserCreateRequest[username=test01, password=1234, email=test01@gmail.com, nickname=스프링마스터, birthday=1990-01-01]
+25-11-27 09:44:36.244 [Test worker] DEBUG com.codeit.blog.service.UserService  [ |  | ] - 사용자 생성 완료 : request=UserCreateRequest[username=test01, password=1234, email=test01@gmail.com, nickname=스프링마스터, birthday=1990-01-01]
+25-11-27 09:44:36.299 [SpringApplicationShutdownHook] DEBUG o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Closing org.springframework.web.context.support.GenericWebApplicationContext@3727f0ee, started on Thu Nov 27 09:44:08 KST 2025
+25-11-27 09:44:36.311 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+25-11-27 09:44:36.314 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown initiated...
+25-11-27 09:44:36.321 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource   [ |  | ] - HikariPool-1 - Shutdown completed.
+25-11-27 09:44:36.325 [SpringApplicationShutdownHook] DEBUG o.s.w.c.s.GenericWebApplicationContext [ |  | ] - Closing org.springframework.web.context.support.GenericWebApplicationContext@13b6f82d, started on Thu Nov 27 09:44:32 KST 2025
+25-11-27 09:44:36.329 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [ |  | ] - Closing JPA EntityManagerFactory for persistence unit 'default'
