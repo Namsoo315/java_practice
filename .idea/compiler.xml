@@ -5,9 +5,8 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
         </processorPath>
-        <module name="mongo.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +25,24 @@
       <module name="21_spring_actuator.blog" target="17" />
       <module name="21_spring_actuator.blog.main" target="17" />
       <module name="21_spring_actuator.blog.test" target="17" />
+      <module name="admin" target="17" />
+      <module name="admin.main" target="17" />
+      <module name="admin.test" target="17" />
+      <module name="aws" target="17" />
+      <module name="aws.main" target="17" />
+      <module name="aws.test" target="17" />
+      <module name="batch" target="17" />
+      <module name="batch.main" target="17" />
+      <module name="batch.test" target="17" />
+      <module name="blog" target="17" />
+      <module name="blog.main" target="17" />
+      <module name="blog.test" target="17" />
+      <module name="com.codeit.batch" target="17" />
+      <module name="com.codeit.batch.main" target="17" />
+      <module name="com.codeit.batch.test" target="17" />
+      <module name="com.codeit.blog" target="17" />
+      <module name="com.codeit.blog.main" target="17" />
+      <module name="com.codeit.blog.test" target="17" />
       <module name="com.codeit.data" target="17" />
       <module name="com.codeit.data.main" target="17" />
       <module name="com.codeit.data.main~1" target="17" />
@@ -33,9 +50,22 @@
       <module name="com.codeit.data.test" target="17" />
       <module name="com.codeit.data.test~1" target="17" />
       <module name="com.codeit.data.test~2" target="17" />
+      <module name="com.data.mongo.mongo.main" target="17" />
+      <module name="com.data.mongo.mongo.test" target="17" />
       <module name="data" target="17" />
       <module name="data.main" target="17" />
       <module name="data.test" target="17" />
+      <module name="jwt_advanced" target="17" />
+      <module name="jwt_advanced.main" target="17" />
+      <module name="jwt_advanced.test" target="17" />
+      <module name="jwt_basic" target="17" />
+      <module name="jwt_basic.main" target="17" />
+      <module name="jwt_basic.test" target="17" />
+      <module name="mongo" target="17" />
+      <module name="mongo.main" target="17" />
+      <module name="mongo.main~1" target="17" />
+      <module name="mongo.test" target="17" />
+      <module name="mongo.test~1" target="17" />
       <module name="Practice_06_Object.main" target="17" />
       <module name="Practice_06_Object.test" target="17" />
       <module name="template" target="17" />
@@ -113,7 +143,9 @@
       <module name="jwt_basic.test" options="-parameters" />
       <module name="mongo" options="-parameters" />
       <module name="mongo.main" options="-parameters" />
+      <module name="mongo.main~1" options="-parameters" />
       <module name="mongo.test" options="-parameters" />
+      <module name="mongo.test~1" options="-parameters" />
       <module name="mvc" options="-parameters" />
       <module name="mvc.main" options="-parameters" />
       <module name="mvc.test" options="-parameters" />

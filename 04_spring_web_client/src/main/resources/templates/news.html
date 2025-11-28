@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 뉴스 검색 - WebClient 데모</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 8px; }
+        a { text-decoration: none; color: #0074d9; }
+        a:hover { text-decoration: underline; }
+        fieldset { margin-top: 15px; margin-bottom: 20px; }
+        label { display: inline-block; width: 80px; }
+        input, select { padding: 3px; margin: 2px 0; }
+        button { padding: 4px 10px; margin-top: 5px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 6px; font-size: 13px; }
+        th { background-color: #f0f0f0; }
+        #result-info { font-size: 12px; color: #555; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<h1>네이버 뉴스 검색</h1>
+<p><a th:href="@{/}">← 홈으로</a></p>
+
+<fieldset>
+    <legend>검색 조건</legend>
+
+    <form id="news-form">
+        <div>
+            <label for="query">검색어</label>
+            <input type="text" id="query" name="query" value="주식" required>
+        </div>
+        <div>
+            <label for="display">개수</label>
+            <input type="number" id="display" name="display" value="10" min="1" max="100">
+        </div>
+        <div>
+            <label for="start">시작위치</label>
+            <input type="number" id="start" name="start" value="1" min="1" max="1000">
+        </div>
+        <div>
+            <label for="sort">정렬</label>
+            <select id="sort" name="sort">
+                <option value="sim">정확도순(sim)</option>
+                <option value="date">날짜순(date)</option>
+            </select>
+        </div>
+        <button type="submit">검색</button>
+    </form>
+</fieldset>
+
+<div id="result-info"></div>
+
+<table id="news-table" style="display:none;">
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>요약</th>
+        <th>게시일</th>
+        <th>원문</th>
+    </tr>
+    </thead>
+    <tbody id="news-tbody"></tbody>
+</table>
+
+<pre id="error-box" style="display:none; background:#f8f8f8; padding:8px;"></pre>
+
+<script>
+    const newsForm = document.getElementById('news-form');
+    const newsTable = document.getElementById('news-table');
+    const newsTbody = document.getElementById('news-tbody');
+    const resultInfo = document.getElementById('result-info');
+    const errorBox = document.getElementById('error-box');
+
+    newsForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const query = document.getElementById('query').value;
+        const display = document.getElementById('display').value;
+        const start = document.getElementById('start').value;
+        const sort = document.getElementById('sort').value;
+
+        axios.get('/api/news/search', {
+            params: { query, display, start, sort }
+        }).then(function (res) {
+            errorBox.style.display = 'none';
+            const data = res.data;
+
+            resultInfo.textContent =
+                `총 ${data.total}건 중 ${data.start}~${data.start + data.display - 1}건 표시` +
+                (data.fromFallback ? " (fallback 응답)" : "");
+
+            newsTbody.innerHTML = "";
+
+            if (data.articles && data.articles.length > 0) {
+                data.articles.forEach(function (article) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><a href="${article.link}" target="_blank">${article.title}</a></td>
+                        <td>${article.summary}</td>
+                        <td>${article.publishedAt}</td>
+                        <td><a href="${article.originLink}" target="_blank">원문</a></td>
+                    `;
+                    newsTbody.appendChild(tr);
+                });
+                newsTable.style.display = 'table';
+            } else {
+                newsTable.style.display = 'none';
+            }
+        }).catch(function (err) {
+            newsTable.style.display = 'none';
+            resultInfo.textContent = "";
+            errorBox.style.display = 'block';
+
+            if (err.response) {
+                errorBox.textContent =
+                    "요청 실패\n" +
+                    "status: " + err.response.status + "\n" +
+                    JSON.stringify(err.response.data, null, 2);
+            } else {
+                errorBox.textContent = "요청 실패: " + err.message;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

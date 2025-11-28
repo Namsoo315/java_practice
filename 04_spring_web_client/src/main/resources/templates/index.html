@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WebClient 데모 - 홈</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 10px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 8px 0; }
+        a { text-decoration: none; color: #0074d9; }
+        a:hover { text-decoration: underline; }
+        .desc { font-size: 13px; color: #555; }
+    </style>
+</head>
+<body>
+
+<h1>WebClient 데모 홈</h1>
+<p class="desc">Spring WebClient + Resilience4j + Retry 데모 화면</p>
+
+<ul>
+    <li>
+        <a th:href="@{/news}">네이버 뉴스 검색 데모</a><br>
+    </li>
+    <li>
+        <a th:href="@{/shop}">쇼핑 검색 데모 </a><br>
+    </li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: webclient-demo
+
+naver:
+  api:
+    base-url: https://openapi.naver.com/v1/search
+    client-id: SzCyjXmmI5dZ5paEbiK_
+    client-secret: nC8wZVOS01
+
+# Resilience4j 설정
+resilience4j:
+  retry:
+    instances:
+      naver:
+        max-attempts: 3        # 최대 3번 요청
+        wait-duration: 500ms   # 0.5초 간격
+        retry-exceptions:
+          - java.io.IOException
+          - org.springframework.web.reactive.function.client.WebClientRequestException
+
+  circuitbreaker:
+    instances:
+      naver:
+        sliding-window-type: count_based
+        sliding-window-size: 10            # 최근 10건 기준
+        minimum-number-of-calls: 5         # 통계 최소 호출 수
+        failure-rate-threshold: 50         # 실패율 50% 이상이면 OPEN
+        wait-duration-in-open-state: 10s   # 10초 동안 OPEN 유지
+        permitted-number-of-calls-in-half-open-state: 3
+        event-consumer-buffer-size: 100
+
+logging:
+  level:
+    io.github.resilience4j: DEBUG

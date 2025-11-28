@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 쇼핑 검색 - WebClient 데모</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 8px; }
+        a { text-decoration: none; color: #0074d9; }
+        a:hover { text-decoration: underline; }
+        fieldset { margin-top: 15px; margin-bottom: 20px; }
+        label { display: inline-block; width: 90px; }
+        input, select { padding: 3px; margin: 2px 0; }
+        button { padding: 4px 10px; margin-top: 5px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 6px; font-size: 13px; vertical-align: middle; }
+        th { background-color: #f0f0f0; }
+        #result-info { font-size: 12px; color: #555; margin-top: 5px; }
+        img.thumb { max-width: 80px; max-height: 80px; object-fit: contain; }
+    </style>
+</head>
+<body>
+
+<h1>네이버 쇼핑 검색</h1>
+<p>
+    <a th:href="@{/}">← 홈으로</a>
+    &nbsp;|&nbsp;
+    <a th:href="@{/news}">뉴스 검색으로</a>
+</p>
+
+<fieldset>
+    <legend>검색 조건</legend>
+
+    <form id="shop-form">
+        <div>
+            <label for="query">검색어</label>
+            <input type="text" id="query" name="query" value="가방" required>
+        </div>
+        <div>
+            <label for="display">개수</label>
+            <input type="number" id="display" name="display" value="10" min="1" max="100">
+        </div>
+        <div>
+            <label for="start">시작위치</label>
+            <input type="number" id="start" name="start" value="1" min="1" max="1000">
+        </div>
+        <div>
+            <label for="sort">정렬</label>
+            <select id="sort" name="sort">
+                <option value="sim">정확도순(sim)</option>
+                <option value="date">날짜순(date)</option>
+                <option value="asc">낮은가격순(asc)</option>
+                <option value="dsc">높은가격순(dsc)</option>
+            </select>
+        </div>
+        <div>
+            <label for="filter">상품유형</label>
+            <select id="filter" name="filter">
+                <option value="">전체</option>
+                <option value="naverpay">네이버페이 연동</option>
+            </select>
+        </div>
+        <div>
+            <label for="exclude">제외유형</label>
+            <input type="text" id="exclude" name="exclude" placeholder="used:cbshop:rental 등">
+        </div>
+
+        <button type="submit">검색</button>
+    </form>
+</fieldset>
+
+<div id="result-info"></div>
+
+<table id="shop-table" style="display:none;">
+    <thead>
+    <tr>
+        <th>이미지</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>쇼핑몰</th>
+        <th>링크</th>
+    </tr>
+    </thead>
+    <tbody id="shop-tbody"></tbody>
+</table>
+
+<pre id="error-box" style="display:none; background:#f8f8f8; padding:8px;"></pre>
+
+<script>
+    const shopForm = document.getElementById('shop-form');
+    const shopTable = document.getElementById('shop-table');
+    const shopTbody = document.getElementById('shop-tbody');
+    const resultInfo = document.getElementById('result-info');
+    const errorBox = document.getElementById('error-box');
+
+    shopForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const query = document.getElementById('query').value;
+        const display = document.getElementById('display').value;
+        const start = document.getElementById('start').value;
+        const sort = document.getElementById('sort').value;
+        const filter = document.getElementById('filter').value;
+        const exclude = document.getElementById('exclude').value;
+
+        axios.get('/api/shop/search', {
+            params: { query, display, start, sort, filter, exclude }
+        }).then(function (res) {
+            errorBox.style.display = 'none';
+            const data = res.data;
+
+            resultInfo.textContent =
+                `총 ${data.total}건 중 ${data.start}~${data.start + data.display - 1}건 표시` +
+                (data.fallback ? " (fallback 응답)" : "");
+
+            shopTbody.innerHTML = "";
+
+            if (data.items && data.items.length > 0) {
+                data.items.forEach(function (item) {
+                    const tr = document.createElement('tr');
+
+                    const priceText =
+                        item.highPrice && item.highPrice > 0
+                            ? `${item.lowPrice.toLocaleString()}원 ~ ${item.highPrice.toLocaleString()}원`
+                            : `${item.lowPrice.toLocaleString()}원`;
+
+                    tr.innerHTML = `
+                        <td>
+                            ${item.image ? `<img class="thumb" src="${item.image}" alt="thumb">` : ''}
+                        </td>
+                        <td>${item.title}</td>
+                        <td>${priceText}</td>
+                        <td>${item.mallName || ''}</td>
+                        <td><a href="${item.link}" target="_blank">바로가기</a></td>
+                    `;
+                    shopTbody.appendChild(tr);
+                });
+                shopTable.style.display = 'table';
+            } else {
+                shopTable.style.display = 'none';
+            }
+        }).catch(function (err) {
+            shopTable.style.display = 'none';
+            resultInfo.textContent = "";
+            errorBox.style.display = 'block';
+
+            if (err.response) {
+                errorBox.textContent =
+                    "요청 실패\n" +
+                    "status: " + err.response.status + "\n" +
+                    JSON.stringify(err.response.data, null, 2);
+            } else {
+                errorBox.textContent = "요청 실패: " + err.message;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

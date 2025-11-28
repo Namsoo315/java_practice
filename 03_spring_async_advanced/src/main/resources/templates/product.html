@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 영역 - 조회 / 등록</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        fieldset { margin-bottom: 20px; }
+        label { display: block; margin-top: 5px; }
+        input, textarea { width: 300px; padding: 4px; }
+        textarea { height: 60px; }
+        button { margin-top: 10px; padding: 6px 12px; }
+        pre { background: #f5f5f5; padding: 10px; white-space: pre-wrap; }
+        a { text-decoration: none; color: #0074d9; }
+    </style>
+</head>
+<body>
+<h1>상품 영역</h1>
+<p><a th:href="@{/}">← 메인으로</a></p>
+
+<!-- 상품 목록 조회 -->
+<fieldset>
+    <legend>상품 목록 조회 (GET /api/products)</legend>
+    <button type="button" onclick="loadProducts()">상품 목록 불러오기</button>
+
+    <h4>응답</h4>
+    <pre id="products-result"></pre>
+</fieldset>
+
+<!-- 상품 등록 (파일 포함) -->
+<fieldset>
+    <legend>상품 등록 (POST /api/products, multipart/form-data)</legend>
+
+    <label>
+        이름:
+        <input type="text" id="product-name" value="테스트 상품">
+    </label>
+    <label>
+        설명:
+        <textarea id="product-description">설명입니다.</textarea>
+    </label>
+    <label>
+        가격:
+        <input type="number" id="product-price" value="100000">
+    </label>
+    <label>
+        재고 수량:
+        <input type="number" id="product-quantity" value="5">
+    </label>
+    <label>
+        파일 업로드:
+        <input type="file" id="product-files" multiple>
+    </label>
+
+    <button type="button" onclick="createProduct()">상품 등록 요청</button>
+
+    <h4>등록 응답</h4>
+    <pre id="product-create-result"></pre>
+
+    <h4>비동기 작업(Task) 상태</h4>
+    <div>
+        Task ID:
+        <span id="task-id"></span>
+    </div>
+    <button type="button" onclick="startTaskPolling()">Task 상태 수동 조회 시작</button>
+    <button type="button" onclick="stopTaskPolling()">Task 상태 조회 중지</button>
+    <pre id="task-status-result"></pre>
+</fieldset>
+
+<script>
+    let taskPollIntervalId = null;
+
+    function loadProducts() {
+        axios.get('/api/products')
+            .then(res => {
+                document.getElementById('products-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('products-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function createProduct() {
+        const name = document.getElementById('product-name').value;
+        const description = document.getElementById('product-description').value;
+        const price = document.getElementById('product-price').value;
+        const quantity = document.getElementById('product-quantity').value;
+        const filesInput = document.getElementById('product-files');
+
+        const product = {
+            name: name,
+            description: description,
+            price: price,
+            quantity: quantity
+        };
+
+        const formData = new FormData();
+
+        // 1) files → @RequestParam("files") 로 매핑됨
+        if (filesInput.files.length > 0) {
+            for (let i = 0; i < filesInput.files.length; i++) {
+                formData.append("files", filesInput.files[i]);
+            }
+        }
+
+        // 2) JSON Blob → @RequestPart("product") 로 매핑됨
+        formData.append(
+            "product",
+            new Blob([JSON.stringify(product)], { type: "application/json" })
+        );
+
+        axios.post('/api/products', formData, {
+            headers: {
+                // axios가 boundary 자동 설정 → 여기서 Content-Type 지정하지 않는 것을 추천
+                // 'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => {
+            document.getElementById('product-create-result').textContent =
+                JSON.stringify(res.data, null, 2);
+
+            const taskId = res.data.taskId;
+            if (taskId) {
+                document.getElementById('task-id').textContent = taskId;
+                startTaskPolling();
+            } else {
+                document.getElementById('task-id').textContent = '(Task 없음)';
+            }
+        }).catch(err => {
+            document.getElementById('product-create-result').textContent =
+                err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+        });
+    }
+
+    function startTaskPolling() {
+        const taskId = document.getElementById('task-id').textContent;
+        if (!taskId || taskId === '(Task 없음)') {
+            document.getElementById('task-status-result').textContent =
+                'Task ID가 없습니다.';
+            return;
+        }
+
+        if (taskPollIntervalId !== null) {
+            // 이미 폴링 중이면 재시작하지 않음
+            return;
+        }
+
+        taskPollIntervalId = setInterval(() => {
+            axios.get('/api/tasks/' + taskId)
+                .then(res => {
+                    document.getElementById('task-status-result').textContent =
+                        JSON.stringify(res.data, null, 2);
+
+                    const status = res.data.status;
+                    if (status === 'COMPLETED' || status === 'FAILED') {
+                        stopTaskPolling();
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('task-status-result').textContent =
+                        err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+                    stopTaskPolling();
+                });
+        }, 2000);
+    }
+
+    function stopTaskPolling() {
+        if (taskPollIntervalId !== null) {
+            clearInterval(taskPollIntervalId);
+            taskPollIntervalId = null;
+        }
+    }
+</script>
+
+</body>
+</html>
