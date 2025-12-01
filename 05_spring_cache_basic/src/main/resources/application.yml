@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true            # ??? SQL ??
+    properties:
+      hibernate:
+        format_sql: true      # SQL ???
+        highlight_sql: true   # SQL ????? (??? ??)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    org.hibernate.SQL: debug              # ???? SQL
+    org.hibernate.orm.jdbc.bind: trace    # ??? ????
+    com.codeit.cache: debug               # ?????? ??
+    org.springframework.cache: DEBUG
+    org.springframework.cache.interceptor: TRACE   # 캐시 Interceptor 상세
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  metrics:
+    tags:
+      application: cache-demo
+    enable:
+      cache: true     # ?? ?? ??? ???
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Cache 데모 메인</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 16px; }
+        h1, h2 { margin-top: 16px; margin-bottom: 8px; }
+        .section { border: 1px solid #ddd; padding: 12px; margin-bottom: 16px; }
+        .row { margin-bottom: 8px; }
+        a { margin-right: 8px; }
+        .small { font-size: 12px; color: #555; }
+    </style>
+</head>
+<body>
+
+<h1>Spring Cache + Caffeine 데모</h1>
+
+<div class="section">
+    <h2>데모 화면 이동</h2>
+    <div class="row">
+        <a th:href="@{/users}">사용자 캐시 데모 (User)</a>
+    </div>
+    <div class="row">
+        <a th:href="@{/posts}">게시글 캐시 데모 (Post)</a>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Actuator / Prometheus 모니터링 엔드포인트</h2>
+    <p class="small">
+        캐시 적중률과 제거, 크기 등을 메트릭으로 확인할 수 있다.
+    </p>
+    <div class="row">
+        <a href="/actuator/health" target="_blank">/actuator/health</a>
+        <span class="small">애플리케이션 상태</span>
+    </div>
+    <div class="row">
+        <a href="/actuator/metrics" target="_blank">/actuator/metrics</a>
+        <span class="small">전체 메트릭 목록</span>
+    </div>
+    <div class="row">
+        <a href="/actuator/metrics/cache.gets" target="_blank">/actuator/metrics/cache.gets</a>
+        <span class="small">캐시 조회 메트릭</span>
+    </div>
+    <div class="row">
+        <a href="/actuator/metrics/cache.puts" target="_blank">/actuator/metrics/cache.puts</a>
+        <span class="small">캐시 저장 메트릭</span>
+    </div>
+    <div class="row">
+        <a href="/actuator/metrics/cache.evictions" target="_blank">/actuator/metrics/cache.evictions</a>
+        <span class="small">캐시 제거/만료 메트릭</span>
+    </div>
+    <div class="row">
+        <a href="/actuator/prometheus" target="_blank">/actuator/prometheus</a>
+        <span class="small">Prometheus 스크랩 엔드포인트</span>
+    </div>
+</div>
+
+</body>
+</html>
