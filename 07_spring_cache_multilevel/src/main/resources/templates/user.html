@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User 캐시 데모</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 16px; }
+        h1, h2, h3 { margin-top: 16px; margin-bottom: 8px; }
+        .section { border: 1px solid #ddd; padding: 12px; margin-bottom: 16px; }
+        .row { margin-bottom: 8px; }
+        label { display: inline-block; width: 100px; }
+        input, button { margin: 2px 0; }
+        button { cursor: pointer; }
+        pre { width: 100%; min-height: 150px; font-family: Consolas, monospace; font-size: 12px; white-space: pre-wrap; }
+        .small { font-size: 12px; color: #555; }
+        a { margin-right: 8px; }
+    </style>
+</head>
+<body>
+
+<a th:href="@{/}">← 메인으로</a>
+
+<h1>User 캐시 데모</h1>
+
+<div class="section">
+    <h2>캐시 동작 설명</h2>
+    <p class="small">UserService 캐시 전략이다.</p>
+    <ul class="small">
+        <li>전체 조회: <code>@Cacheable(cacheNames = "users", key = "'all'")</code></li>
+        <li>단건 조회: <code>@Cacheable(cacheNames = "users", key = "#id")</code></li>
+        <li>수정: <code>@CachePut(key = "#id")</code> + <code>@CacheEvict(key = "'all'")</code></li>
+        <li>삭제: <code>@CacheEvict(key = "#id")</code> + <code>@CacheEvict(key = "'all'")</code></li>
+        <li>로그인(session): <code>@CachePut(cacheNames="session", key="#username")</code></li>
+        <li>로그아웃(session): <code>@CacheEvict(cacheNames="session", key="#username")</code></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>사용자 API 테스트</h2>
+
+    <h3>1) 사용자 생성</h3>
+    <p class="small">캐시: users('all') 제거</p>
+
+    <div class="row"><label>username</label><input type="text" id="userCreateUsername" value="user4"></div>
+    <div class="row"><label>email</label><input type="text" id="userCreateEmail" value="user4@example.com"></div>
+    <div class="row"><label>password</label><input type="text" id="userCreatePassword" value="1234"></div>
+    <div class="row"><button onclick="createUser()">사용자 생성</button></div>
+
+    <hr>
+
+    <h3>2) 단건 조회</h3>
+    <p class="small">캐시: users(id)</p>
+
+    <div class="row">
+        <label>userId</label><input type="number" id="userFindId" value="1">
+        <button onclick="findUser()">단건 조회</button>
+    </div>
+
+    <hr>
+
+    <h3>3) 전체 조회</h3>
+
+    <div class="row"><button onclick="findAllUsers()">전체 조회</button></div>
+
+    <hr>
+
+    <h3>4) 사용자 수정</h3>
+
+    <div class="row"><label>userId</label><input type="number" id="userUpdateId" value="1"></div>
+    <div class="row"><label>username</label><input type="text" id="userUpdateUsername" value="user1-updated"></div>
+    <div class="row"><label>email</label><input type="text" id="userUpdateEmail" value="user1-updated@example.com"></div>
+    <div class="row"><label>password</label><input type="text" id="userUpdatePassword" value="1234"></div>
+    <div class="row"><button onclick="updateUser()">사용자 수정</button></div>
+
+    <hr>
+
+    <h3>5) 사용자 삭제</h3>
+
+    <div class="row">
+        <label>userId</label><input type="number" id="userDeleteId" value="1">
+        <button onclick="deleteUser()">사용자 삭제</button>
+    </div>
+
+    <hr>
+
+    <h3>6) 로그인</h3>
+    <p class="small">캐시: session(username)에 로그인 사용자 저장</p>
+
+    <div class="row"><label>username</label><input type="text" id="loginUsername" value="user1"></div>
+    <div class="row"><label>password</label><input type="text" id="loginPassword" value="1234"></div>
+    <div class="row"><button onclick="loginUser()">로그인</button></div>
+
+    <hr>
+
+    <h3>7) 현재 사용자 조회</h3>
+    <p class="small"><code>/api/users/me</code> 호출, Security + Redis session 캐시 사용</p>
+    <div class="row"><button onclick="findMe()">현재 사용자 조회 (me)</button></div>
+
+    <hr>
+
+    <h3>8) 로그아웃</h3>
+    <p class="small">세션 무효화 + Redis session 캐시 제거</p>
+    <div class="row"><button onclick="logoutUser()">로그아웃</button></div>
+
+</div>
+
+<div class="section">
+    <h2>응답 결과</h2>
+    <pre id="userResult"></pre>
+</div>
+
+<script>
+    function setUserResult(data) {
+        document.getElementById('userResult').textContent = JSON.stringify(data, null, 2);
+    }
+    function handleUserError(error) {
+        if (error.response) setUserResult({ status: error.response.status, data: error.response.data });
+        else setUserResult({ message: error.message });
+    }
+
+    function createUser() {
+        axios.post('/api/users', {
+            username: userCreateUsername.value,
+            email: userCreateEmail.value,
+            password: userCreatePassword.value
+        }).then(res => setUserResult(res.data)).catch(handleUserError);
+    }
+
+    function findUser() {
+        axios.get('/api/users/' + userFindId.value)
+            .then(res => setUserResult(res.data))
+            .catch(handleUserError);
+    }
+
+    function findAllUsers() {
+        axios.get('/api/users')
+            .then(res => setUserResult(res.data))
+            .catch(handleUserError);
+    }
+
+    function updateUser() {
+        axios.put('/api/users/' + userUpdateId.value, {
+            username: userUpdateUsername.value,
+            email: userUpdateEmail.value,
+            password: userUpdatePassword.value
+        }).then(res => setUserResult(res.data)).catch(handleUserError);
+    }
+
+    function deleteUser() {
+        axios.delete('/api/users/' + userDeleteId.value)
+            .then(res => setUserResult({ message: '삭제 완료', status: res.status }))
+            .catch(handleUserError);
+    }
+
+    function loginUser() {
+        axios.post('/api/users/login', {
+            username: loginUsername.value,
+            password: loginPassword.value
+        }).then(res => setUserResult(res.data))
+            .catch(handleUserError);
+    }
+
+    function findMe() {
+        axios.get('/api/users/me')
+            .then(res => setUserResult(res.data))
+            .catch(handleUserError);
+    }
+
+    function logoutUser() {
+        axios.post('/api/users/logout')
+            .then(res => setUserResult({ message: '로그아웃 완료', status: res.status }))
+            .catch(handleUserError);
+    }
+</script>
+</body>
+</html>
