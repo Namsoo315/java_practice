@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Polling / Long Polling 데모 - 메인</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 10px; }
+        .section { margin-top: 20px; }
+        a { display: inline-block; margin: 4px 0; }
+        ul { padding-left: 20px; }
+    </style>
+</head>
+<body>
+<h1>Polling / Long Polling 데모</h1>
+
+<p>아래 링크를 통해 각 기능 페이지로 이동할 수 있다.</p>
+
+<div class="section">
+    <h2>인증 / 사용자</h2>
+    <ul>
+        <li><a th:href="@{/login-page}">로그인 / Me 테스트</a></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>채널 관리</h2>
+    <ul>
+        <li><a th:href="@{/channels-page}">채널 생성 / 삭제 / 가입 / 조회</a></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>채팅 데모</h2>
+    <ul>
+        <li><a th:href="@{/chat/channel/polling}">채널 채팅 - Polling</a></li>
+        <li><a th:href="@{/chat/channel/long-polling}">채널 채팅 - Long Polling</a></li>
+        <li><a th:href="@{/chat/dm/polling}">DM 채팅 - Polling</a></li>
+        <li><a th:href="@{/chat/dm/long-polling}">DM 채팅 - Long Polling</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -74,6 +74,7 @@
       <module name="transaction" target="17" />
       <module name="transaction.main" target="17" />
       <module name="transaction.test" target="17" />
+      <module name="web" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
