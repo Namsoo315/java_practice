@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채널 관리</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        fieldset { margin-bottom: 20px; }
+        label { display: block; margin-top: 5px; }
+        input, textarea { width: 300px; padding: 4px; }
+        textarea { height: 60px; }
+        button { margin-top: 10px; padding: 6px 12px; }
+        pre { background: #f5f5f5; padding: 10px; white-space: pre-wrap; }
+        a { text-decoration: none; color: #0074d9; }
+    </style>
+</head>
+<body>
+<h1>채널 관리</h1>
+<p><a th:href="@{/}">← 메인으로</a></p>
+
+<fieldset>
+    <legend>채널 생성 (POST /api/channels)</legend>
+
+    <label>
+        채널 이름:
+        <input type="text" id="channel-name" value="basic2">
+    </label>
+    <label>
+        설명:
+        <textarea id="channel-description">설명입니다.</textarea>
+    </label>
+    <label>
+        비공개 여부: <input type="checkbox" id="channel-private">
+    </label>
+
+    <button type="button" onclick="createChannel()">채널 생성</button>
+
+    <h4>응답</h4>
+    <pre id="channel-create-result"></pre>
+</fieldset>
+
+<fieldset>
+    <legend>채널 삭제 (DELETE /api/channels/{id})</legend>
+
+    <label>
+        채널 ID:
+        <input type="number" id="channel-delete-id" value="1">
+    </label>
+    <button type="button" onclick="deleteChannel()">채널 삭제</button>
+
+    <h4>응답</h4>
+    <pre id="channel-delete-result"></pre>
+</fieldset>
+
+<fieldset>
+    <legend>채널 가입 (POST /api/channels/{id}/join)</legend>
+
+    <label>
+        채널 ID:
+        <input type="number" id="channel-join-id" value="1">
+    </label>
+    <button type="button" onclick="joinChannel()">채널 가입</button>
+
+    <h4>응답</h4>
+    <pre id="channel-join-result"></pre>
+</fieldset>
+
+<fieldset>
+    <legend>전체 채널 목록 (GET /api/channels)</legend>
+    <button type="button" onclick="loadAllChannels()">전체 채널 조회</button>
+    <h4>응답</h4>
+    <pre id="channels-all-result"></pre>
+</fieldset>
+
+<fieldset>
+    <legend>내가 가입한 채널 목록 (GET /api/channels/my)</legend>
+    <button type="button" onclick="loadMyChannels()">내 채널 조회</button>
+    <h4>응답</h4>
+    <pre id="channels-my-result"></pre>
+</fieldset>
+
+<script>
+    axios.defaults.withCredentials = true;
+
+    function createChannel() {
+        const name = document.getElementById('channel-name').value;
+        const description = document.getElementById('channel-description').value;
+        const privateChannel = document.getElementById('channel-private').checked;
+
+        axios.post('/api/channels', {
+            name: name,
+            description: description,
+            privateChannel: privateChannel
+        }).then(res => {
+            document.getElementById('channel-create-result').textContent =
+                JSON.stringify(res.data, null, 2);
+        }).catch(err => {
+            document.getElementById('channel-create-result').textContent =
+                err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+        });
+    }
+
+    function deleteChannel() {
+        const id = document.getElementById('channel-delete-id').value;
+
+        axios.delete('/api/channels/' + id)
+            .then(res => {
+                document.getElementById('channel-delete-result').textContent =
+                    '삭제 요청이 완료되었습니다.';
+            })
+            .catch(err => {
+                document.getElementById('channel-delete-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function joinChannel() {
+        const id = document.getElementById('channel-join-id').value;
+
+        axios.post('/api/channels/' + id + '/join')
+            .then(res => {
+                document.getElementById('channel-join-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('channel-join-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function loadAllChannels() {
+        axios.get('/api/channels')
+            .then(res => {
+                document.getElementById('channels-all-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('channels-all-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function loadMyChannels() {
+        axios.get('/api/channels/my')
+            .then(res => {
+                document.getElementById('channels-my-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('channels-my-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+</script>
+
+</body>
+</html>

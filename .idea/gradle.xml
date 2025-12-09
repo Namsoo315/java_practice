@@ -9,6 +9,14 @@
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/01_java_async_basic" />
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/03_spring_network_sse" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/03_spring_network_sse" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
