@@ -70,7 +70,6 @@
       <module name="mongo.test~1" target="17" />
       <module name="Practice_06_Object.main" target="17" />
       <module name="Practice_06_Object.test" target="17" />
-      <module name="sse" target="17" />
       <module name="template" target="17" />
       <module name="template.main" target="17" />
       <module name="template.test" target="17" />
@@ -139,6 +138,9 @@
       <module name="file" options="-parameters" />
       <module name="file.main" options="-parameters" />
       <module name="file.test" options="-parameters" />
+      <module name="graphql" options="-parameters" />
+      <module name="graphql.main" options="-parameters" />
+      <module name="graphql.test" options="-parameters" />
       <module name="jwt_advanced" options="-parameters" />
       <module name="jwt_advanced.main" options="-parameters" />
       <module name="jwt_advanced.test" options="-parameters" />

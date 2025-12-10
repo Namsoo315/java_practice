@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>codeit GraphQL 테스트 페이지</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 16px;
+        }
+        h1, h2, h3 {
+            margin: 8px 0;
+        }
+        .section {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .row {
+            margin-bottom: 4px;
+        }
+        .label {
+            display: inline-block;
+            width: 140px;
+            font-size: 13px;
+        }
+        input[type="text"], input[type="number"], textarea {
+            box-sizing: border-box;
+            padding: 2px 4px;
+            font-size: 13px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 160px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 60px;
+        }
+        button {
+            margin-top: 4px;
+            padding: 4px 10px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        #result {
+            border: 1px solid #ddd;
+            padding: 8px;
+            white-space: pre-wrap;
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .small {
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>codeit GraphQL 테스트 페이지</h1>
+<p class="small">각 섹션에서 입력값을 넣고 "실행" 버튼을 누르면 /graphql 에 axios 요청을 보내고, 응답은 맨 아래 결과 영역에 출력된다.</p>
+
+<!-- ============================================
+     1. 사용자(User) 조회
+     ============================================ -->
+<div class="section">
+    <div class="section-title">1. 사용자(User) 조회</div>
+
+    <!-- 1-1) 사용자 단건 조회 -->
+    <h3>1-1) 사용자 단건 조회 (FindUser)</h3>
+    <div class="row">
+        <span class="label">user id</span>
+        <input id="userIdInput" type="number" value="1">
+    </div>
+    <button onclick="findUser()">실행 (FindUser)</button>
+
+    <hr>
+
+    <!-- 1-2) 사용자 목록 조회 -->
+    <h3>1-2) 사용자 목록 조회 (FindUsers)</h3>
+    <button onclick="findUsers()">실행 (FindUsers)</button>
+</div>
+
+<!-- ============================================
+     2. 게시글(Post) 조회 및 조작
+     ============================================ -->
+<div class="section">
+    <div class="section-title">2. 게시글(Post) 조회 및 조작</div>
+
+    <!-- 2-1) 게시글 단건 + 작성자 -->
+    <h3>2-1) 게시글 단건 + 작성자 (FindPostWithAuthor)</h3>
+    <div class="row">
+        <span class="label">post id</span>
+        <input id="postIdAuthorInput" type="number" value="1">
+    </div>
+    <button onclick="findPostWithAuthor()">실행 (FindPostWithAuthor)</button>
+
+    <hr>
+
+    <!-- 2-2) 게시글 단건 + 댓글 + 댓글 작성자 -->
+    <h3>2-2) 게시글 단건 + 댓글 + 댓글 작성자 (FindPostWithComments)</h3>
+    <div class="row">
+        <span class="label">post id</span>
+        <input id="postIdCommentsInput" type="number" value="1">
+    </div>
+    <button onclick="findPostWithComments()">실행 (FindPostWithComments)</button>
+
+    <hr>
+
+    <!-- 2-3) 게시글 페이징 -->
+    <h3>2-3) 게시글 페이징 (FindPostsPage)</h3>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="postsPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="postsSizeInput" type="number" value="10">
+    </div>
+    <button onclick="findPostsPage()">실행 (FindPostsPage)</button>
+
+    <hr>
+
+    <!-- 2-4) 게시글 검색(제목) -->
+    <h3>2-4) 게시글 검색(제목) (SearchPostsByTitle)</h3>
+    <div class="row">
+        <span class="label">keyword</span>
+        <input id="postTitleKeywordInput" type="text" value="스프링">
+    </div>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="searchPostsTitlePageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="searchPostsTitleSizeInput" type="number" value="10">
+    </div>
+    <button onclick="searchPostsByTitle()">실행 (SearchPostsByTitle)</button>
+
+    <hr>
+
+    <!-- 2-5) 게시글 검색(내용) -->
+    <h3>2-5) 게시글 검색(내용) (SearchPostsByContent)</h3>
+    <div class="row">
+        <span class="label">keyword</span>
+        <input id="postContentKeywordInput" type="text" value="스프링">
+    </div>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="searchPostsContentPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="searchPostsContentSizeInput" type="number" value="10">
+    </div>
+    <button onclick="searchPostsByContent()">실행 (SearchPostsByContent)</button>
+
+    <hr>
+
+    <!-- 2-6) 게시글 검색(제목 또는 내용) -->
+    <h3>2-6) 게시글 검색(제목 또는 내용) (SearchPostsByTitleOrContent)</h3>
+    <div class="row">
+        <span class="label">keyword</span>
+        <input id="postTitleOrContentKeywordInput" type="text" value="스프링">
+    </div>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="searchPostsTitleOrContentPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="searchPostsTitleOrContentSizeInput" type="number" value="10">
+    </div>
+    <button onclick="searchPostsByTitleOrContent()">실행 (SearchPostsByTitleOrContent)</button>
+
+    <hr>
+
+    <!-- 2-7) 게시글 검색(작성자 닉네임) -->
+    <h3>2-7) 게시글 검색(작성자 닉네임) (SearchPostsByAuthorNickName)</h3>
+    <div class="row">
+        <span class="label">nickName</span>
+        <input id="postAuthorNickNameInput" type="text" value="스프링입문러">
+    </div>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="searchPostsAuthorPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="searchPostsAuthorSizeInput" type="number" value="10">
+    </div>
+    <button onclick="searchPostsByAuthorNickName()">실행 (SearchPostsByAuthorNickName)</button>
+
+    <hr>
+
+    <!-- 2-8) 게시글 생성 -->
+    <h3>2-8) 게시글 생성 (CreatePost)</h3>
+    <div class="row">
+        <span class="label">authorId</span>
+        <input id="createPostAuthorIdInput" type="number" value="1">
+    </div>
+    <div class="row">
+        <span class="label">title</span>
+        <input id="createPostTitleInput" type="text" value="테스트 게시글">
+    </div>
+    <div class="row">
+        <span class="label">content</span>
+        <input id="createPostContentInput" type="text" value="내용 입력">
+    </div>
+    <div class="row">
+        <span class="label">isPublished</span>
+        <input id="createPostPublishedInput" type="checkbox" checked>
+        <span class="small">체크 시 true</span>
+    </div>
+    <button onclick="createPost()">실행 (CreatePost)</button>
+
+    <hr>
+
+    <!-- 2-9) 게시글 수정 -->
+    <h3>2-9) 게시글 수정 (UpdatePost)</h3>
+    <div class="row">
+        <span class="label">post id</span>
+        <input id="updatePostIdInput" type="number" value="1">
+    </div>
+    <div class="row">
+        <span class="label">title</span>
+        <input id="updatePostTitleInput" type="text" value="수정된 제목">
+    </div>
+    <div class="row">
+        <span class="label">content</span>
+        <input id="updatePostContentInput" type="text" value="수정된 내용">
+    </div>
+    <button onclick="updatePost()">실행 (UpdatePost)</button>
+
+    <hr>
+
+    <!-- 2-10) 게시글 삭제 -->
+    <h3>2-10) 게시글 삭제 (DeletePost)</h3>
+    <div class="row">
+        <span class="label">post id</span>
+        <input id="deletePostIdInput" type="number" value="1">
+    </div>
+    <button onclick="deletePost()">실행 (DeletePost)</button>
+</div>
+
+<!-- ============================================
+     3. 댓글(Comment) 조회 및 조작
+     ============================================ -->
+<div class="section">
+    <div class="section-title">3. 댓글(Comment) 조회 및 조작</div>
+
+    <!-- 3-1) 댓글 단건 + 작성자 + 게시글 -->
+    <h3>3-1) 댓글 단건 + 작성자 + 게시글 (FindCommentWithRelations)</h3>
+    <div class="row">
+        <span class="label">comment id</span>
+        <input id="commentIdInput" type="number" value="1">
+    </div>
+    <button onclick="findCommentWithRelations()">실행 (FindCommentWithRelations)</button>
+
+    <hr>
+
+    <!-- 3-2) 댓글 페이징 조회 -->
+    <h3>3-2) 댓글 페이징 조회 (FindCommentsPage)</h3>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="commentsPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="commentsSizeInput" type="number" value="10">
+    </div>
+    <button onclick="findCommentsPage()">실행 (FindCommentsPage)</button>
+
+    <hr>
+
+    <!-- 3-3) 댓글 검색(내용) -->
+    <h3>3-3) 댓글 검색(내용) (SearchCommentsByContent)</h3>
+    <div class="row">
+        <span class="label">keyword</span>
+        <input id="commentContentKeywordInput" type="text" value="스프링">
+    </div>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="searchCommentsContentPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="searchCommentsContentSizeInput" type="number" value="10">
+    </div>
+    <button onclick="searchCommentsByContent()">실행 (SearchCommentsByContent)</button>
+
+    <hr>
+
+    <!-- 3-4) 댓글 검색(작성자 닉네임) -->
+    <h3>3-4) 댓글 검색(작성자 닉네임) (SearchCommentsByAuthorNickName)</h3>
+    <div class="row">
+        <span class="label">nickName</span>
+        <input id="commentAuthorNickNameInput" type="text" value="스프링입문러">
+    </div>
+    <div class="row">
+        <span class="label">page</span>
+        <input id="searchCommentsAuthorPageInput" type="number" value="0">
+    </div>
+    <div class="row">
+        <span class="label">size</span>
+        <input id="searchCommentsAuthorSizeInput" type="number" value="10">
+    </div>
+    <button onclick="searchCommentsByAuthorNickName()">실행 (SearchCommentsByAuthorNickName)</button>
+
+    <hr>
+
+    <!-- 3-5) 댓글 생성 -->
+    <h3>3-5) 댓글 생성 (CreateComment)</h3>
+    <div class="row">
+        <span class="label">postId</span>
+        <input id="createCommentPostIdInput" type="number" value="1">
+    </div>
+    <div class="row">
+        <span class="label">authorId</span>
+        <input id="createCommentAuthorIdInput" type="number" value="1">
+    </div>
+    <div class="row">
+        <span class="label">content</span>
+        <input id="createCommentContentInput" type="text" value="댓글 테스트">
+    </div>
+    <button onclick="createComment()">실행 (CreateComment)</button>
+
+    <hr>
+
+    <!-- 3-6) 댓글 삭제 -->
+    <h3>3-6) 댓글 삭제 (DeleteComment)</h3>
+    <div class="row">
+        <span class="label">comment id</span>
+        <input id="deleteCommentIdInput" type="number" value="1">
+    </div>
+    <button onclick="deleteComment()">실행 (DeleteComment)</button>
+</div>
+
+<!-- ============================================
+     공통 결과 영역
+     ============================================ -->
+<h2>응답 결과</h2>
+<div id="result">(여기에 GraphQL 응답이 JSON으로 출력된다)</div>
+
+<script>
+    const GRAPHQL_URL = '/graphql';
+
+    async function graphqlRequest(query, variables = {}) {
+        try {
+            const response = await axios.post(GRAPHQL_URL, {
+                query,
+                variables
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = JSON.stringify(response.data, null, 2);
+        } catch (e) {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = JSON.stringify({
+                message: 'HTTP 요청 오류',
+                error: e.toString(),
+                response: e.response ? e.response.data : null
+            }, null, 2);
+        }
+    }
+
+    // 1-1) 사용자 단건 조회
+    function findUser() {
+        const id = parseInt(document.getElementById('userIdInput').value, 10);
+        const query = `
+            query FindUser($id: ID!) {
+                user(id: $id) {
+                    id
+                    username
+                    email
+                    nickName
+                    role
+                    status
+                    createdAt
+                    updatedAt
+                }
+            }
+        `;
+        graphqlRequest(query, { id });
+    }
+
+    // 1-2) 사용자 목록 조회
+    function findUsers() {
+        const query = `
+            query FindUsers {
+                users {
+                    id
+                    username
+                    email
+                    nickName
+                    role
+                    status
+                }
+            }
+        `;
+        graphqlRequest(query);
+    }
+
+    // 2-1) 게시글 단건 + 작성자
+    function findPostWithAuthor() {
+        const id = parseInt(document.getElementById('postIdAuthorInput').value, 10);
+        const query = `
+            query FindPostWithAuthor($id: ID!) {
+                post(id: $id) {
+                    id
+                    title
+                    content
+                    isPublished
+                    isDeleted
+                    createdAt
+                    author {
+                        id
+                        username
+                        nickName
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { id });
+    }
+
+    // 2-2) 게시글 단건 + 댓글 + 댓글 작성자
+    function findPostWithComments() {
+        const id = parseInt(document.getElementById('postIdCommentsInput').value, 10);
+        const query = `
+            query FindPostWithComments($id: ID!) {
+                post(id: $id) {
+                    id
+                    title
+                    content
+                    createdAt
+                    author {
+                        id
+                        nickName
+                    }
+                    comments {
+                        id
+                        content
+                        createdAt
+                        author {
+                            id
+                            nickName
+                        }
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { id });
+    }
+
+    // 2-3) 게시글 페이징
+    function findPostsPage() {
+        const page = parseInt(document.getElementById('postsPageInput').value, 10);
+        const size = parseInt(document.getElementById('postsSizeInput').value, 10);
+        const query = `
+            query FindPostsPage($page: Int!, $size: Int!) {
+                posts(page: $page, size: $size) {
+                    content {
+                        id
+                        title
+                        createdAt
+                        author {
+                            id
+                            nickName
+                        }
+                    }
+                    page
+                    size
+                    totalElements
+                    totalPages
+                }
+            }
+        `;
+        graphqlRequest(query, { page, size });
+    }
+
+    // 2-4) 게시글 검색(제목)
+    function searchPostsByTitle() {
+        const keyword = document.getElementById('postTitleKeywordInput').value.trim();
+        const page = parseInt(document.getElementById('searchPostsTitlePageInput').value, 10);
+        const size = parseInt(document.getElementById('searchPostsTitleSizeInput').value, 10);
+
+        const query = `
+            query SearchPostsByTitle($keyword: String!, $page: Int!, $size: Int!) {
+                searchPostsByTitle(keyword: $keyword, page: $page, size: $size) {
+                    content {
+                        id
+                        title
+                        author {
+                            id
+                            nickName
+                        }
+                    }
+                    page
+                    totalElements
+                    totalPages
+                }
+            }
+        `;
+        graphqlRequest(query, { keyword, page, size });
+    }
+
+    // 2-5) 게시글 검색(내용)
+    function searchPostsByContent() {
+        const keyword = document.getElementById('postContentKeywordInput').value.trim();
+        const page = parseInt(document.getElementById('searchPostsContentPageInput').value, 10);
+        const size = parseInt(document.getElementById('searchPostsContentSizeInput').value, 10);
+
+        const query = `
+            query SearchPostsByContent($keyword: String!, $page: Int!, $size: Int!) {
+                searchPostsByContent(keyword: $keyword, page: $page, size: $size) {
+                    content {
+                        id
+                        content
+                        author {
+                            id
+                            nickName
+                        }
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { keyword, page, size });
+    }
+
+    // 2-6) 게시글 검색(제목 또는 내용)
+    function searchPostsByTitleOrContent() {
+        const keyword = document.getElementById('postTitleOrContentKeywordInput').value.trim();
+        const page = parseInt(document.getElementById('searchPostsTitleOrContentPageInput').value, 10);
+        const size = parseInt(document.getElementById('searchPostsTitleOrContentSizeInput').value, 10);
+
+        const query = `
+            query SearchPostsByTitleOrContent($keyword: String!, $page: Int!, $size: Int!) {
+                searchPostsByTitleOrContent(keyword: $keyword, page: $page, size: $size) {
+                    content {
+                        id
+                        title
+                        content
+                        author {
+                            id
+                            nickName
+                        }
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { keyword, page, size });
+    }
+
+    // 2-7) 게시글 검색(작성자 닉네임)
+    function searchPostsByAuthorNickName() {
+        const nickName = document.getElementById('postAuthorNickNameInput').value.trim();
+        const page = parseInt(document.getElementById('searchPostsAuthorPageInput').value, 10);
+        const size = parseInt(document.getElementById('searchPostsAuthorSizeInput').value, 10);
+
+        const query = `
+            query SearchPostsByAuthorNickName($nickName: String!, $page: Int!, $size: Int!) {
+                searchPostsByAuthorNickName(nickName: $nickName, page: $page, size: $size) {
+                    content {
+                        id
+                        title
+                        author {
+                            id
+                            nickName
+                        }
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { nickName, page, size });
+    }
+
+    // 2-8) 게시글 생성
+    function createPost() {
+        const authorId = parseInt(document.getElementById('createPostAuthorIdInput').value, 10);
+        const title = document.getElementById('createPostTitleInput').value.trim();
+        const content = document.getElementById('createPostContentInput').value.trim();
+        const isPublished = document.getElementById('createPostPublishedInput').checked;
+
+        const query = `
+            mutation CreatePost($input: PostCreateInput!) {
+                createPost(input: $input) {
+                    id
+                    title
+                    content
+                    createdAt
+                    author {
+                        id
+                        nickName
+                    }
+                }
+            }
+        `;
+        const variables = {
+            input: {
+                authorId,
+                title,
+                content,
+                isPublished
+            }
+        };
+        graphqlRequest(query, variables);
+    }
+
+    // 2-9) 게시글 수정
+    function updatePost() {
+        const id = parseInt(document.getElementById('updatePostIdInput').value, 10);
+        const title = document.getElementById('updatePostTitleInput').value.trim();
+        const content = document.getElementById('updatePostContentInput').value.trim();
+
+        const query = `
+            mutation UpdatePost($id: ID!, $input: PostUpdateInput!) {
+                updatePost(id: $id, input: $input) {
+                    id
+                    title
+                    content
+                    updatedAt
+                }
+            }
+        `;
+        const variables = {
+            id,
+            input: { title, content }
+        };
+        graphqlRequest(query, variables);
+    }
+
+    // 2-10) 게시글 삭제
+    function deletePost() {
+        const id = parseInt(document.getElementById('deletePostIdInput').value, 10);
+        const query = `
+            mutation DeletePost($id: ID!) {
+                deletePost(id: $id)
+            }
+        `;
+        graphqlRequest(query, { id });
+    }
+
+    // 3-1) 댓글 단건 + 작성자 + 게시글
+    function findCommentWithRelations() {
+        const id = parseInt(document.getElementById('commentIdInput').value, 10);
+        const query = `
+            query FindCommentWithRelations($id: ID!) {
+                comment(id: $id) {
+                    id
+                    content
+                    createdAt
+                    author {
+                        id
+                        nickName
+                    }
+                    post {
+                        id
+                        title
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { id });
+    }
+
+    // 3-2) 댓글 페이징 조회
+    function findCommentsPage() {
+        const page = parseInt(document.getElementById('commentsPageInput').value, 10);
+        const size = parseInt(document.getElementById('commentsSizeInput').value, 10);
+        const query = `
+            query FindCommentsPage($page: Int!, $size: Int!) {
+                comments(page: $page, size: $size) {
+                    content {
+                        id
+                        content
+                        createdAt
+                        author {
+                            id
+                            nickName
+                        }
+                        post {
+                            id
+                            title
+                        }
+                    }
+                    page
+                    size
+                    totalElements
+                    totalPages
+                }
+            }
+        `;
+        graphqlRequest(query, { page, size });
+    }
+
+    // 3-3) 댓글 검색(내용)
+    function searchCommentsByContent() {
+        const keyword = document.getElementById('commentContentKeywordInput').value.trim();
+        const page = parseInt(document.getElementById('searchCommentsContentPageInput').value, 10);
+        const size = parseInt(document.getElementById('searchCommentsContentSizeInput').value, 10);
+        const query = `
+            query SearchCommentsByContent($keyword: String!, $page: Int!, $size: Int!) {
+                searchCommentsByContent(keyword: $keyword, page: $page, size: $size) {
+                    content {
+                        id
+                        content
+                        author { id nickName }
+                        post { id title }
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { keyword, page, size });
+    }
+
+    // 3-4) 댓글 검색(작성자 닉네임)
+    function searchCommentsByAuthorNickName() {
+        const nickName = document.getElementById('commentAuthorNickNameInput').value.trim();
+        const page = parseInt(document.getElementById('searchCommentsAuthorPageInput').value, 10);
+        const size = parseInt(document.getElementById('searchCommentsAuthorSizeInput').value, 10);
+        const query = `
+            query SearchCommentsByAuthorNickName($nickName: String!, $page: Int!, $size: Int!) {
+                searchCommentsByAuthorNickName(nickName: $nickName, page: $page, size: $size) {
+                    content {
+                        id
+                        content
+                        author { id nickName }
+                        post { id title }
+                    }
+                }
+            }
+        `;
+        graphqlRequest(query, { nickName, page, size });
+    }
+
+    // 3-5) 댓글 생성
+    function createComment() {
+        const postId = parseInt(document.getElementById('createCommentPostIdInput').value, 10);
+        const authorId = parseInt(document.getElementById('createCommentAuthorIdInput').value, 10);
+        const content = document.getElementById('createCommentContentInput').value.trim();
+        const query = `
+            mutation CreateComment($input: CommentCreateInput!) {
+                createComment(input: $input) {
+                    id
+                    content
+                    createdAt
+                    author {
+                        id
+                        nickName
+                    }
+                    post {
+                        id
+                        title
+                    }
+                }
+            }
+        `;
+        const variables = {
+            input: {
+                postId,
+                authorId,
+                content
+            }
+        };
+        graphqlRequest(query, variables);
+    }
+
+    // 3-6) 댓글 삭제
+    function deleteComment() {
+        const id = parseInt(document.getElementById('deleteCommentIdInput').value, 10);
+        const query = `
+            mutation DeleteComment($id: ID!) {
+                deleteComment(id: $id)
+            }
+        `;
+        graphqlRequest(query, { id });
+    }
+</script>
+
+</body>
+</html>

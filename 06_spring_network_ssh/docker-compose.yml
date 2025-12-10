@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  spring-https:
+    build: .
+    container_name: spring-https-app
+    ports:
+      - "8080:8080"     # Optional (HTTP)
+      - "8443:8443"     # 실제 HTTPS 접속
+    volumes:
+      # 인증서가 변경될 경우 바로 반영하고 싶으면 볼륨으로 연결
+      - ./src/main/resources/ssl/localhost.p12:/app/ssl/localhost.p12:ro
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    restart: always
