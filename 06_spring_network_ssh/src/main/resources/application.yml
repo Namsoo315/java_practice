@@ -4,7 +4,7 @@
 #      timeout: 30m # ?? 1?
 #
 
-server:
+serverz
   port: 8443
   ssl:
     enabled: true

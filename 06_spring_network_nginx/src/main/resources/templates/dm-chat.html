@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DM 채팅 - WebSocket</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- SockJS -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <!-- STOMP UMD (전역: StompJs) -->
+    <script src="https://unpkg.com/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 5px; }
+        a { text-decoration: none; color: #0074d9; }
+        .layout { display: flex; gap: 16px; margin-top: 16px; }
+        .sidebar { width: 220px; border: 1px solid #ccc; padding: 10px; }
+        .main { flex: 1; }
+        .chat-box {
+            border: 1px solid #ccc;
+            height: 320px;
+            overflow-y: auto;
+            padding: 8px;
+            background: #fafafa;
+        }
+        .message {
+            margin: 4px 0;
+            max-width: 70%;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .message.mine {
+            margin-left: auto;
+            background: #d0ebff;
+            text-align: right;
+        }
+        .message.other {
+            margin-right: auto;
+            background: #f1f3f5;
+            text-align: left;
+        }
+        .message .meta { font-size: 11px; color: #666; }
+        .controls { margin-top: 6px; }
+        .controls input { padding: 4px; font-size: 13px; }
+        .controls button { padding: 4px 8px; font-size: 13px; margin-left: 4px; }
+        pre { background: #f5f5f5; padding: 8px; white-space: pre-wrap; font-size: 12px; }
+        label { font-size: 12px; }
+        input[type="number"] { width: 80px; }
+    </style>
+</head>
+<body>
+<h1>DM 채팅 - WebSocket(STOMP)</h1>
+<p><a th:href="@{/static}">← 메인으로</a></p>
+
+<div class="layout">
+    <div class="sidebar">
+        <div>
+            <strong>내 정보 (GET /api/auth/me)</strong>
+            <pre id="me-info"></pre>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <strong>쪽지함 설명</strong>
+            <p style="font-size: 12px;">
+                - 이 화면은 "내게 온 모든 DM" 을 쪽지함 형태로 보여준다.<br>
+                - 새 DM은 WebSocket으로 실시간 수신되고, 초기 로딩은 HTTP로 가져온다.
+            </p>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="chat-box" id="dm-chat-box">
+            "DM 전체 불러오기" 버튼을 누르거나 새 DM이 오면 표시된다.
+        </div>
+
+        <div class="controls" style="margin-top: 10px;">
+            <label>수신자 사용자 ID:</label>
+            <input type="number" id="dm-receiver-id" placeholder="예: 2" />
+            <input type="text" id="dm-input" placeholder="보낼 DM 내용을 입력하세요" style="width: 40%;" />
+            <button type="button" onclick="sendDmMessage()">DM 전송</button>
+            <button type="button" onclick="loadDmInbox()">DM 전체 불러오기</button>
+        </div>
+
+        <div style="margin-top: 8px;">
+            <strong>마지막 응답 Raw 데이터</strong>
+            <pre id="debug-result"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 쿠키(Refresh Token)도 보내고, Authorization 헤더도 따로 설정해서 씀
+    axios.defaults.withCredentials = true;
+
+    // 로그인 테스트 페이지와 동일한 키 사용
+    const ACCESS_TOKEN_KEY = 'codeit_access_token';
+    const USER_INFO_KEY = 'codeit_user';
+
+    let accessToken = null;
+    let currentUser = null;
+    let lastDmMessageId = 0;
+
+    let stompClient = null;
+    let stompConnected = false;
+    let dmSubscription = null;
+    let pendingDmQueue = []; // 연결 전에 보낸 메시지 잠시 보관
+
+    // localStorage에서 토큰/유저 정보 복원 + axios 헤더 세팅
+    (function initFromStorage() {
+        const storedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+        if (storedToken) {
+            accessToken = storedToken;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+        } else {
+            console.warn('accessToken이 없습니다. /login-page에서 먼저 로그인해야 합니다.');
+        }
+
+        const userJson = localStorage.getItem(USER_INFO_KEY);
+        if (userJson) {
+            try {
+                const userDto = JSON.parse(userJson);
+                currentUser = userDto;
+                document.getElementById('me-info').textContent =
+                    '저장된 사용자 정보:\n' + JSON.stringify(userDto, null, 2);
+            } catch (e) {
+                console.warn('저장된 USER_INFO 파싱 실패', e);
+            }
+        }
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1) 서버 기준 최신 정보 동기화
+        loadMe();
+        // 2) WebSocket/STOMP 연결
+        connectStomp();
+        // 3) 초기 DM 로딩
+        loadDmInbox();
+    });
+
+    function loadMe() {
+        return axios.get('/api/auth/me')
+            .then(res => {
+                currentUser = res.data;
+                // 최신값 로컬 저장
+                localStorage.setItem(USER_INFO_KEY, JSON.stringify(currentUser));
+                document.getElementById('me-info').textContent =
+                    JSON.stringify(currentUser, null, 2);
+                trySubscribeDm(); // 먼저 연결돼 있으면 구독 시도
+            })
+            .catch(err => {
+                document.getElementById('me-info').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function connectStomp() {
+        console.log('SockJS:', typeof SockJS, 'StompJs:', typeof StompJs);
+
+        if (!accessToken) {
+            console.warn('STOMP 연결 시 사용할 accessToken이 없습니다.');
+            return;
+        }
+
+        const socket = new SockJS('/ws');
+        stompClient = StompJs.Stomp.over(socket);
+        // 너무 시끄러우면 비활성
+        stompClient.debug = function (str) {
+            // console.log(str);
+        };
+
+        const connectHeaders = {
+            Authorization: 'Bearer ' + accessToken
+        };
+
+        stompClient.connect(
+            connectHeaders,
+            function (frame) {
+                console.log('STOMP Connected: ' + frame);
+                stompConnected = true;
+                trySubscribeDm();
+
+                // 연결 전에 쌓아둔 DM들 전송
+                pendingDmQueue.forEach(({ receiverId, payload }) => {
+                    stompClient.send(`/pub/dm/${receiverId}/send`, {}, JSON.stringify(payload));
+                });
+                pendingDmQueue = [];
+            },
+            function (error) {
+                console.error('STOMP error', error);
+                stompConnected = false;
+            }
+        );
+    }
+
+    function trySubscribeDm() {
+        if (!currentUser || !stompClient || !stompConnected) {
+            return;
+        }
+        if (dmSubscription) {
+            return;
+        }
+        const userId = currentUser.id;
+        const destination = `/sub/dm.${userId}`;  // 서버 브로드캐스트 경로와 맞추기
+        dmSubscription = stompClient.subscribe(destination, function (message) {
+            const body = JSON.parse(message.body);
+            appendDmMessages([body]);
+            document.getElementById('debug-result').textContent =
+                JSON.stringify(body, null, 2);
+        });
+    }
+
+    function loadDmInbox() {
+        axios.get('/api/dm/messages')
+            .then(res => {
+                const box = document.getElementById('dm-chat-box');
+                box.innerHTML = '';
+                appendDmMessages(res.data);
+                scrollToBottom(box);
+
+                document.getElementById('debug-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('dm-chat-box').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function appendDmMessages(messages) {
+        const box = document.getElementById('dm-chat-box');
+        messages.forEach(msg => {
+            const div = document.createElement('div');
+            const mine = currentUser && msg.senderId === currentUser.id;
+            div.className = 'message ' + (mine ? 'mine' : 'other');
+
+            const senderName = msg.senderNickname || msg.senderUsername || ('user#' + msg.senderId);
+            const time = msg.createdAt || '';
+            div.innerHTML =
+                `<div class="meta">${mine ? '(나) ' : ''}${senderName} - ${time}</div>` +
+                `<div>${escapeHtml(msg.content)}</div>`;
+
+            box.appendChild(div);
+            lastDmMessageId = Math.max(lastDmMessageId, msg.id);
+        });
+        if (messages.length > 0) {
+            scrollToBottom(box);
+        }
+    }
+
+    function sendDmMessage() {
+        const receiverIdInput = document.getElementById('dm-receiver-id');
+        const contentInput = document.getElementById('dm-input');
+
+        const receiverId = receiverIdInput.value.trim();
+        const content = contentInput.value.trim();
+
+        if (!receiverId) {
+            alert('수신자 사용자 ID를 입력해 주세요.');
+            return;
+        }
+        if (!content) {
+            return;
+        }
+
+        const payload = { content };
+
+        // 아직 연결 안 됐으면 큐에 넣고 연결 시도
+        if (!stompClient || !stompConnected) {
+            console.log('STOMP 미연결 상태, 큐에 저장 후 연결 시도');
+            pendingDmQueue.push({ receiverId, payload });
+            if (!stompClient) {
+                connectStomp();
+            }
+            contentInput.value = '';
+            return;
+        }
+
+        // app prefix: /pub
+        stompClient.send(
+            `/pub/dm/${receiverId}/send`,
+            {},
+            JSON.stringify(payload)
+        );
+        contentInput.value = '';
+    }
+
+    function scrollToBottom(box) {
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+</script>
+
+</body>
+</html>

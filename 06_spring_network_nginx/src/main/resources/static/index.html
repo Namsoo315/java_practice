@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket(STOMP) 채팅 데모 - 메인</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 10px; }
+        .section { margin-top: 20px; }
+        a { display: inline-block; margin: 4px 0; }
+        ul { padding-left: 20px; }
+    </style>
+</head>
+<body>
+<h1>nginx + WebSocket(STOMP) 채팅 & SSE 데모</h1>
+<h2>해당 페이지는 nginx가 정적 서버로 전달하는 페이지!!!</h2>
+
+<!-- 🔥 Spring MVC 타임리프 페이지로 이동 -->
+<p style="margin-top:20px;">
+    <a href="http://localhost:8080/">👉 8080 Spring 타임리프 메인 이동</a>
+</p>
+
+<p>아래 링크를 통해 각 기능 페이지로 이동할 수 있다.</p>
+
+<div class="section">
+    <h2>인증 / 사용자</h2>
+    <ul>
+        <li><a href="/login-page.html">로그인 / Me 테스트</a></li>
+    </ul>
+</div>
+
+
+<div class="section">
+    <h2>채팅 데모 (WebSocket)</h2>
+    <ul>
+        <li><a href="/chat-channel.html">채널 채팅 - WebSocket(STOMP)</a></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>SSE 데모</h2>
+    <ul>
+        <li><a href="/sse-monitor.html">SSE 모니터링 (DM 알림 등)</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

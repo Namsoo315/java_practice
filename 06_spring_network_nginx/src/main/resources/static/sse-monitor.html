@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE 알림 모니터링</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 5px; }
+        a { text-decoration: none; color: #0074d9; }
+        .layout { display: flex; gap: 16px; margin-top: 16px; }
+        .sidebar { width: 260px; border: 1px solid #ccc; padding: 10px; }
+        .main { flex: 1; }
+        .section-title { font-weight: bold; margin-top: 8px; margin-bottom: 4px; }
+        pre { background: #f5f5f5; padding: 8px; white-space: pre-wrap; font-size: 12px; }
+        .status { font-size: 13px; margin-top: 4px; }
+        .status span { font-weight: bold; }
+        .controls { margin-top: 8px; }
+        .controls button { padding: 4px 8px; font-size: 12px; margin-right: 4px; }
+        .notif-box {
+            border: 1px solid #ccc;
+            height: 260px;
+            overflow-y: auto;
+            padding: 8px;
+            background: #fafafa;
+            font-size: 13px;
+        }
+        .notif-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 4px 0;
+        }
+        .notif-item:last-child { border-bottom: none; }
+        .notif-meta { font-size: 11px; color: #555; margin-bottom: 2px; }
+        .notif-title { font-weight: bold; margin-right: 4px; }
+    </style>
+</head>
+<body>
+<h1>SSE 알림 모니터링</h1>
+
+<!-- static 페이지라 그냥 href 사용 -->
+<p><a href="/index.html">← 메인으로</a></p>
+
+<div class="layout">
+    <!-- 왼쪽: 내 정보 + SSE 상태 -->
+    <div class="sidebar">
+        <div>
+            <div class="section-title">내 정보 (GET /api/auth/me)</div>
+            <pre id="me-info">로딩 중...</pre>
+        </div>
+
+        <div class="status">
+            <div class="section-title">SSE 연결 상태</div>
+            <div>상태: <span id="sse-status">DISCONNECTED</span></div>
+            <div>마지막 Event ID: <span id="last-event-id">-</span></div>
+        </div>
+
+        <div class="controls">
+            <button onclick="connectSse()">SSE 연결 / 재연결</button>
+            <button onclick="disconnectSse()">SSE 연결 끊기</button>
+            <button onclick="clearNotifications()">알림 목록 초기화</button>
+        </div>
+
+        <div style="margin-top: 10px; font-size: 12px;">
+            <div class="section-title">설명</div>
+            <ul style="padding-left: 18px; margin-top: 4px;">
+                <li>DM 전송 → DMCreatedEvent → SSE "dm"</li>
+                <li>채널 메시지 → ChannelMessageCreatedEvent → SSE "channel"</li>
+                <li>전체 공지 이벤트는 "broadcast"</li>
+                <li>이 페이지는 SSE 이벤트를 실시간 표시함</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 오른쪽: 알림 목록 + Raw 로그 -->
+    <div class="main">
+        <div class="section-title">실시간 알림 목록 (dm / channel / broadcast)</div>
+        <div id="notif-box" class="notif-box">
+            SSE 연결 후 알림이 이곳에 표시됩니다.
+        </div>
+
+        <div style="margin-top: 12px;">
+            <div class="section-title">Raw 이벤트 로그</div>
+            <pre id="log-box"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+    axios.defaults.withCredentials = true;
+
+    const ACCESS_TOKEN_KEY = 'codeit_access_token';
+    const USER_INFO_KEY = 'codeit_user';
+
+    let currentUser = null;
+    let eventSource = null;
+    let lastEventId = localStorage.getItem('sseLastEventId') || null;
+
+    // 초기 값 로드 (REST 용 Authorization 헤더, 유저 정보 표시)
+    (function init() {
+        const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        }
+
+        const userJson = localStorage.getItem(USER_INFO_KEY);
+        if (userJson) {
+            currentUser = JSON.parse(userJson);
+            document.getElementById('me-info').textContent =
+                JSON.stringify(currentUser, null, 2);
+        }
+
+        if (lastEventId) {
+            document.getElementById('last-event-id').textContent = lastEventId;
+        }
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadMe().then(connectSse);
+    });
+
+    function loadMe() {
+        return axios.get('/api/auth/me')
+            .then(res => {
+                currentUser = res.data;
+                document.getElementById('me-info').textContent =
+                    JSON.stringify(currentUser, null, 2);
+                localStorage.setItem(USER_INFO_KEY, JSON.stringify(currentUser));
+            })
+            .catch(err => {
+                document.getElementById('me-info').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function connectSse() {
+        if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+        }
+
+        // JWT 인증은 서버 쪽 필터(JwtAuthenticationFilter)에서
+        // Authorization 헤더 또는 쿠키(ACCESS_TOKEN)로 수행한다.
+        // SSE는 헤더를 설정할 수 없으므로, 실제 인증은 쿠키 기반으로 진행된다고 가정.
+        let url = '/api/sse';
+        if (lastEventId) {
+            url += `?LastEventId=${encodeURIComponent(lastEventId)}`;
+        }
+
+        appendLog(`[CONNECT] ${url}`);
+
+        eventSource = new EventSource(url);
+
+        eventSource.onopen = () => {
+            setStatus('CONNECTED');
+            appendLog('[SSE] 연결됨');
+        };
+
+        eventSource.onerror = () => {
+            setStatus('ERROR / DISCONNECTED');
+            appendLog('[SSE] 에러 또는 연결 종료됨');
+        };
+
+        eventSource.onmessage = (e) => {
+            updateLastEventId(e);
+            appendLog('[message] ' + e.data);
+        };
+
+        eventSource.addEventListener('ping', (e) => {
+            updateLastEventId(e);
+            appendLog('[ping] ' + new Date().toLocaleTimeString());
+        });
+
+        eventSource.addEventListener('dm', (e) => {
+            updateLastEventId(e);
+            appendParsedNotification(e, 'DM');
+        });
+
+        eventSource.addEventListener('channel', (e) => {
+            updateLastEventId(e);
+            appendParsedNotification(e, 'CHANNEL');
+        });
+
+        eventSource.addEventListener('broadcast', (e) => {
+            updateLastEventId(e);
+            appendParsedNotification(e, 'BROADCAST');
+        });
+    }
+
+    function appendParsedNotification(e, type) {
+        try {
+            const data = JSON.parse(e.data);
+            appendNotification(type, data);
+            appendLog(`[${type}] ` + e.data);
+        } catch (err) {
+            appendLog(`[${type}] JSON 파싱 실패: ${e.data}`);
+        }
+    }
+
+    function disconnectSse() {
+        if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+            setStatus('DISCONNECTED');
+            appendLog('[SSE] 연결 수동 종료');
+        }
+    }
+
+    function updateLastEventId(e) {
+        const id = e.lastEventId || e.id;
+        if (!id) return;
+        lastEventId = id;
+
+        localStorage.setItem('sseLastEventId', id);
+        document.getElementById('last-event-id').textContent = id;
+    }
+
+    function setStatus(text) {
+        document.getElementById('sse-status').textContent = text;
+    }
+
+    function appendNotification(type, data) {
+        const box = document.getElementById('notif-box');
+
+        const div = document.createElement('div');
+        div.className = 'notif-item';
+
+        const createdAt = data.createdAt || new Date().toISOString();
+        const sender = data.senderNickname || data.senderUsername || ('user#' + (data.senderId ?? ''));
+
+        div.innerHTML =
+            `<div class="notif-meta">
+                <span class="notif-title">[${type}]</span>
+                from ${sender} · at ${createdAt}
+             </div>
+             <div>${escapeHtml(data.content ?? JSON.stringify(data))}</div>`;
+
+        box.appendChild(div);
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function clearNotifications() {
+        document.getElementById('notif-box').innerHTML = '알림 목록이 초기화되었습니다.';
+    }
+
+    function appendLog(text) {
+        const box = document.getElementById('log-box');
+        const now = new Date().toLocaleTimeString();
+        box.textContent += `[${now}] ${text}\n`;
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+        if (str == null) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+</script>
+
+</body>
+</html>

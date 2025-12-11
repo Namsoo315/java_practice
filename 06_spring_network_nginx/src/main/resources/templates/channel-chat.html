@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채널 채팅 - WebSocket</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- SockJS -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <!-- STOMP UMD (전역: StompJs) -->
+    <script src="https://unpkg.com/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 5px; }
+        a { text-decoration: none; color: #0074d9; }
+        .layout { display: flex; gap: 16px; margin-top: 16px; }
+        .sidebar { width: 220px; border: 1px solid #ccc; padding: 10px; }
+        .main { flex: 1; }
+        .chat-box {
+            border: 1px solid #ccc;
+            height: 320px;
+            overflow-y: auto;
+            padding: 8px;
+            background: #fafafa;
+        }
+        .message {
+            margin: 4px 0;
+            max-width: 70%;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .message.mine {
+            margin-left: auto;
+            background: #d0ebff;
+            text-align: right;
+        }
+        .message.other {
+            margin-right: auto;
+            background: #f1f3f5;
+            text-align: left;
+        }
+        .message .meta { font-size: 11px; color: #666; }
+        .controls { margin-top: 6px; }
+        .controls input { width: 70%; padding: 4px; font-size: 13px; }
+        .controls button { padding: 4px 8px; font-size: 13px; margin-left: 4px; }
+        pre { background: #f5f5f5; padding: 8px; white-space: pre-wrap; font-size: 12px; }
+        ul { padding-left: 18px; }
+        li { margin: 2px 0; }
+        button.small { padding: 2px 6px; font-size: 11px; margin-left: 4px; }
+    </style>
+</head>
+<body>
+<h1>채널 채팅 - WebSocket(STOMP)</h1>
+<p><a th:href="@{/static}">← 메인으로</a></p>
+
+<div class="layout">
+    <div class="sidebar">
+        <div>
+            <strong>내 정보 (GET /api/auth/me)</strong>
+            <pre id="me-info"></pre>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <strong>가입된 채널 목록 (GET /api/channels/my)</strong>
+            <button type="button" onclick="loadMyChannels()">새로고침</button>
+            <ul id="channel-list"></ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <div id="current-channel-label">현재 채널: (미선택)</div>
+
+        <div class="chat-box" id="channel-chat-box">
+            채널을 선택하면 메시지가 표시된다.
+        </div>
+
+        <div class="controls">
+            <input type="text" id="channel-input" placeholder="채널 메시지를 입력하세요" />
+            <button type="button" onclick="sendChannelMessage()">전송</button>
+        </div>
+
+        <div style="margin-top: 8px;">
+            <strong>마지막 응답 Raw 데이터</strong>
+            <pre id="debug-result"></pre>
+        </div>
+    </div>
+</div>
+<script>
+    // 쿠키(Refresh Token)도 보내고, Authorization 헤더도 따로 설정해서 씀
+    axios.defaults.withCredentials = true;
+
+    // 로그인 테스트 페이지와 동일한 키 사용
+    const ACCESS_TOKEN_KEY = 'codeit_access_token';
+    const USER_INFO_KEY = 'codeit_user';
+
+    let accessToken = null;
+    let currentUser = null;
+    let currentChannelId = null;
+    let lastChannelMessageId = 0;
+
+    let stompClient = null;
+    let stompConnected = false;
+    let channelSubscription = null;
+
+    // localStorage에서 토큰/유저 정보 복원 + axios 헤더 세팅
+    (function initFromStorage() {
+        const storedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+        if (storedToken) {
+            accessToken = storedToken;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+        } else {
+            console.warn('accessToken이 없습니다. /login-page에서 먼저 로그인해야 합니다.');
+        }
+
+        const userJson = localStorage.getItem(USER_INFO_KEY);
+        if (userJson) {
+            try {
+                const userDto = JSON.parse(userJson);
+                currentUser = userDto;
+                document.getElementById('me-info').textContent =
+                    '저장된 사용자 정보:\n' + JSON.stringify(userDto, null, 2);
+            } catch (e) {
+                console.warn('저장된 USER_INFO 파싱 실패', e);
+            }
+        }
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 서버 기준 최신 정보로 한 번 더 동기화
+        loadMe();
+        loadMyChannels();
+        connectStomp();
+    });
+
+    function loadMe() {
+        axios.get('/api/auth/me')
+            .then(res => {
+                currentUser = res.data;
+                // 최신값을 로컬에도 다시 저장
+                localStorage.setItem(USER_INFO_KEY, JSON.stringify(currentUser));
+                document.getElementById('me-info').textContent =
+                    JSON.stringify(currentUser, null, 2);
+            })
+            .catch(err => {
+                const box = document.getElementById('me-info');
+                if (err.response && err.response.status === 401) {
+                    box.textContent = '인증 정보가 없습니다. 먼저 로그인 해주세요.';
+                } else {
+                    box.textContent =
+                        err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+                }
+            });
+    }
+
+    function loadMyChannels() {
+        axios.get('/api/channels/my')
+            .then(res => {
+                const list = document.getElementById('channel-list');
+                list.innerHTML = '';
+                const channels = res.data;
+
+                channels.forEach(ch => {
+                    const li = document.createElement('li');
+                    li.textContent = `#${ch.name} (${ch.memberRole})`;
+                    const btn = document.createElement('button');
+                    btn.textContent = '입장';
+                    btn.className = 'small';
+                    btn.onclick = () => enterChannel(ch.id, ch.name);
+                    li.appendChild(btn);
+                    list.appendChild(li);
+                });
+
+                if (channels.length > 0 && currentChannelId == null) {
+                    enterChannel(channels[0].id, channels[0].name);
+                }
+            })
+            .catch(err => {
+                document.getElementById('channel-list').innerHTML =
+                    '<li>채널 목록을 불러오지 못했습니다.</li>';
+            });
+    }
+
+    function connectStomp() {
+        console.log('SockJS:', typeof SockJS, 'StompJs:', typeof StompJs);
+
+        if (!accessToken) {
+            console.warn('STOMP 연결 시 사용할 accessToken이 없습니다.');
+            return;
+        }
+
+        // WebSocketConfig.registerStompEndpoints 에 맞춤
+        const socket = new SockJS('/ws');
+        stompClient = StompJs.Stomp.over(socket);
+        // 개발용: 너무 시끄러우면 주석 유지
+        stompClient.debug = function (str) {
+            // console.log(str);
+        };
+
+        // JwtAuthenticationChannelInterceptor가 여기 Authorization 헤더를 사용
+        const connectHeaders = {
+            Authorization: 'Bearer ' + accessToken
+        };
+
+        stompClient.connect(
+            connectHeaders,
+            function (frame) {
+                console.log('STOMP Connected: ' + frame);
+                stompConnected = true;
+
+                if (currentChannelId) {
+                    subscribeChannel(currentChannelId);
+                }
+            },
+            function (error) {
+                console.error('STOMP error', error);
+                stompConnected = false;
+            }
+        );
+    }
+
+    function enterChannel(channelId, channelName) {
+        currentChannelId = channelId;
+        lastChannelMessageId = 0;
+        document.getElementById('current-channel-label').textContent =
+            `현재 채널: #${channelName} (ID=${channelId})`;
+
+        const box = document.getElementById('channel-chat-box');
+        box.innerHTML = '(메시지를 불러오는 중입니다...)';
+
+        axios.get(`/api/channels/${channelId}/messages`)
+            .then(res => {
+                document.getElementById('debug-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+
+                box.innerHTML = '';
+                appendChannelMessages(res.data);
+                scrollToBottom(box);
+            })
+            .catch(err => {
+                box.textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+
+        if (stompConnected) {
+            subscribeChannel(channelId);
+        }
+    }
+
+    function subscribeChannel(channelId) {
+        if (!stompClient || !stompConnected) {
+            return;
+        }
+        if (channelSubscription) {
+            channelSubscription.unsubscribe();
+            channelSubscription = null;
+        }
+
+        // 서버에서 /sub/channels/{channelId} 로 브로드캐스트
+        const destination = `/sub/channels/${channelId}`;
+        channelSubscription = stompClient.subscribe(destination, function (message) {
+            const body = JSON.parse(message.body);
+            appendChannelMessages([body]);
+            document.getElementById('debug-result').textContent =
+                JSON.stringify(body, null, 2);
+        });
+    }
+
+    function appendChannelMessages(messages) {
+        const box = document.getElementById('channel-chat-box');
+        messages.forEach(msg => {
+            const div = document.createElement('div');
+            const mine = currentUser && msg.senderId === currentUser.id;
+            div.className = 'message ' + (mine ? 'mine' : 'other');
+
+            const senderName = msg.senderNickname || msg.senderUsername || ('user#' + msg.senderId);
+            const time = msg.createdAt || '';
+            div.innerHTML =
+                `<div class="meta">${mine ? '(나) ' : ''}${senderName} - ${time}</div>` +
+                `<div>${escapeHtml(msg.content)}</div>`;
+
+            box.appendChild(div);
+            lastChannelMessageId = Math.max(lastChannelMessageId, msg.id);
+        });
+        if (messages.length > 0) {
+            scrollToBottom(box);
+        }
+    }
+
+    window.sendChannelMessage = function () {
+        if (!currentChannelId) {
+            alert('먼저 채널을 선택해 주세요.');
+            return;
+        }
+        if (!stompClient || !stompConnected) {
+            alert('WebSocket 연결이 아직 준비되지 않았습니다.');
+            return;
+        }
+        const input = document.getElementById('channel-input');
+        const content = input.value.trim();
+        if (!content) {
+            return;
+        }
+
+        const payload = { content };
+
+        // app prefix: /pub
+        stompClient.send(
+            `/pub/channels/${currentChannelId}/send`,
+            {},
+            JSON.stringify(payload)
+        );
+        input.value = '';
+    };
+
+    function scrollToBottom(box) {
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 / Me / Refresh 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        fieldset { margin-bottom: 20px; }
+        label { display: block; margin-top: 5px; }
+        input { width: 250px; padding: 4px; }
+        button { margin-top: 10px; padding: 6px 12px; }
+        pre { background: #f5f5f5; padding: 10px; white-space: pre-wrap; }
+        a { text-decoration: none; color: #0074d9; }
+        .token-box { font-size: 12px; word-break: break-all; background: #f0f8ff; padding: 8px; }
+    </style>
+</head>
+<body>
+<h1>JWT 로그인 / Me / Refresh 테스트</h1>
+<p><a th:href="@{/static}">← 메인으로</a></p>
+
+<fieldset>
+    <legend>로그인 (POST /api/auth/login)</legend>
+
+    <label>
+        아이디:
+        <input type="text" id="login-username" value="user1">
+    </label>
+    <label>
+        비밀번호:
+        <input type="password" id="login-password" value="1234">
+    </label>
+
+    <button type="button" onclick="login()">로그인 요청</button>
+
+    <h4>응답</h4>
+    <pre id="login-result"></pre>
+</fieldset>
+
+<fieldset>
+    <legend>현재 Access Token</legend>
+    <div id="current-token" class="token-box">(아직 토큰이 없습니다)</div>
+</fieldset>
+
+<fieldset>
+    <legend>내 정보 조회 (GET /api/auth/me)</legend>
+
+    <button type="button" onclick="loadMe()">/api/auth/me 호출</button>
+
+    <h4>응답</h4>
+    <pre id="me-result"></pre>
+</fieldset>
+
+<fieldset>
+    <legend>토큰 재발급 (POST /api/auth/refresh)</legend>
+
+    <p>리프레시 토큰은 HttpOnly 쿠키로 전달된다고 가정한다.</p>
+    <button type="button" onclick="refreshToken()">/api/auth/refresh 호출</button>
+
+    <h4>응답</h4>
+    <pre id="refresh-result"></pre>
+</fieldset>
+
+<script>
+    // 항상 쿠키 포함 (refresh 등에서 사용)
+    axios.defaults.withCredentials = true;
+
+    // localStorage 키 이름 (원하면 바꿔도 됨)
+    const ACCESS_TOKEN_KEY = 'codeit_access_token';
+    const USER_INFO_KEY = 'codeit_user';
+
+    let accessToken = null;
+
+    function setAccessToken(token) {
+        accessToken = token;
+
+        if (accessToken) {
+            // 전역 axios Authorization 헤더 설정
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+            document.getElementById('current-token').textContent = accessToken;
+            // 스토리지에 저장
+            localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+        } else {
+            delete axios.defaults.headers.common['Authorization'];
+            document.getElementById('current-token').textContent = '(아직 토큰이 없습니다)';
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+        }
+    }
+
+    function setUserInfo(userDto) {
+        if (userDto) {
+            localStorage.setItem(USER_INFO_KEY, JSON.stringify(userDto));
+        } else {
+            localStorage.removeItem(USER_INFO_KEY);
+        }
+    }
+
+    // 페이지 로드시 스토리지에 저장된 토큰/유저 정보 복원
+    (function initFromStorage() {
+        const storedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+        if (storedToken) {
+            setAccessToken(storedToken);
+        }
+        const userJson = localStorage.getItem(USER_INFO_KEY);
+        if (userJson) {
+            try {
+                const userDto = JSON.parse(userJson);
+                document.getElementById('me-result').textContent =
+                    '저장된 사용자 정보:\n' + JSON.stringify(userDto, null, 2);
+            } catch (e) {
+                console.warn('저장된 USER_INFO 파싱 실패', e);
+            }
+        }
+    })();
+
+    function login() {
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+
+        // UsernamePasswordAuthenticationFilter가 읽을 수 있도록
+        // application/x-www-form-urlencoded 로 전송
+        const params = new URLSearchParams();
+        params.append('username', username);
+        params.append('password', password);
+
+        axios.post('/api/auth/login', params, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(res => {
+            // JwtDto: { userDto: {...}, accessToken: "..." } 기준
+            document.getElementById('login-result').textContent =
+                JSON.stringify(res.data, null, 2);
+
+            const token = res.data.accessToken;
+            const userDto = res.data.userDto;
+
+            if (token) {
+                setAccessToken(token);
+            } else {
+                console.warn('accessToken 필드가 응답에 없습니다.');
+            }
+            if (userDto) {
+                setUserInfo(userDto);
+            }
+        }).catch(err => {
+            document.getElementById('login-result').textContent =
+                err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            setAccessToken(null);
+            setUserInfo(null);
+        });
+    }
+
+    function loadMe() {
+        axios.get('/api/auth/me')
+            .then(res => {
+                document.getElementById('me-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+            })
+            .catch(err => {
+                document.getElementById('me-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+
+    function refreshToken() {
+        axios.post('/api/auth/refresh')
+            .then(res => {
+                // JwtDto: { userDto, accessToken }
+                document.getElementById('refresh-result').textContent =
+                    JSON.stringify(res.data, null, 2);
+
+                const token = res.data.accessToken;
+                const userDto = res.data.userDto;
+
+                if (token) {
+                    setAccessToken(token);
+                }
+                if (userDto) {
+                    setUserInfo(userDto);
+                }
+            })
+            .catch(err => {
+                document.getElementById('refresh-result').textContent =
+                    err.response ? JSON.stringify(err.response.data, null, 2) : err.message;
+            });
+    }
+</script>
+
+</body>
+</html>
