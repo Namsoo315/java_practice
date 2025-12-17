@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>Redis Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 16px; }
+        input, button { padding: 6px; margin: 4px 0; }
+        pre { border: 1px solid #ddd; padding: 10px; white-space: pre-wrap; }
+    </style>
+</head>
+
+<body>
+<h2>Redis 데모 페이지</h2>
+<p>Redis 세션 기반 로그인 / 로그아웃 / me 조회 테스트 페이지다.</p>
+
+<div>
+    <div>
+        <label>username</label><br/>
+        <input id="username" placeholder="user1" />
+    </div>
+
+    <div>
+        <label>password</label><br/>
+        <input id="password" type="password" placeholder="1234" />
+    </div>
+
+    <div>
+        <button id="btnLogin">POST /api/auth/login</button>
+        <button id="btnMe">GET /api/auth/me</button>
+        <button id="btnLogout">POST /api/auth/logout</button>
+        <button id="btnClear">로그 지우기</button>
+    </div>
+</div>
+
+<h3>결과 로그</h3>
+<pre id="log"></pre>
+<script>
+    const $ = (s) => document.querySelector(s);
+
+    function clearLog() {
+        $("#log").textContent = "";
+    }
+
+    function log(title, data) {
+        $("#log").textContent +=
+            `[${new Date().toLocaleTimeString()}] ${title}\n` +
+            JSON.stringify(data, null, 2) + "\n\n";
+    }
+
+    const http = axios.create({
+        withCredentials: true,
+        validateStatus: () => true
+    });
+
+    async function login() {
+        clearLog();
+
+        const username = $("#username").value;
+        const password = $("#password").value;
+
+        log("REQUEST POST /api/auth/login", { username, password });
+
+        const res = await http.post("/api/auth/login", { username, password });
+
+        log("RESPONSE POST /api/auth/login", {
+            status: res.status,
+            body: res.data   // 👈 UserResponse 그대로 출력
+        });
+    }
+
+    async function me() {
+        clearLog();
+
+        log("REQUEST GET /api/auth/me", {});
+        const res = await http.get("/api/auth/me");
+
+        log("RESPONSE GET /api/auth/me", {
+            status: res.status,
+            body: res.data
+        });
+    }
+
+    async function logout() {
+        clearLog();
+
+        log("REQUEST POST /api/auth/logout", {});
+        const res = await http.post("/api/auth/logout");
+
+        log("RESPONSE POST /api/auth/logout", {
+            status: res.status
+        });
+    }
+
+    $("#btnLogin").onclick = login;
+    $("#btnMe").onclick = me;
+    $("#btnLogout").onclick = logout;
+    $("#btnClear").onclick = clearLog;
+</script>
+
+
+</body>
+</html>

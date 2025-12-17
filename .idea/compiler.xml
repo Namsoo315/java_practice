@@ -7,8 +7,18 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.42/8365263844ebb62398e0dc33057ba10ba472d3b8/lombok-1.18.42.jar" />
           <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.5.5.Final/897f6f115930b936287bef552bf5fe28cc64717d/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.querydsl/querydsl-apt/5.1.0/3b1cbe05851840b5dc926833908747a193c097cc/querydsl-apt-5.1.0-jakarta.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/jakarta.persistence/jakarta.persistence-api/3.2.0/bb75a113f3fa191c2c7ee7b206d8e674251b3129/jakarta.persistence-api-3.2.0.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/jakarta.annotation/jakarta.annotation-api/3.0.0/54f928fadec906a99d558536756d171917b9d936/jakarta.annotation-api-3.0.0.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.querydsl/querydsl-codegen/5.1.0/a8504ea51fbc2258543cedab6a37fe6039b2d20a/querydsl-codegen-5.1.0.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.querydsl/querydsl-core/5.1.0/be322c3fe98de8e7c204afb8860bfabd81a3bafd/querydsl-core-5.1.0.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.querydsl/codegen-utils/5.1.0/ba401554d613760617992eafb6cdba175c811e6f/codegen-utils-5.1.0.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.github.classgraph/classgraph/4.8.146/360448a09bfa5689d89cfa97fea53b3fdefa9c23/classgraph-4.8.146.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.mysema.commons/mysema-commons-lang/0.2.4/d09c8489d54251a6c22fbce804bdd4a070557317/mysema-commons-lang-0.2.4.jar" />
+          <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jdt/ecj/3.26.0/4837be609a3368a0f7e7cf0dc1bdbc7fe94993de/ecj-3.26.0.jar" />
         </processorPath>
-        <module name="sse.main" />
+        <module name="Elasticsearch.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -57,6 +67,9 @@
       <module name="data" target="17" />
       <module name="data.main" target="17" />
       <module name="data.test" target="17" />
+      <module name="graphql" target="17" />
+      <module name="graphql.main" target="17" />
+      <module name="graphql.test" target="17" />
       <module name="jwt_advanced" target="17" />
       <module name="jwt_advanced.main" target="17" />
       <module name="jwt_advanced.test" target="17" />
@@ -68,8 +81,17 @@
       <module name="mongo.main~1" target="17" />
       <module name="mongo.test" target="17" />
       <module name="mongo.test~1" target="17" />
+      <module name="OAuth2" target="17" />
+      <module name="OAuth2.main" target="17" />
+      <module name="OAuth2.test" target="17" />
       <module name="Practice_06_Object.main" target="17" />
       <module name="Practice_06_Object.test" target="17" />
+      <module name="redis" target="17" />
+      <module name="redis.main" target="17" />
+      <module name="redis.test" target="17" />
+      <module name="sse" target="17" />
+      <module name="sse.main" target="17" />
+      <module name="sse.test" target="17" />
       <module name="template" target="17" />
       <module name="template.main" target="17" />
       <module name="template.test" target="17" />
@@ -96,6 +118,12 @@
       <module name="21_spring_actuator.blog" options="-parameters" />
       <module name="21_spring_actuator.blog.main" options="-parameters" />
       <module name="21_spring_actuator.blog.test" options="-parameters" />
+      <module name="Elasticsearch" options="-parameters" />
+      <module name="Elasticsearch.main" options="-parameters" />
+      <module name="Elasticsearch.test" options="-parameters" />
+      <module name="OAuth2" options="-parameters" />
+      <module name="OAuth2.main" options="-parameters" />
+      <module name="OAuth2.test" options="-parameters" />
       <module name="admin" options="-parameters" />
       <module name="admin.main" options="-parameters" />
       <module name="admin.test" options="-parameters" />
@@ -155,6 +183,9 @@
       <module name="mvc" options="-parameters" />
       <module name="mvc.main" options="-parameters" />
       <module name="mvc.test" options="-parameters" />
+      <module name="redis" options="-parameters" />
+      <module name="redis.main" options="-parameters" />
+      <module name="redis.test" options="-parameters" />
       <module name="rest" options="-parameters" />
       <module name="rest.main" options="-parameters" />
       <module name="rest.test" options="-parameters" />

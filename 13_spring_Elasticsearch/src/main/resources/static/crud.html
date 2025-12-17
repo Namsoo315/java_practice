@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Post CRUD Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 16px; line-height: 1.4; }
+        input, textarea, select, button { padding: 8px; margin: 4px 0; }
+        textarea { width: 100%; min-height: 90px; resize: vertical; }
+        .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .field { display:flex; flex-direction:column; gap:4px; min-width: 180px; }
+        pre { border: 1px solid #ddd; padding: 10px; border-radius: 8px; background:#fafafa; white-space: pre-wrap; }
+        hr { margin: 16px 0; border: none; border-top: 1px solid #eee; }
+        a { text-decoration: none; }
+        small { color:#666; }
+    </style>
+</head>
+<body>
+
+<h2>게시글 CRUD(RDB) 데모</h2>
+<p><a href="./index.html">← 인덱스로</a></p>
+<small>API base: <code>/api/posts</code></small>
+
+<hr/>
+
+<section>
+    <h3>1) 생성 (POST /api/posts)</h3>
+    <div class="row">
+        <div class="field">
+            <label>authorId</label>
+            <input id="c_authorId" placeholder="예: 1" />
+        </div>
+        <div class="field" style="flex:1; min-width:240px;">
+            <label>title</label>
+            <input id="c_title" placeholder="제목" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label>content</label>
+        <textarea id="c_content" placeholder="본문"></textarea>
+    </div>
+
+    <div class="row">
+        <div class="field" style="flex:1; min-width:240px;">
+            <label>tags (comma)</label>
+            <input id="c_tags" placeholder="spring,search" />
+        </div>
+        <div class="field">
+            <label>category</label>
+            <select id="c_category">
+                <option value="TECHNOLOGY">TECHNOLOGY</option>
+                <option value="LIFESTYLE">LIFESTYLE</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <button onclick="createPost()">생성</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>2) 단건 조회 (GET /api/posts/{postId})</h3>
+    <div class="row">
+        <div class="field">
+            <label>postId</label>
+            <input id="g_postId" placeholder="예: 1" />
+        </div>
+        <button onclick="getPost()">조회</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>3) 전체 조회 (GET /api/posts)</h3>
+    <div class="row">
+        <button onclick="findAllPosts()">전체 조회</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>4) 수정 (PUT /api/posts/{postId})</h3>
+    <div class="row">
+        <div class="field">
+            <label>postId</label>
+            <input id="u_postId" placeholder="예: 1" />
+        </div>
+        <div class="field" style="flex:1; min-width:240px;">
+            <label>title</label>
+            <input id="u_title" placeholder="수정 제목" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label>content</label>
+        <textarea id="u_content" placeholder="수정 본문"></textarea>
+    </div>
+
+    <div class="row">
+        <div class="field" style="flex:1; min-width:240px;">
+            <label>tags (comma)</label>
+            <input id="u_tags" placeholder="spring,updated" />
+        </div>
+        <div class="field">
+            <label>category</label>
+            <select id="u_category">
+                <option value="TECHNOLOGY">TECHNOLOGY</option>
+                <option value="LIFESTYLE">LIFESTYLE</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <button onclick="updatePost()">수정</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>5) 삭제 (DELETE /api/posts/{postId})</h3>
+    <div class="row">
+        <div class="field">
+            <label>postId</label>
+            <input id="d_postId" placeholder="예: 1" />
+        </div>
+        <button onclick="deletePost()">삭제</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>결과</h3>
+    <div class="row">
+        <button onclick="clearResult()">결과 지우기</button>
+    </div>
+    <pre id="result">{}</pre>
+</section>
+
+<script>
+    const api = axios.create({ baseURL: '' });
+
+    function v(id) {
+        return document.getElementById(id).value.trim();
+    }
+
+    function setResult(obj) {
+        document.getElementById('result').textContent =
+            JSON.stringify(obj, null, 2);
+    }
+
+    function setError(err) {
+        if (err.response) {
+            setResult({ status: err.response.status, data: err.response.data });
+        } else {
+            setResult({ message: err.message });
+        }
+    }
+
+    function clearResult() {
+        setResult({});
+    }
+
+    async function createPost() {
+        try {
+            const body = {
+                authorId: Number(v('c_authorId')),
+                title: v('c_title'),
+                content: v('c_content'),
+                tags: v('c_tags'),
+                category: v('c_category')
+            };
+            const res = await api.post('/api/posts', body);
+            setResult({ status: res.status, data: res.data });
+
+            if (res.data && res.data.postId != null) {
+                const id = String(res.data.postId);
+                ['g_postId', 'u_postId', 'd_postId']
+                    .forEach(x => document.getElementById(x).value = id);
+            }
+        } catch (e) {
+            setError(e);
+        }
+    }
+
+    async function getPost() {
+        try {
+            const res = await api.get(`/api/posts/${v('g_postId')}`);
+            setResult({ status: res.status, data: res.data });
+        } catch (e) {
+            setError(e);
+        }
+    }
+
+    async function findAllPosts() {
+        try {
+            const res = await api.get('/api/posts');
+            setResult({ status: res.status, data: res.data });
+        } catch (e) {
+            setError(e);
+        }
+    }
+
+    async function updatePost() {
+        try {
+            const body = {
+                title: v('u_title'),
+                content: v('u_content'),
+                tags: v('u_tags'),
+                category: v('u_category')
+            };
+            const res = await api.put(`/api/posts/${v('u_postId')}`, body);
+            setResult({ status: res.status, data: res.data });
+        } catch (e) {
+            setError(e);
+        }
+    }
+
+    async function deletePost() {
+        try {
+            const res = await api.delete(`/api/posts/${v('d_postId')}`);
+            setResult({ status: res.status, data: res.data });
+        } catch (e) {
+            setError(e);
+        }
+    }
+</script>
+
+</body>
+</html>

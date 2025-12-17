@@ -10,18 +10,10 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$/01_java_async_basic" />
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/03_spring_network_sse" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/13_spring_Elasticsearch" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/03_spring_network_sse" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/05_spring_graphql" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/05_spring_graphql" />
+            <option value="$PROJECT_DIR$/13_spring_Elasticsearch" />
           </set>
         </option>
       </GradleProjectSettings>

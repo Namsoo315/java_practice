@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Elasticsearch Search Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 16px; line-height: 1.4; }
+        input, button { padding: 8px; margin: 4px 0; }
+        .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+        .field { display:flex; flex-direction:column; gap:4px; min-width: 180px; }
+        pre { border: 1px solid #ddd; padding: 10px; border-radius: 8px; background:#fafafa; white-space: pre-wrap; }
+        hr { margin: 16px 0; border: none; border-top: 1px solid #eee; }
+        a { text-decoration: none; }
+        small { color:#666; }
+    </style>
+</head>
+<body>
+<h2>Elasticsearch 검색/집계 데모</h2>
+<p><a href="./index.html">← 인덱스로</a></p>
+<small>
+    검색 API: <code>/api/posts/search/{content|author|all}</code>,
+    통계 API: <code>/api/posts/stats/category</code>
+</small>
+
+<hr/>
+
+<section>
+    <h3>1) 컨텐츠 검색 (GET /api/posts/search/content)</h3>
+    <div class="row">
+        <div class="field" style="min-width:260px;">
+            <label>keyword</label>
+            <input id="content_keyword" placeholder="예: spring" />
+        </div>
+        <div class="field">
+            <label>page</label>
+            <input id="content_page" value="0" style="width:120px;" />
+        </div>
+        <div class="field">
+            <label>size</label>
+            <input id="content_size" value="10" style="width:120px;" />
+        </div>
+        <button onclick="searchContent()">검색</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>2) 작성자 검색 (GET /api/posts/search/author)</h3>
+    <div class="row">
+        <div class="field" style="min-width:260px;">
+            <label>keyword</label>
+            <input id="author_keyword" placeholder="예: user1 / nick" />
+        </div>
+        <div class="field">
+            <label>page</label>
+            <input id="author_page" value="0" style="width:120px;" />
+        </div>
+        <div class="field">
+            <label>size</label>
+            <input id="author_size" value="10" style="width:120px;" />
+        </div>
+        <button onclick="searchAuthor()">검색</button>
+    </div>
+</section>
+
+<hr/>
+
+<section>
+    <h3>3) 통합 검색 (GET /api/posts/search/all)</h3>
+    <div class="row">
+        <div class="field" style="min-width:260px;">
+            <label>keyword</label>
+            <input id="all_keyword" placeholder="예: elastic" />
+        </div>
+        <div class="field">
+            <label>page</label>
+            <input id="all_page" value="0" style="width:120px;" />
+        </div>
+        <div class="field">
+            <label>size</label>
+            <input id="all_size" value="10" style="width:120px;" />
+        </div>
+        <button onclick="searchAll()">검색</button>
+    </div>
+    <small>CRUD 직후 검색은 이벤트 기반 동기화 지연으로 결과가 바로 안 보일 수 있습니다.</small>
+</section>
+
+<hr/>
+
+
+<hr/>
+
+<section>
+    <h3>결과</h3>
+    <div class="row">
+        <button onclick="clearResult()">결과 지우기</button>
+    </div>
+    <pre id="result">{}</pre>
+</section>
+
+<script>
+    const api = axios.create({ baseURL: '' });
+
+    function v(id) { return document.getElementById(id).value.trim(); }
+    function n(id, def) {
+        const x = Number(v(id));
+        return Number.isFinite(x) ? x : def;
+    }
+
+    function setResult(obj) {
+        document.getElementById('result').textContent = JSON.stringify(obj, null, 2);
+    }
+    function setError(err) {
+        if (err.response) setResult({ status: err.response.status, data: err.response.data });
+        else setResult({ message: err.message });
+    }
+    function clearResult() { setResult({}); }
+
+    function normalizePaged(res) {
+        // PagedResult<PostDocument> 가정: { total, page, size, items }
+        return {
+            status: res.status,
+            total: res.data.total,
+            page: res.data.page,
+            size: res.data.size,
+            items: res.data.items
+        };
+    }
+
+    async function searchContent() {
+        try {
+            const res = await api.get('/api/posts/search/content', {
+                params: {
+                    keyword: v('content_keyword'),
+                    page: n('content_page', 0),
+                    size: n('content_size', 10)
+                }
+            });
+            setResult(normalizePaged(res));
+        } catch (e) { setError(e); }
+    }
+
+    async function searchAuthor() {
+        try {
+            const res = await api.get('/api/posts/search/author', {
+                params: {
+                    keyword: v('author_keyword'),
+                    page: n('author_page', 0),
+                    size: n('author_size', 10)
+                }
+            });
+            setResult(normalizePaged(res));
+        } catch (e) { setError(e); }
+    }
+
+    async function searchAll() {
+        try {
+            const res = await api.get('/api/posts/search/all', {
+                params: {
+                    keyword: v('all_keyword'),
+                    page: n('all_page', 0),
+                    size: n('all_size', 10)
+                }
+            });
+            setResult(normalizePaged(res));
+        } catch (e) { setError(e); }
+    }
+
+    async function statsCategory() {
+        try {
+            const res = await api.get('/api/posts/stats/category');
+            setResult({ status: res.status, data: res.data });
+        } catch (e) { setError(e); }
+    }
+</script>
+</body>
+</html>

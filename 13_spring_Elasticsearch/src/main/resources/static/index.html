@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Elasticsearch Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 16px; line-height: 1.4; }
+        .box { border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin: 12px 0; }
+        a { text-decoration: none; }
+        ul { padding-left: 18px; }
+        code { background:#f6f6f6; padding:2px 6px; border-radius:6px; }
+    </style>
+</head>
+<body>
+<h2>Elasticsearch 실습 데모 </h2>
+<p>Spring Boot + H2(RDB) + Elasticsearch + Kibana 연동을 실습하기 위한 프론트 페이지입니다.</p>
+
+<div class="box">
+    <h3>실습 메뉴</h3>
+    <ul>
+        <li><a href="./crud.html">1) 게시글 CRUD 테스트(RDB)</a></li>
+        <li><a href="./search.html">2) Elasticsearch 검색 테스트</a></li>
+    </ul>
+</div>
+
+<div class="box">
+    <h3>외부 도구 접속</h3>
+    <ul>
+        <li>Elasticsearch 접속: <a href="http://localhost:9200" target="_blank">http://localhost:9200</a></li>
+        <li>Kibana 접속: <a href="http://localhost:5601" target="_blank">http://localhost:5601</a></li>
+    </ul>
+    <p>API 기본 경로는 <code>/api/posts</code> 기준이다.</p>
+</div>
+</body>
+</html>

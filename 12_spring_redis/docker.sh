@@ -1,0 +1,1 @@
+docker run -d --name codeit-redis -p 6379:6379 redis:7
